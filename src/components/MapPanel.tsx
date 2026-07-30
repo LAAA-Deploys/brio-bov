@@ -75,6 +75,10 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
     [verifiedPoints]
   );
   const displayPoints = verifiedPoints.length === points.length ? verifiedPoints : points;
+  const linkPoints =
+    verifiedPoints.length === points.length && verifiedPoints.every((point) => point.placeId)
+      ? verifiedPoints
+      : [];
 
   useEffect(() => {
     let active = true;
@@ -188,10 +192,10 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
           onLoad={() => setStaticFailed(false)}
           onError={() => setStaticFailed(true)}
         />
-        {!interactive && staticFailed && (
+        {!interactive && staticFailed && linkPoints.length > 0 && (
           <div className="map-address-list">
             <strong>{title}</strong>
-            {displayPoints.map((point, index) => (
+            {linkPoints.map((point, index) => (
               <a
                 key={point.id}
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.address)}${
@@ -200,7 +204,7 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
                 target="_blank"
                 rel="noreferrer"
               >
-                <span>{mapMarkerLabel(displayPoints, index)}</span>
+                <span>{mapMarkerLabel(linkPoints, index)}</span>
                 {point.label}
               </a>
             ))}
@@ -216,21 +220,21 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
           {displayPoints.some((p) => p.kind === "rent") && <><i className="legend-rent" /> Rent</>}
         </span>
       </figcaption>
-      <div className="map-link-strip" aria-label={`${title} Google Maps links`}>
-        <span>Google Maps</span>
-        {displayPoints.map((point, index) => (
-          <a
-            key={point.id}
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.address)}${
-              point.placeId ? `&query_place_id=${encodeURIComponent(point.placeId)}` : ""
-            }`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {mapMarkerLabel(displayPoints, index)} · {point.label}
-          </a>
-        ))}
-      </div>
+      {linkPoints.length > 0 && (
+        <div className="map-link-strip" aria-label={`${title} Google Maps links`}>
+          <span>Google Maps</span>
+          {linkPoints.map((point, index) => (
+            <a
+              key={point.id}
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.address)}&query_place_id=${encodeURIComponent(point.placeId as string)}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {mapMarkerLabel(linkPoints, index)} · {point.label}
+            </a>
+          ))}
+        </div>
+      )}
     </figure>
   );
 }

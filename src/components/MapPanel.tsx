@@ -59,6 +59,7 @@ type Props = {
 export function MapPanel({ id, title, points, staticImage, compact = false }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const [interactive, setInteractive] = useState(false);
+  const [shouldLoadInteractive, setShouldLoadInteractive] = useState(false);
   const [verifiedPoints, setVerifiedPoints] = useState<MapPoint[]>([]);
   const resolvedPoints = useMemo(
     () => verifiedPoints.filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng)),
@@ -83,8 +84,25 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
   }, [points]);
 
   useEffect(() => {
+    const host = hostRef.current;
+    if (!host || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldLoadInteractive(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+    observer.observe(host);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const key = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
     if (
+      !shouldLoadInteractive ||
       !key ||
       !hostRef.current ||
       resolvedPoints.length !== points.length ||
@@ -145,7 +163,7 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
       active = false;
       host.replaceChildren();
     };
-  }, [points.length, resolvedPoints]);
+  }, [points.length, resolvedPoints, shouldLoadInteractive]);
 
   const staticSrc = staticImage ?? `/assets/maps/${id}.png`;
 

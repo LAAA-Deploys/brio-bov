@@ -831,7 +831,7 @@ function StandaloneProperty({ property }: { property: PropertyData }) {
   return (
     <>
       <SiteHeader />
-      <main><PropertyPage property={property} /></main>
+      <main><PropertyPage property={property} printMode /></main>
       <Footer />
     </>
   );

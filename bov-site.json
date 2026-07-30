@@ -1,0 +1,1116 @@
+{
+  "schema_version": 1,
+  "document_type": "bov",
+  "site_mode": "portfolio",
+  "meta": {
+    "domain": "brio.laaa.com",
+    "client": "Tim Okay / Brio Real Estate",
+    "title": "Brio Real Estate Portfolio",
+    "subtitle": "Two-Property Multifamily Portfolio",
+    "month_year": "July 2026",
+    "hero": "images/subjects-parke-parke-hero.jpg",
+    "portfolio_map": "images/maps-portfolio-subjects.png"
+  },
+  "portfolio": {
+    "combined_value": 4700000,
+    "total_units": 18,
+    "total_current_rent": 465672,
+    "total_noi": 301317
+  },
+  "track_record": {
+    "source": "Airtable LAAA Closed Deals tblSQs0OQxuGNcEpG",
+    "pulled": "2026-07-30",
+    "raw": {
+      "closed": 487,
+      "volume": 1548928900,
+      "units": 4684
+    },
+    "metrics": [
+      [
+        "485+",
+        "Closed Transactions"
+      ],
+      [
+        "$1.5B+",
+        "Total Sales Volume"
+      ],
+      [
+        "4,600+",
+        "Units Sold"
+      ],
+      [
+        "#1",
+        "Most Active \u00b7 LA County"
+      ]
+    ],
+    "narrative": [
+      "Since 2013, the LAAA Team has closed more than 485 multifamily transactions totaling over $1.5B in volume across Los Angeles, Ventura, and Santa Barbara counties, with particular depth in rent-controlled vintage apartment product.",
+      "Our practice is built on disciplined underwriting, the deepest comparable-sales dataset in the submarket, and a marketing engine that reaches every active multifamily buyer in Los Angeles. We advise owners on when and how to sell, not just whether, and we price to clear rather than to languish.",
+      "For the Brio portfolio, that means an evidence-based opinion of value on each asset independently, anchored in recent Pico Union and Pasadena apartment sales, presented with the same rigor we would bring to defending the price against a buyer's due-diligence challenge."
+    ],
+    "achievements": [
+      [
+        "Chairman's Club",
+        "Marcus & Millichap's top-tier annual honor"
+      ],
+      [
+        "National Achievement Award",
+        "multiple years, both partners"
+      ],
+      [
+        "#1 Most Active Multifamily Team in LA County",
+        "CoStar 2019-2021"
+      ],
+      [
+        "Sales Recognition Award",
+        "every year since 2016"
+      ],
+      [
+        "40+ transactions per year",
+        "one of SoCal's most active groups"
+      ]
+    ],
+    "press": [
+      "BISNOW",
+      "YAHOO FINANCE",
+      "CONNECT CRE",
+      "SFVBJ",
+      "THE PINNACLE LIST"
+    ]
+  },
+  "marketing": {
+    "metrics": [
+      [
+        "23,795+",
+        "Email Subscribers"
+      ],
+      [
+        "26.1%",
+        "Avg Open Rate"
+      ],
+      [
+        "7 Days",
+        "To Full Market Reach"
+      ],
+      [
+        "40+",
+        "Transactions Per Year"
+      ]
+    ],
+    "channels": [
+      [
+        "Proprietary buyer database",
+        "23,795+ active multifamily investors, segmented by product type, submarket, and check size"
+      ],
+      [
+        "Marcus & Millichap national platform",
+        "the largest private-capital investment brokerage network in the country"
+      ],
+      [
+        "Direct outreach",
+        "targeted calls to the owners and exchange buyers most likely to trade into this product"
+      ],
+      [
+        "Full digital syndication",
+        "LoopNet, CoStar, Crexi, MLS, and the LAAA listing platform at laaa.com"
+      ],
+      [
+        "Dedicated property websites",
+        "every listing gets its own site, so the offering is never a PDF attachment"
+      ]
+    ],
+    "narrative": [
+      "A portfolio of this size draws two distinct buyer pools: private central-Los Angeles operators for Menlo, and Pasadena-focused investors for Parke. We market each asset to its own pool while keeping the portfolio available to a single buyer who wants both."
+    ]
+  },
+  "team": {
+    "leads": [
+      {
+        "name": "Glen Scher",
+        "title": "Senior Managing Director Investments",
+        "phone": "(818) 212-2808",
+        "tel": "8182122808",
+        "email": "Glen.Scher@marcusmillichap.com",
+        "license": "CA License: 01962976",
+        "headshot": "images/team-Glen_Scher.jpg",
+        "bio": "Co-founder of the LAAA Team and one of the most active multifamily brokers in Los Angeles, with 485+ transactions and $1.5B+ in closed sales. Glen has advised owners across central Los Angeles and the San Gabriel Valley since 2014, with deep transaction history in the rent-controlled vintage apartment product that defines both assets in this portfolio."
+      },
+      {
+        "name": "Filip Niculete",
+        "title": "Senior Managing Director Investments",
+        "phone": "(818) 212-2748",
+        "tel": "8182122748",
+        "email": "Filip.Niculete@marcusmillichap.com",
+        "license": "CA License: 01905352",
+        "headshot": "images/team-Filip_Niculete.jpg",
+        "bio": "Co-founder of the LAAA Team and one of Southern California's top multifamily brokers. Since 2011, Filip has built a reputation for execution, integrity, and relentless work ethic, helping lead the team to $1.5B+ in closed transactions while consistently leading the market in active inventory."
+      }
+    ],
+    "grid": [
+      {
+        "name": "Aida Memary Scher",
+        "title": "Associate Director",
+        "headshot": "images/team-Aida_Memary_Scher.jpg"
+      },
+      {
+        "name": "Luka Leader",
+        "title": "Associate Investments",
+        "headshot": "images/team-Luka_Leader.jpg"
+      },
+      {
+        "name": "Morgan Wetmore",
+        "title": "Associate Investments",
+        "headshot": "images/team-Morgan_Wetmore.jpg"
+      },
+      {
+        "name": "Logan Ward",
+        "title": "Associate Investments",
+        "headshot": "images/team-Logan_Ward.jpg"
+      },
+      {
+        "name": "Alexandro Tapia",
+        "title": "Associate Investments",
+        "headshot": "images/team-Alexandro_Tapia.jpg"
+      },
+      {
+        "name": "Blake Lewitt",
+        "title": "Associate Investments",
+        "headshot": "images/team-Blake_Lewitt.jpg"
+      },
+      {
+        "name": "Mike Palade",
+        "title": "Agent Assistant",
+        "headshot": "images/team-Mike_Palade.jpg"
+      },
+      {
+        "name": "Tony H. Dang",
+        "title": "Business Operations Manager",
+        "headshot": "images/team-Tony_Dang.jpg"
+      },
+      {
+        "name": "Tirajeh Vossoughi-Horton",
+        "title": "Intern",
+        "headshot": "images/team-Tirajeh_Vossoughi-Horton.jpg"
+      }
+    ]
+  },
+  "properties": [
+    {
+      "slug": "359-parke",
+      "short_name": "359 Parke",
+      "address": "359 Parke Street",
+      "city": "Pasadena, California 91101",
+      "hero": "images/subjects-parke-parke-hero.jpg",
+      "gallery": [
+        {
+          "src": "images/subjects-parke-parke-front.jpg",
+          "alt": "Front exterior of 359 Parke Street"
+        },
+        {
+          "src": "images/subjects-parke-parke-kitchen.jpg",
+          "alt": "Representative apartment kitchen at 359 Parke Street"
+        },
+        {
+          "src": "images/subjects-parke-parke-bedroom.jpg",
+          "alt": "Representative apartment bedroom at 359 Parke Street"
+        },
+        {
+          "src": "images/subjects-parke-parke-aerial.jpg",
+          "alt": "Google aerial view centered on 359 Parke Street"
+        }
+      ],
+      "apn": "5725 029 018",
+      "parking": "Fourteen spaces reported in historical marketing, including carports, one garage, and open parking",
+      "location_title": "A central Pasadena apartment location with durable renter access",
+      "price": 2500000,
+      "value_range": "$2,350,000 to $2,500,000",
+      "units": 10,
+      "year_built": 1957,
+      "building_sf": 7196,
+      "lot_sf": 11326,
+      "lot_acres": 0.26,
+      "price_per_unit": 250000,
+      "price_per_sf": 347.42,
+      "grm_current": 10.27,
+      "grm_market": 9.08,
+      "cap_current": 6.29,
+      "cap_market": 7.53,
+      "noi_current": 157225,
+      "noi_market": 188176,
+      "operating": {
+        "sgi": [
+          245292,
+          277200
+        ],
+        "vacancy": [
+          7305,
+          8262
+        ],
+        "vacancy_pct": 3.0,
+        "goi": [
+          237987,
+          268938
+        ],
+        "expenses": [
+          80762,
+          80762
+        ],
+        "expense_ratio": [
+          32.9,
+          29.1
+        ],
+        "noi": [
+          157225,
+          188176
+        ],
+        "loan_payments": [
+          -125780,
+          -125780
+        ],
+        "pretax_cf": [
+          31445,
+          62396
+        ],
+        "pretax_cf_pct": [
+          3.94,
+          7.82
+        ],
+        "principal_reduction": [
+          19948,
+          19948
+        ],
+        "total_return": [
+          51393,
+          82344
+        ],
+        "total_return_pct": [
+          6.44,
+          10.32
+        ]
+      },
+      "financing": {
+        "loan_amount": 1702351,
+        "rate": 6.25,
+        "amortization": 30,
+        "dcr": 1.25
+      },
+      "unit_mix": [
+        {
+          "count": 5,
+          "type": "1 + 1",
+          "sf": 650,
+          "rent_current": 1840,
+          "monthly_current": 9200,
+          "rent_market": 2095,
+          "monthly_market": 10475
+        },
+        {
+          "count": 5,
+          "type": "2 + 1",
+          "sf": 775,
+          "rent_current": 2218,
+          "monthly_current": 11091,
+          "rent_market": 2495,
+          "monthly_market": 12475
+        }
+      ],
+      "scheduled_rent": [
+        20291,
+        22950
+      ],
+      "additional_income": [
+        150,
+        150
+      ],
+      "monthly_sgi": [
+        20441,
+        23100
+      ],
+      "expense_lines": [
+        [
+          "Property Tax",
+          30668
+        ],
+        [
+          "Insurance",
+          8995
+        ],
+        [
+          "Utilities",
+          15200
+        ],
+        [
+          "Trash",
+          0
+        ],
+        [
+          "Repairs & Maintenance",
+          7500
+        ],
+        [
+          "Contracts",
+          3000
+        ],
+        [
+          "General & Admin",
+          1500
+        ],
+        [
+          "Reserves",
+          2000
+        ],
+        [
+          "Management",
+          11899
+        ]
+      ],
+      "expense_total": 80762,
+      "expense_per_sf": 11.22,
+      "expense_per_unit": 8076.22,
+      "highlights": [
+        "Ten units: five 1BRs and five 2BRs",
+        "$20,291 monthly scheduled rent",
+        "Fourteen reported parking spaces",
+        "Separate gas and electric meters"
+      ],
+      "overview": [
+        "The LAAA Team of Marcus & Millichap is pleased to present 359 Parke Street, a ten unit apartment property in Pasadena. The property combines a balanced mix of one and two bedroom apartments with on site parking and separate gas and electric metering.",
+        "The current rent roll, normalized operating statement, nearby asking rents, and six recent Pasadena apartment sales establish a clear framework for evaluating the property's income, physical profile, and competitive position."
+      ],
+      "location_narrative": [
+        "359 Parke Street sits in a central Pasadena residential district near North Los Robles Avenue and East Orange Grove Boulevard. Residents have practical access to Old Pasadena, the Playhouse District, Lake Avenue, and the city's civic and employment base.",
+        "The location also connects to the broader San Gabriel Valley through the Foothill Freeway and nearby Metro service. This combination of neighborhood scale, employment access, and regional connectivity supports a broad renter pool for well maintained one and two bedroom apartments."
+      ],
+      "physical_narrative": [
+        "Public assessment records identify a 1957 apartment property with approximately 7,196 square feet of improvements on an approximately 11,326 square foot parcel. Historical listing material describes covered carport parking, one garage, open parking, separate gas and electric metering, and two coin operated laundry sets.",
+        "The current rent roll supports ten occupied apartments. The City's map identifies RM 12 zoning. Pasadena's rent stabilization rules generally cover multifamily rentals built before February 1, 1995, subject to listed exemptions. Unit level coverage, registration, lawful base rents, physical condition, parking, utility configuration, and building systems should be confirmed through seller and City records."
+      ],
+      "rent_narrative": [
+        "The selected asking rent evidence is tightly concentrated around the subject and represents comparable one and two bedroom apartments. The two one bedroom examples average $2,200 per month. The selected two bedroom examples range from $2,300 to $2,545 per month.",
+        "Current average rents at the subject are approximately $1,840 for the one bedroom apartments and $2,218 for the two bedroom apartments. The spread indicates potential over time, but the valuation remains based on current income and does not assume immediate conversion to asking rents."
+      ],
+      "market_narrative": [
+        "The six Pasadena sales span $217,000 to $300,000 per unit and approximately $297 to $381 per square foot. Income evidence, where supported, spans roughly 5.17% to 6.52% on a normalized cap rate basis.",
+        "The subject is positioned near the center of the observed physical metrics on both a per-unit and a per-square-foot basis. Its current income yield sits near the upper end of the supported range, which helps offset the property's older vintage."
+      ],
+      "positioning_narrative": [
+        "The central value balances the subject's current income with its physical scale and location. It does not rely on the highest price per unit sale or on full realization of the asking rent sensitivity.",
+        "The recommended position presents a current yield that is competitive with the most relevant Pasadena transactions while keeping price per unit below the stronger premium results."
+      ],
+      "valuation_narrative": [
+        "The income approach supports value through a normalized current net operating income of $157,225. At $2,500,000 the implied going-in cap rate is 6.29% and the current gross rent multiplier is 10.27. On the market rent schedule the same basis produces a 7.53% cap rate and a 9.08 multiplier.",
+        "The sales comparison approach supports $250,000 per unit and approximately $347 per square foot. These metrics fall within the supplied Pasadena evidence and align with the subject's income profile, scale, and vintage.",
+        "We therefore recommend a list price of $2,500,000, at the upper end of the supported range of $2,350,000 to $2,500,000, subject to inspection, lease review, and confirmation of operating expenses."
+      ],
+      "buyer_profiles": [
+        {
+          "title": "Local private investor",
+          "copy": "A Pasadena or San Gabriel Valley owner seeking current income and a manageable ten unit operation."
+        },
+        {
+          "title": "Exchange buyer",
+          "copy": "A buyer prioritizing a recognizable location, stable rent roll, and a competitive going in yield."
+        },
+        {
+          "title": "Operational investor",
+          "copy": "An experienced apartment owner prepared to pursue rent growth over time as leases turn and improvements are justified."
+        }
+      ],
+      "strategy": [
+        {
+          "title": "Lead with current yield",
+          "copy": "Position the 6.44% current cap rate and balanced unit mix as the core investment case."
+        },
+        {
+          "title": "Frame rent potential carefully",
+          "copy": "Use nearby asking rents to demonstrate long term potential without underwriting immediate turnover or unsupported future income."
+        },
+        {
+          "title": "Create price tension",
+          "copy": "Launch to a focused private capital and exchange buyer audience with a complete diligence package and a defined offer process."
+        }
+      ],
+      "disclosures": [
+        "The current rent roll and selected operating information were provided by the client and have not been independently audited.",
+        "Public records, historical listings, and third party data may differ regarding lot area, parking, physical condition, and regulatory status. Buyers should complete independent investigation.",
+        "No public Pasadena rental registry result was found by address or APN. This search result does not establish that the property is unregistered, noncompliant, or exempt.",
+        "Asking rent evidence is not achieved rent and is presented only as a market sensitivity. No future rent increase is guaranteed."
+      ],
+      "rent_comps": [
+        {
+          "address": "380 Parke Street, Unit 10",
+          "unit_type": "1BR 1BA",
+          "rent": 2100,
+          "square_feet": 480,
+          "distance": 0.13,
+          "image": null
+        },
+        {
+          "address": "456 East Orange Grove Boulevard",
+          "unit_type": "1BR 1BA",
+          "rent": 2300,
+          "square_feet": 570,
+          "distance": 0.12,
+          "image": null
+        },
+        {
+          "address": "570 North Los Robles Avenue",
+          "unit_type": "2BR 1BA",
+          "rent": 2545,
+          "square_feet": 856,
+          "distance": 0.19,
+          "image": "images/rent-comps-parke-570-los-robles.webp"
+        },
+        {
+          "address": "853 North Raymond Avenue",
+          "unit_type": "2BR 1BA",
+          "rent": 2300,
+          "square_feet": 975,
+          "distance": 0.52,
+          "image": null
+        },
+        {
+          "address": "303 North Oakland Avenue",
+          "unit_type": "2BR 1BA",
+          "rent": 2363,
+          "square_feet": 827,
+          "distance": 0.54,
+          "image": null
+        }
+      ],
+      "sale_comps": [
+        {
+          "address": "826 North Summit Avenue",
+          "status": "Closed",
+          "price": 1085000,
+          "units": 5,
+          "year_built": 1956,
+          "building_sf": 3658,
+          "lot_sf": 12016,
+          "date": "April 28, 2026",
+          "days_on_market": 7,
+          "price_per_unit": 217000,
+          "price_per_sf": 296.61,
+          "grm": 11.24,
+          "cap_rate": 6.04,
+          "image": "images/comps-parke-826-summit.jpg",
+          "summary": "A five unit 1956 property that sold quickly on a large Pasadena parcel.",
+          "relevance": "Similar vintage and nearby Pasadena location provide a useful lower price per unit benchmark.",
+          "considerations": "The smaller unit count and building size limit direct scale comparability. Its current return remains a supporting data point alongside the physical comparison."
+        },
+        {
+          "address": "965 North Summit Avenue",
+          "status": "Closed",
+          "price": 1512000,
+          "units": 6,
+          "year_built": 1958,
+          "building_sf": 4275,
+          "lot_sf": 12008,
+          "date": "December 31, 2025",
+          "days_on_market": 198,
+          "price_per_unit": 252000,
+          "price_per_sf": 353.68,
+          "grm": 12.82,
+          "cap_rate": 5.17,
+          "image": "images/comps-parke-965-summit.jpg",
+          "summary": "A six unit property with a similar late 1950s vintage and a large parcel.",
+          "relevance": "The result brackets the subject near the central value on both price per unit and price per square foot.",
+          "considerations": "Its smaller scale and longer marketing period should be weighed against the close vintage and Pasadena location."
+        },
+        {
+          "address": "1757 East Villa Street",
+          "status": "Closed",
+          "price": 1500000,
+          "units": 6,
+          "year_built": 1959,
+          "building_sf": 3936,
+          "lot_sf": 9004,
+          "date": "July 10, 2026",
+          "days_on_market": 60,
+          "price_per_unit": 250000,
+          "price_per_sf": 381.1,
+          "grm": null,
+          "cap_rate": null,
+          "image": "images/comps-parke-1757-villa.jpg",
+          "summary": "A recent six unit sale that closed at $250,000 per unit after a negotiated discount.",
+          "relevance": "Its recent closing date, similar vintage, and Pasadena location make the price per unit result particularly useful.",
+          "considerations": "Income metrics were not sufficiently supported in the supplied record, so the analysis relies on the confirmed sale and physical metrics."
+        },
+        {
+          "address": "696 Earlham Street",
+          "status": "Closed",
+          "price": 1800000,
+          "units": 6,
+          "year_built": 1965,
+          "building_sf": 5640,
+          "lot_sf": 8404,
+          "date": "November 6, 2025",
+          "days_on_market": 15,
+          "price_per_unit": 300000,
+          "price_per_sf": 319.15,
+          "grm": 12.48,
+          "cap_rate": 5.45,
+          "image": "images/comps-parke-696-earlham.jpg",
+          "summary": "A six unit Pasadena sale with larger average unit size and a rapid marketing period.",
+          "relevance": "The sale provides an upper price per unit benchmark and a lower price per square foot reference.",
+          "considerations": "The property is newer and has larger average units than the subject, supporting a premium on a per unit basis."
+        },
+        {
+          "address": "679 Earlham Street",
+          "status": "Closed",
+          "price": 2260000,
+          "units": 8,
+          "year_built": 1965,
+          "building_sf": 6291,
+          "lot_sf": 9778,
+          "date": "August 27, 2025",
+          "days_on_market": 237,
+          "price_per_unit": 282500,
+          "price_per_sf": 359.24,
+          "grm": 10.91,
+          "cap_rate": 6.52,
+          "image": "images/comps-parke-679-earlham.jpg",
+          "summary": "An eight unit sale with income metrics that closely frame the subject's current return profile.",
+          "relevance": "Its scale, Pasadena location, and 6.52% cap rate make it a strong income comparison.",
+          "considerations": "The property is newer than the subject and required a long marketing period before closing."
+        },
+        {
+          "address": "423 North Garfield Avenue",
+          "status": "Closed",
+          "price": 2850000,
+          "units": 12,
+          "year_built": 1962,
+          "building_sf": 9272,
+          "lot_sf": 11878,
+          "date": "May 8, 2026",
+          "days_on_market": 32,
+          "price_per_unit": 237500,
+          "price_per_sf": 307.38,
+          "grm": 11.24,
+          "cap_rate": 6.14,
+          "image": "images/comps-parke-423-garfield.jpg",
+          "summary": "A twelve unit Pasadena sale with similar parcel size and a current income return near the subject.",
+          "relevance": "Its larger scale provides a useful portfolio buyer benchmark for price per unit and cap rate.",
+          "considerations": "Possible assumable financing may have influenced the transaction and should be considered when comparing the reported price."
+        }
+      ],
+      "active_comps": [],
+      "map_points": [
+        {
+          "id": "parke-subject",
+          "label": "359 Parke",
+          "address": "359 Parke Street, Pasadena, CA 91101",
+          "lat": 34.157199,
+          "lng": -118.143082,
+          "kind": "subject"
+        },
+        {
+          "id": "parke-s1",
+          "label": "826 N Summit",
+          "address": "826 North Summit Avenue, Pasadena, CA 91103",
+          "kind": "sale"
+        },
+        {
+          "id": "parke-s2",
+          "label": "965 N Summit",
+          "address": "965 North Summit Avenue, Pasadena, CA 91103",
+          "kind": "sale"
+        },
+        {
+          "id": "parke-s3",
+          "label": "1757 E Villa",
+          "address": "1757 East Villa Street, Pasadena, CA 91106",
+          "kind": "sale"
+        },
+        {
+          "id": "parke-s4",
+          "label": "696 Earlham",
+          "address": "696 Earlham Street, Pasadena, CA 91101",
+          "kind": "sale"
+        },
+        {
+          "id": "parke-s5",
+          "label": "679 Earlham",
+          "address": "679 Earlham Street, Pasadena, CA 91101",
+          "kind": "sale"
+        },
+        {
+          "id": "parke-s6",
+          "label": "423 N Garfield",
+          "address": "423 North Garfield Avenue, Pasadena, CA 91101",
+          "kind": "sale"
+        },
+        {
+          "id": "parke-r1",
+          "label": "380 Parke",
+          "address": "380 Parke Street, Pasadena, CA 91101",
+          "kind": "rent"
+        },
+        {
+          "id": "parke-r2",
+          "label": "456 E Orange Grove",
+          "address": "456 East Orange Grove Boulevard, Pasadena, CA 91104",
+          "kind": "rent"
+        },
+        {
+          "id": "parke-r3",
+          "label": "570 N Los Robles",
+          "address": "570 North Los Robles Avenue, Pasadena, CA 91101",
+          "kind": "rent"
+        },
+        {
+          "id": "parke-r4",
+          "label": "853 N Raymond",
+          "address": "853 North Raymond Avenue, Pasadena, CA 91103",
+          "kind": "rent"
+        },
+        {
+          "id": "parke-r5",
+          "label": "303 N Oakland",
+          "address": "303 North Oakland Avenue, Pasadena, CA 91101",
+          "kind": "rent"
+        }
+      ],
+      "maps": {
+        "subject": "images/maps-359-parke-subject.png",
+        "sale": "images/maps-359-parke-sale-comps.png",
+        "rent": "images/maps-359-parke-rent-comps.png",
+        "active": null
+      }
+    },
+    {
+      "slug": "1623-menlo",
+      "short_name": "1623 Menlo",
+      "address": "1623 Menlo Avenue",
+      "city": "Los Angeles, California 90006",
+      "hero": "images/subjects-menlo-menlo-hero.jpg",
+      "gallery": [
+        {
+          "src": "images/subjects-menlo-menlo-online-exterior.jpg",
+          "alt": "Street exterior of 1623 Menlo Avenue"
+        },
+        {
+          "src": "images/subjects-menlo-menlo-interior.jpg",
+          "alt": "Representative apartment interior at 1623 Menlo Avenue"
+        },
+        {
+          "src": "images/subjects-menlo-menlo-kitchen.jpg",
+          "alt": "Representative apartment kitchen at 1623 Menlo Avenue"
+        },
+        {
+          "src": "images/subjects-menlo-menlo-aerial.jpg",
+          "alt": "Google aerial view centered on 1623 Menlo Avenue"
+        }
+      ],
+      "apn": "5056 022 005",
+      "parking": "Gated on site parking reported in historical marketing. Count and configuration require field confirmation.",
+      "location_title": "Central Los Angeles connectivity with durable renter demand",
+      "price": 2200000,
+      "value_range": "$2,000,000 to $2,200,000",
+      "units": 8,
+      "year_built": 1979,
+      "building_sf": 5170,
+      "lot_sf": 7405,
+      "lot_acres": 0.17,
+      "price_per_unit": 275000,
+      "price_per_sf": 425.53,
+      "grm_current": 9.9,
+      "grm_market": 8.96,
+      "cap_current": 6.55,
+      "cap_market": 7.58,
+      "noi_current": 144092,
+      "noi_market": 166732,
+      "operating": {
+        "sgi": [
+          223620,
+          246960
+        ],
+        "vacancy": [
+          6665,
+          7366
+        ],
+        "vacancy_pct": 3.0,
+        "goi": [
+          216955,
+          239594
+        ],
+        "expenses": [
+          72862,
+          72862
+        ],
+        "expense_ratio": [
+          32.6,
+          29.5
+        ],
+        "noi": [
+          144092,
+          166732
+        ],
+        "loan_payments": [
+          -115274,
+          -115274
+        ],
+        "pretax_cf": [
+          28818,
+          51458
+        ],
+        "pretax_cf_pct": [
+          4.5,
+          8.04
+        ],
+        "principal_reduction": [
+          18282,
+          18282
+        ],
+        "total_return": [
+          47100,
+          69740
+        ],
+        "total_return_pct": [
+          7.36,
+          10.9
+        ]
+      },
+      "financing": {
+        "loan_amount": 1560156,
+        "rate": 6.25,
+        "amortization": 30,
+        "dcr": 1.25
+      },
+      "unit_mix": [
+        {
+          "count": 7,
+          "type": "1 + 1",
+          "sf": 625,
+          "rent_current": 2232,
+          "monthly_current": 15627,
+          "rent_market": 2495,
+          "monthly_market": 17465
+        },
+        {
+          "count": 1,
+          "type": "2 + 1",
+          "sf": 800,
+          "rent_current": 2888,
+          "monthly_current": 2888,
+          "rent_market": 2995,
+          "monthly_market": 2995
+        }
+      ],
+      "scheduled_rent": [
+        18515,
+        20460
+      ],
+      "additional_income": [
+        120,
+        120
+      ],
+      "monthly_sgi": [
+        18635,
+        20580
+      ],
+      "expense_lines": [
+        [
+          "Property Tax",
+          27352
+        ],
+        [
+          "Insurance",
+          6463
+        ],
+        [
+          "Utilities",
+          16400
+        ],
+        [
+          "Trash",
+          0
+        ],
+        [
+          "Repairs & Maintenance",
+          6000
+        ],
+        [
+          "Contracts",
+          3000
+        ],
+        [
+          "General & Admin",
+          1200
+        ],
+        [
+          "Reserves",
+          1600
+        ],
+        [
+          "Management",
+          10848
+        ]
+      ],
+      "expense_total": 72862,
+      "expense_per_sf": 14.09,
+      "expense_per_unit": 9107.79,
+      "highlights": [
+        "Eight units built in 1979",
+        "$18,515 monthly scheduled rent",
+        "Gated access with on-site parking",
+        "TOC Tier 4 near central L.A. transit"
+      ],
+      "overview": [
+        "The LAAA Team of Marcus & Millichap is pleased to present 1623 Menlo Avenue, an eight unit apartment property in central Los Angeles. Built in 1979, the property offers gated access, on site parking reported in historical marketing, and a current scheduled rent of $18,515 per month.",
+        "The current rent roll, normalized operating statement, two closed sales, two active competitors, and nearby asking rents establish the property's income and market position. The unit mix is seven one-bedroom units of approximately 625 SF and one two-bedroom unit of approximately 800 SF."
+      ],
+      "location_narrative": [
+        "1623 Menlo Avenue is positioned in Pico Union on a residential multifamily block near Vermont Avenue and Venice Boulevard. ZIMAS identifies the site as TOC Tier 4 and within one half mile of both a Major Transit Stop and a High Quality Transit Corridor.",
+        "The neighborhood's central position supports renter demand from households seeking practical access to Downtown Los Angeles, the University Park area, Koreatown, and employment across the central basin."
+      ],
+      "physical_narrative": [
+        "Public assessment records identify an eight unit apartment property built in 1979 with approximately 5,170 square feet of improvements on an approximately 7,405 square foot parcel. Historical marketing describes gated parking, community laundry, and selected renovated interiors.",
+        "ZIMAS identifies the parcel as RD1.5 1, RSO No, JCO Yes, and Ellis Act Property No. A finaled 1999 electrical permit references eight residential units. The available City record did not include the original certificate of occupancy."
+      ],
+      "rent_narrative": [
+        "The selected two bedroom asking rents range from $2,295 to $2,748 per month and are located within approximately eight tenths of a mile of the subject. The evidence provides useful context for current leasing conditions near the property.",
+        "Because the legal and physical unit mix has not been conclusively established, the asking rent evidence is not applied to a unit by unit pro forma. The valuation remains based entirely on the current scheduled rent."
+      ],
+      "market_narrative": [
+        "The supplied closed sales frame the subject between a premium six unit result at $355,000 per unit and a larger fifteen unit result at approximately $237,000 per unit. The active competition asks approximately $283,000 to $339,000 per unit.",
+        "On a per-unit basis the subject sits above the larger closed sale and below both active asking levels. On a per-square-foot basis it aligns closely with the smaller nearby Dewey closing. Its current income yield is stronger than the supported closed-sale metrics, which is the core of the pricing argument."
+      ],
+      "positioning_narrative": [
+        "The recommended value is anchored on the subject's current income and its competitive going-in return, supported by a documented unit mix and the rents the property achieves today.",
+        "The result balances the nearby Dewey physical comparison against the lower per-unit signal from the larger Ardmore sale, with the current active listings framing the upper end of the range."
+      ],
+      "valuation_narrative": [
+        "The income approach supports value through a normalized current net operating income of $144,092. At $2,200,000 the implied going-in cap rate is 6.55% and the current gross rent multiplier is 9.90. On the market rent schedule the same basis produces a 7.58% cap rate and an 8.96 multiplier.",
+        "The sales comparison approach supports $275,000 per unit and approximately $426 per square foot. These metrics fit within the supplied closed and active evidence, with the higher price per square foot supported by the nearby Dewey closing and the stronger current yield.",
+        "We therefore recommend a list price of $2,200,000, at the upper end of the supported range of $2,000,000 to $2,200,000, subject to inspection, lease review, and confirmation of legal unit configuration."
+      ],
+      "buyer_profiles": [
+        {
+          "title": "Central Los Angeles private investor",
+          "copy": "An apartment owner seeking current cash flow and a manageable eight unit asset in a central location."
+        },
+        {
+          "title": "Exchange buyer",
+          "copy": "A buyer prioritizing the 6.92% going in yield and a later vintage than much of the surrounding apartment stock."
+        },
+        {
+          "title": "Operational investor",
+          "copy": "A disciplined owner prepared to verify unit configuration and pursue measured improvements without relying on a speculative pro forma."
+        }
+      ],
+      "strategy": [
+        {
+          "title": "Lead with the current return",
+          "copy": "Present the 6.92% current cap rate and 9.45 current gross rent multiplier as the primary value proposition."
+        },
+        {
+          "title": "Resolve diligence early",
+          "copy": "Organize lease, permit, parking, and unit configuration records before launch so buyers can underwrite with confidence."
+        },
+        {
+          "title": "Use competition to create urgency",
+          "copy": "Contrast the subject's current yield and price per unit with nearby active offerings while distinguishing asking prices from closed evidence."
+        }
+      ],
+      "disclosures": [
+        "The current rent roll and selected operating information were provided by the client and have not been independently audited.",
+        "The available record does not conclusively establish the legal bedroom and bathroom mix. Buyers should review original certificates, permits, leases, and physical conditions.",
+        "ZIMAS information reflects a point in time and must be independently confirmed. JCO and other local requirements remain subject to applicable law and professional advice.",
+        "Asking rents and active listing prices are not achieved results and are presented only as market context."
+      ],
+      "rent_comps": [
+        {
+          "address": "1240 Magnolia Avenue, Unit 201",
+          "unit_type": "2BR 1BA",
+          "rent": 2395,
+          "square_feet": null,
+          "distance": 0.48,
+          "image": null
+        },
+        {
+          "address": "1029 Westmoreland Avenue",
+          "unit_type": "2BR 1BA",
+          "rent": 2295,
+          "square_feet": 960,
+          "distance": 0.66,
+          "image": null
+        },
+        {
+          "address": "2231 Ellendale Place",
+          "unit_type": "2BR 1BA",
+          "rent": 2495,
+          "square_feet": 750,
+          "distance": 0.7,
+          "image": "images/rent-comps-menlo-2231-ellendale.webp"
+        },
+        {
+          "address": "1037 Dewey Avenue",
+          "unit_type": "2BR 2BA",
+          "rent": 2748,
+          "square_feet": 778,
+          "distance": 0.76,
+          "image": "images/rent-comps-menlo-1037-dewey.jpg"
+        },
+        {
+          "address": "980 Menlo Avenue",
+          "unit_type": "2BR 2BA",
+          "rent": 2450,
+          "square_feet": 950,
+          "distance": 0.77,
+          "image": "images/rent-comps-menlo-980-menlo.jpg"
+        }
+      ],
+      "sale_comps": [
+        {
+          "address": "1038 Dewey Avenue",
+          "status": "Closed",
+          "price": 2130000,
+          "units": 6,
+          "year_built": 1989,
+          "building_sf": 5216,
+          "lot_sf": 5908,
+          "date": "November 21, 2025",
+          "days_on_market": 72,
+          "price_per_unit": 355000,
+          "price_per_sf": 408.36,
+          "grm": 12.36,
+          "cap_rate": 5.69,
+          "image": "images/comps-menlo-1038-dewey.jpg",
+          "summary": "A nearby six unit 1989 property that sold fully occupied with eight covered parking spaces reported.",
+          "relevance": "The similar building area, nearby location, and later vintage provide a strong physical comparison.",
+          "considerations": "Its smaller unit count and much higher price per unit reflect a different unit scale. Its income profile is a supporting benchmark rather than the primary basis for comparison."
+        },
+        {
+          "address": "843 South Ardmore Avenue",
+          "status": "Closed",
+          "price": 3550000,
+          "units": 15,
+          "year_built": 1989,
+          "building_sf": 13095,
+          "lot_sf": 6764,
+          "date": "July 25, 2025",
+          "days_on_market": 261,
+          "price_per_unit": 236666.67,
+          "price_per_sf": 271.1,
+          "grm": 10.48,
+          "cap_rate": 6.67,
+          "image": "images/comps-menlo-843-ardmore.jpg",
+          "summary": "A fifteen unit 1989 property that provides a larger scale investor comparison.",
+          "relevance": "The sale offers a lower price per unit and a current return benchmark near the subject's indicated cap rate.",
+          "considerations": "Its much larger scale, elevator, parking configuration, and long marketing period reduce direct physical comparability. The reported income data was not relied upon."
+        }
+      ],
+      "active_comps": [
+        {
+          "address": "1056 Dewey Avenue",
+          "status": "Active",
+          "price": 1695000,
+          "units": 6,
+          "year_built": 1982,
+          "building_sf": 4874,
+          "lot_sf": 5907,
+          "date": "Active as of July 29, 2026",
+          "days_on_market": 143,
+          "price_per_unit": 282500,
+          "price_per_sf": 347.76,
+          "grm": 12.87,
+          "cap_rate": null,
+          "image": "images/comps-menlo-1056-dewey.jpg",
+          "summary": "A nearby six unit 1982 offering priced at $1.695M after a $150,000 reduction and return to market.",
+          "relevance": "Its location, vintage, and similar building size make it a direct active competitor for the same buyer pool.",
+          "considerations": "The listing has not established market value, so the comparison is limited to its asking price, physical profile, and marketing history."
+        },
+        {
+          "address": "955 South Normandie Avenue",
+          "status": "Active",
+          "price": 4750000,
+          "units": 14,
+          "year_built": 1986,
+          "building_sf": 14652,
+          "lot_sf": 8903,
+          "date": "Active as of July 29, 2026",
+          "days_on_market": 77,
+          "price_per_unit": 339285.71,
+          "price_per_sf": 324.19,
+          "grm": 13.2,
+          "cap_rate": null,
+          "image": "images/comps-menlo-955-normandie.jpg",
+          "summary": "A fourteen unit 1986 offering that targets larger private capital in the same central Los Angeles submarket.",
+          "relevance": "The listing helps define the price expectations of larger non RSO oriented competition.",
+          "considerations": "Its scale and gross price are materially larger than the subject. Asking metrics are not achieved transaction evidence."
+        }
+      ],
+      "map_points": [
+        {
+          "id": "menlo-subject",
+          "label": "1623 Menlo",
+          "address": "1623 Menlo Avenue, Los Angeles, CA 90006",
+          "lat": 34.043544,
+          "lng": -118.290777,
+          "kind": "subject"
+        },
+        {
+          "id": "menlo-s1",
+          "label": "1038 Dewey",
+          "address": "1038 Dewey Avenue, Los Angeles, CA 90006",
+          "kind": "sale"
+        },
+        {
+          "id": "menlo-s2",
+          "label": "843 S Ardmore",
+          "address": "843 South Ardmore Avenue, Los Angeles, CA 90005",
+          "kind": "sale"
+        },
+        {
+          "id": "menlo-a1",
+          "label": "1056 Dewey",
+          "address": "1056 Dewey Avenue, Los Angeles, CA 90006",
+          "kind": "active"
+        },
+        {
+          "id": "menlo-a2",
+          "label": "955 S Normandie",
+          "address": "955 South Normandie Avenue, Los Angeles, CA 90006",
+          "kind": "active"
+        },
+        {
+          "id": "menlo-r1",
+          "label": "1240 Magnolia",
+          "address": "1240 Magnolia Avenue, Los Angeles, CA 90006",
+          "kind": "rent"
+        },
+        {
+          "id": "menlo-r2",
+          "label": "1029 Westmoreland",
+          "address": "1029 South Westmoreland Avenue, Los Angeles, CA 90006",
+          "kind": "rent"
+        },
+        {
+          "id": "menlo-r3",
+          "label": "2231 Ellendale",
+          "address": "2231 Ellendale Place, Los Angeles, CA 90007",
+          "kind": "rent"
+        },
+        {
+          "id": "menlo-r4",
+          "label": "1037 Dewey",
+          "address": "1037 Dewey Avenue, Los Angeles, CA 90006",
+          "kind": "rent"
+        },
+        {
+          "id": "menlo-r5",
+          "label": "980 Menlo",
+          "address": "980 Menlo Avenue, Los Angeles, CA 90006",
+          "kind": "rent"
+        }
+      ],
+      "maps": {
+        "subject": "images/maps-1623-menlo-subject.png",
+        "sale": "images/maps-1623-menlo-sale-comps.png",
+        "rent": "images/maps-1623-menlo-rent-comps.png",
+        "active": "images/maps-1623-menlo-active-comps.png"
+      }
+    }
+  ]
+}

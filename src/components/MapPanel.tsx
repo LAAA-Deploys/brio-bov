@@ -73,7 +73,13 @@ export function hydrateMapPoints(points: MapPoint[], entries: ManifestEntry[]) {
 }
 
 export function mapMarkerLabel(points: MapPoint[], index: number) {
-  if (points[index].kind === "subject") return "S";
+  if (points[index].kind === "subject") {
+    const subjectCount = points.filter((point) => point.kind === "subject").length;
+    if (subjectCount === 1) return "S";
+    if (points[index].id === "parke-subject") return "P";
+    if (points[index].id === "menlo-subject") return "M";
+    return String(points.slice(0, index + 1).filter((point) => point.kind === "subject").length);
+  }
   return String(points.slice(0, index + 1).filter((point) => point.kind !== "subject").length);
 }
 

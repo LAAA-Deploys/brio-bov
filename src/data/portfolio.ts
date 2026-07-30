@@ -447,7 +447,7 @@ export const menlo: PropertyData = {
   ],
   buyerProfiles: [
     { title: "Central Los Angeles private investor", copy: "An apartment owner seeking current cash flow and a manageable eight unit asset in a central location." },
-    { title: "Exchange buyer", copy: "A buyer prioritizing a going in yield near 7% and a later vintage than much of the surrounding apartment stock." },
+    { title: "Exchange buyer", copy: "A buyer prioritizing the 6.92% going in yield and a later vintage than much of the surrounding apartment stock." },
     { title: "Operational investor", copy: "A disciplined owner prepared to verify unit configuration and pursue measured improvements without relying on a speculative pro forma." }
   ],
   strategy: [

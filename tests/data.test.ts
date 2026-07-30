@@ -53,4 +53,10 @@ describe("approved Brio valuation data", () => {
     expect(mapMarkerLabel(points, 1)).toBe("1");
     expect(mapMarkerLabel(points, 2)).toBe("2");
   });
+
+  it("distinguishes both subjects on the portfolio map", () => {
+    const points = [parke.mapPoints[0], menlo.mapPoints[0]];
+    expect(mapMarkerLabel(points, 0)).toBe("P");
+    expect(mapMarkerLabel(points, 1)).toBe("M");
+  });
 });

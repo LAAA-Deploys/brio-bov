@@ -37,13 +37,20 @@ type ManifestEntry = {
 function loadGoogleMaps(key: string) {
   if (window.google?.maps) return Promise.resolve();
   if (window.__brioGoogleMapsPromise) return window.__brioGoogleMapsPromise;
-  window.__brioGoogleMapsPromise = new Promise<void>((resolve, reject) => {
+  const request = new Promise<void>((resolve, reject) => {
     const script = document.createElement("script");
     script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&v=weekly`;
     script.async = true;
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error("Google Maps could not load"));
+    script.onerror = () => {
+      script.remove();
+      reject(new Error("Google Maps could not load"));
+    };
     document.head.appendChild(script);
+  });
+  window.__brioGoogleMapsPromise = request.catch((error) => {
+    window.__brioGoogleMapsPromise = undefined;
+    throw error;
   });
   return window.__brioGoogleMapsPromise;
 }
@@ -57,8 +64,10 @@ type Props = {
 };
 
 export function MapPanel({ id, title, points, staticImage, compact = false }: Props) {
+  const staticSrc = staticImage ?? `/assets/maps/${id}.png`;
   const hostRef = useRef<HTMLDivElement>(null);
   const [interactive, setInteractive] = useState(false);
+  const [staticFailed, setStaticFailed] = useState(false);
   const [shouldLoadInteractive, setShouldLoadInteractive] = useState(false);
   const [verifiedPoints, setVerifiedPoints] = useState<MapPoint[]>([]);
   const resolvedPoints = useMemo(
@@ -167,8 +176,6 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
     };
   }, [points.length, resolvedPoints, shouldLoadInteractive]);
 
-  const staticSrc = staticImage ?? `/assets/maps/${id}.png`;
-
   return (
     <figure className={`map-panel ${compact ? "map-panel-compact" : ""}`} data-map-id={id}>
       <div className="map-frame">
@@ -177,11 +184,11 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
           className={`map-static ${interactive ? "is-hidden-screen" : ""}`}
           src={staticSrc}
           alt={`${title} location map`}
-          onError={(event) => {
-            event.currentTarget.hidden = true;
-          }}
+          hidden={staticFailed}
+          onLoad={() => setStaticFailed(false)}
+          onError={() => setStaticFailed(true)}
         />
-        {!interactive && (
+        {!interactive && staticFailed && (
           <div className="map-address-list">
             <strong>{title}</strong>
             {displayPoints.map((point, index) => (
@@ -209,6 +216,21 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
           {displayPoints.some((p) => p.kind === "rent") && <><i className="legend-rent" /> Rent</>}
         </span>
       </figcaption>
+      <div className="map-link-strip" aria-label={`${title} Google Maps links`}>
+        <span>Google Maps</span>
+        {displayPoints.map((point, index) => (
+          <a
+            key={point.id}
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.address)}${
+              point.placeId ? `&query_place_id=${encodeURIComponent(point.placeId)}` : ""
+            }`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {mapMarkerLabel(displayPoints, index)} · {point.label}
+          </a>
+        ))}
+      </div>
     </figure>
   );
 }

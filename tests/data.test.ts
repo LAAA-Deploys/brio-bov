@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { hydrateMapPoints, mapMarkerLabel } from "../src/components/MapPanel";
+import { hydrateMapPoints, mapMarkerLabel } from "../src/components/mapUtils";
 import { menlo, parke, portfolio } from "../src/data/portfolio";
 import manifest from "../public/assets/maps/map-manifest.json";
 

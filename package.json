@@ -11,7 +11,7 @@
     "verify": "node scripts/verify-data.mjs && node scripts/qa-copy.mjs && node scripts/qa-assets.mjs",
     "test": "vitest run",
     "qa:visual": "node scripts/run-proof.mjs",
-    "qa:all": "npm run verify && npm run test && npm run build && npm run qa:visual"
+    "qa:all": "npm run lint && npm run verify && npm run test && npm run build && npm run qa:visual"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
@@ -31,6 +31,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^15.13.0",
+    "typescript-eslint": "^8.65.0",
     "vitest": "^4.1.10"
   }
 }

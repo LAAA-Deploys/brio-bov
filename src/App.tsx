@@ -54,7 +54,7 @@ function Footer() {
     <footer>
       <div className="container footer-grid">
         <span className="brand-slot" data-laaa-brand-slot="footer" data-logo-variant="white" data-brand-context="dark">
-          <img src="/assets/brand/LAAA_Team_White.png" alt="LAAA Team" />
+          <img src="/assets/brand/LAAA_Team_White.png" alt="LAAA Team" loading="lazy" decoding="async" />
         </span>
         <div>
           <strong>Marcus &amp; Millichap</strong>
@@ -113,8 +113,8 @@ function PortfolioHub() {
       <main>
         <section className="portfolio-hero dark-hero">
           <div className="portfolio-hero-images">
-            <img src={parke.hero} alt="359 Parke Street" />
-            <img src={menlo.hero} alt="1623 Menlo Avenue" />
+            <img src={parke.hero} alt="359 Parke Street" fetchPriority="high" />
+            <img src={menlo.hero} alt="1623 Menlo Avenue" fetchPriority="high" />
           </div>
           <div className="hero-overlay" />
           <div className="container hero-content">
@@ -147,7 +147,7 @@ function PortfolioHub() {
             <div className="property-cards">
               {portfolio.properties.map((property) => (
                 <article className="property-card" key={property.slug}>
-                  <img src={property.hero} alt={`${property.address} exterior`} />
+                  <img src={property.hero} alt={`${property.address} exterior`} loading="lazy" decoding="async" />
                   <div className="property-card-body">
                     <p className="eyebrow">{property.city}</p>
                     <h3>{property.address}</h3>
@@ -246,7 +246,7 @@ function PortfolioHub() {
 function PropertyHero({ property }: { property: PropertyData }) {
   return (
     <section className="property-hero dark-hero">
-      <img className="property-hero-image" src={property.hero} alt={`${property.address} exterior`} />
+      <img className="property-hero-image" src={property.hero} alt={`${property.address} exterior`} fetchPriority="high" />
       <div className="hero-overlay" />
       <div className="container hero-content">
         <p className="eyebrow light">Broker Opinion of Value</p>
@@ -296,7 +296,12 @@ function PropertyAndLocation({ property }: { property: PropertyData }) {
     <>
       <section className="section section-stone">
         <div className="container">
-          <SectionHeading eyebrow="Property and physical details" title="A practical operating profile" />
+          <SectionHeading
+            eyebrow="Property and physical details"
+            title={property.slug === "1623-menlo"
+              ? "Eight apartments with a compact, later-vintage profile"
+              : "Ten apartments near Pasadena's urban core"}
+          />
           <div className="detail-grid">
             <Metric label="Apartments" value={String(property.units)} />
             <Metric label="Year built" value={String(property.yearBuilt)} />
@@ -309,7 +314,9 @@ function PropertyAndLocation({ property }: { property: PropertyData }) {
             {property.physicalNarrative.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
           <div className="photo-grid">
-            {property.gallery.map((photo) => <img src={photo.src} alt={photo.alt} key={photo.src} />)}
+            {property.gallery.map((photo) => (
+              <img src={photo.src} alt={photo.alt} key={photo.src} loading="lazy" decoding="async" />
+            ))}
           </div>
         </div>
       </section>
@@ -328,6 +335,9 @@ function PropertyAndLocation({ property }: { property: PropertyData }) {
 
 function RentRollAndUnderwriting({ property }: { property: PropertyData }) {
   const total = property.rentRoll.reduce((sum, line) => sum + line.monthlyRent, 0);
+  const hasVerifiedConfigurations = property.rentRoll.some(
+    (line) => line.configuration !== "Configuration to be verified"
+  );
   return (
     <>
       <section className="section section-navy">
@@ -339,16 +349,16 @@ function RentRollAndUnderwriting({ property }: { property: PropertyData }) {
           />
           <div className="table-wrap">
             <table>
-              <thead><tr><th>Unit</th><th>Configuration</th><th>Current monthly rent</th></tr></thead>
+              <thead><tr><th>Unit</th>{hasVerifiedConfigurations && <th>Configuration</th>}<th>Current monthly rent</th></tr></thead>
               <tbody>
                 {property.rentRoll.map((line) => (
                   <tr key={line.unit}>
                     <td>{line.unit}</td>
-                    <td>{line.configuration}</td>
+                    {hasVerifiedConfigurations && <td>{line.configuration}</td>}
                     <td>{money0.format(line.monthlyRent)}</td>
                   </tr>
                 ))}
-                <tr className="total-row"><td colSpan={2}>Total current monthly rent</td><td>{money0.format(total)}</td></tr>
+                <tr className="total-row"><td colSpan={hasVerifiedConfigurations ? 2 : 1}>Total current monthly rent</td><td>{money0.format(total)}</td></tr>
               </tbody>
             </table>
           </div>
@@ -403,7 +413,7 @@ function RentComparables({ property }: { property: PropertyData }) {
         <div className="rent-grid">
           {property.rentComps.map((comp) => (
             <article className="rent-card" key={`${comp.address}-${comp.unitType}`}>
-              {comp.image && <img src={comp.image} alt={`${comp.address} property`} />}
+              {comp.image && <img src={comp.image} alt={`${comp.address} property`} loading="lazy" decoding="async" />}
               <p className="eyebrow">{comp.unitType}</p>
               <h3>{comp.address}</h3>
               <strong>{money0.format(comp.rent)} <small>per month</small></strong>
@@ -428,7 +438,7 @@ function ComparableCard({ comp, property }: { comp: SaleComp; property: Property
   return (
     <article className="comp-detail" id={`comp-${comp.id}`}>
       <div className="comp-detail-image">
-        <img src={comp.image} alt={`${comp.address} exterior`} />
+        <img src={comp.image} alt={`${comp.address} exterior`} loading="lazy" decoding="async" />
         <span className={`status ${comp.status.toLowerCase()}`}>{comp.status}</span>
       </div>
       <div className="comp-detail-content">
@@ -479,7 +489,7 @@ function ComparableAnalysis({ property }: { property: PropertyData }) {
           <div className="comp-summary-grid">
             {property.saleComps.map((comp) => (
               <a className="comp-summary-card" href={`#comp-${comp.id}`} key={comp.id}>
-                <img src={comp.image} alt={`${comp.address} exterior`} />
+                <img src={comp.image} alt={`${comp.address} exterior`} loading="lazy" decoding="async" />
                 <div>
                   <p>{comp.address}</p>
                   <strong>{money0.format(comp.price)}</strong>
@@ -491,7 +501,7 @@ function ComparableAnalysis({ property }: { property: PropertyData }) {
           <MapPanel id={`${property.slug}-sale-comps`} title="Closed sale comparables" points={closedPoints} />
           {property.slug === "359-parke" && (
             <figure className="map-inset">
-              <img src="/assets/maps/359-parke-earlham-inset.png" alt="Detailed Google map of the two Earlham Street sale comparables" />
+              <img src="/assets/maps/359-parke-earlham-inset.png" alt="Detailed Google map of the two Earlham Street sale comparables" loading="lazy" decoding="async" />
               <figcaption>Detailed view of the two Earlham Street sale locations</figcaption>
             </figure>
           )}
@@ -695,7 +705,7 @@ function ProofOfPerformance({ property }: { property?: PropertyData }) {
         <div className="proof-grid">
           {sales.map((sale) => (
             <article key={sale.address}>
-              <img src={sale.image} alt={`${sale.address} apartment property`} />
+              <img src={sale.image} alt={`${sale.address} apartment property`} loading="lazy" decoding="async" />
               <div>
                 <p className="eyebrow">LAAA closed sale</p>
                 <h3>{sale.address}</h3>
@@ -749,20 +759,20 @@ function TeamSection() {
         />
         <div className="team-grid">
           <article>
-            <img src="/assets/team/Glen_Scher.png" alt="Glen Scher" />
+            <img src="/assets/team/Glen_Scher.png" alt="Glen Scher" loading="lazy" decoding="async" />
             <div>
               <h3>Glen Scher</h3>
-              <p>Senior Managing Director Investments<br />Co Founder, LAAA Team</p>
+              <p>Senior Managing Director Investments<br />Co-Founder, LAAA Team</p>
               <a href="tel:18182122808">(818) 212 2808</a>
               <a href="mailto:Glen.Scher@marcusmillichap.com">Glen.Scher@marcusmillichap.com</a>
               <small>CA 01962976</small>
             </div>
           </article>
           <article>
-            <img src="/assets/team/Filip_Niculete.png" alt="Filip Niculete" />
+            <img src="/assets/team/Filip_Niculete.png" alt="Filip Niculete" loading="lazy" decoding="async" />
             <div>
               <h3>Filip Niculete</h3>
-              <p>Senior Managing Director Investments<br />Co Founder, LAAA Team</p>
+              <p>Senior Managing Director Investments<br />Co-Founder, LAAA Team</p>
               <a href="tel:18182122748">(818) 212 2748</a>
               <a href="mailto:Filip.Niculete@marcusmillichap.com">Filip.Niculete@marcusmillichap.com</a>
               <small>CA 01905352</small>

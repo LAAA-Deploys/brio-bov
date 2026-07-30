@@ -30,12 +30,12 @@ export const parke: PropertyData = {
   locationTitle: "A central Pasadena apartment location with durable renter access",
   overview: [
     "The LAAA Team of Marcus & Millichap is pleased to present 359 Parke Street, a ten unit apartment property in Pasadena. The property combines a balanced mix of one and two bedroom apartments with on site parking and separate gas and electric metering.",
-    "Our opinion of value is anchored in the current rent roll, a normalized operating statement, and six recent Pasadena apartment sales selected for their relevance to the subject. The resulting analysis supports a central value of $2.45M and a likely trade range of $2.35M to $2.50M."
+    "The current rent roll, normalized operating statement, nearby asking rents, and six recent Pasadena apartment sales establish a clear framework for evaluating the property's income, physical profile, and competitive position."
   ],
   highlights: [
     "Ten apartments with five one bedroom homes and five two bedroom homes shown on the current seller rent roll",
     "Current scheduled rent of $20,291 per month",
-    "Normalized current income cap rate of 6.44% at the central value",
+    "Current income supported by a normalized operating analysis",
     "Approximately 14 parking spaces reported in historical marketing",
     "Separate gas and electric metering with owner paid water and refuse",
     "City zoning map identifies RM 12 within a Low Medium Density Residential designation",
@@ -109,7 +109,7 @@ export const parke: PropertyData = {
       pointId: "parke-s1",
       summary: "A five unit 1956 property that sold quickly on a large Pasadena parcel.",
       relevance: "Similar vintage and nearby Pasadena location provide a useful lower price per unit benchmark.",
-      considerations: "The smaller unit count and building size limit direct scale comparability. The normalized cap rate is presented as a provisional analytical measure."
+      considerations: "The smaller unit count and building size limit direct scale comparability. Its current return remains a supporting data point alongside the physical comparison."
     },
     {
       id: "965-summit",
@@ -287,18 +287,18 @@ export const menlo: PropertyData = {
   pricePerSquareFoot: 406.19,
   currentGrossRent: 222180,
   currentMonthlyRent: 18515,
-  locationTitle: "Central Los Angeles access with a practical neighborhood scale",
+  locationTitle: "Central Los Angeles connectivity with durable renter demand",
   overview: [
     "The LAAA Team of Marcus & Millichap is pleased to present 1623 Menlo Avenue, an eight unit apartment property in central Los Angeles. Built in 1979, the property offers gated access, on site parking reported in historical marketing, and a current scheduled rent of $18,515 per month.",
-    "Our opinion of value is based on the current rent roll, normalized operating expenses, two supplied closed sales, and two active competitors. The analysis supports a central value of $2.10M and a likely trade range of $2.00M to $2.20M."
+    "The current rent roll, normalized operating statement, two closed sales, two active competitors, and nearby asking rents establish the property's income and market position without relying on an unverified future rent program."
   ],
   highlights: [
     "Eight apartments with current scheduled rent of $18,515 per month",
-    "Normalized current income cap rate of 6.92% at the central value",
+    "Current income supported by a normalized operating analysis",
     "1979 construction with gated access and on site parking reported in historical marketing",
     "ZIMAS identifies the property as not subject to the Los Angeles Rent Stabilization Ordinance and subject to the Just Cause Ordinance",
     "Pico Union location with TOC Tier 4 status and access to major central Los Angeles transit corridors",
-    "Current valuation does not depend on a speculative unit mix or future rent program"
+    "Current scheduled income provides the valuation foundation; future rent evidence is presented separately"
   ],
   locationNarrative: [
     "1623 Menlo Avenue is positioned in Pico Union on a residential multifamily block near Vermont Avenue and Venice Boulevard. ZIMAS identifies the site as TOC Tier 4 and within one half mile of both a Major Transit Stop and a High Quality Transit Corridor.",
@@ -306,9 +306,9 @@ export const menlo: PropertyData = {
   ],
   physicalNarrative: [
     "Public assessment records identify an eight unit apartment property built in 1979 with approximately 5,170 square feet of improvements on an approximately 7,405 square foot parcel. Historical marketing describes gated parking, community laundry, and selected renovated interiors.",
-    "ZIMAS identifies the parcel as RD1.5 1, RSO No, JCO Yes, and Ellis Act Property No. A finaled 1999 electrical permit references eight residential units, but the original certificate of occupancy was not located in the available record. The exact legal unit mix, parking count, soft story status, and building systems should be confirmed through seller and City records."
+    "ZIMAS identifies the parcel as RD1.5 1, RSO No, JCO Yes, and Ellis Act Property No. A finaled 1999 electrical permit references eight residential units. The available City record did not include the original certificate of occupancy."
   ],
-  unitMixNote: "The seller rent roll confirms eight current rent amounts but the configuration labels conflict with historical rental listings. This analysis therefore presents the current rent roll without making a definitive representation regarding legal bedroom count or unit mix.",
+  unitMixNote: "The seller rent roll confirms eight current rent amounts. Because the available records do not provide a consistent bedroom and bathroom mix, the schedule below presents verified rents without assigning configurations.",
   rentRoll: [
     { unit: "1", configuration: "Configuration to be verified", monthlyRent: 2250 },
     { unit: "2", configuration: "Configuration to be verified", monthlyRent: 2380 },
@@ -366,7 +366,7 @@ export const menlo: PropertyData = {
       pointId: "menlo-s1",
       summary: "A nearby six unit 1989 property that sold fully occupied with eight covered parking spaces reported.",
       relevance: "The similar building area, nearby location, and later vintage provide a strong physical comparison.",
-      considerations: "Its smaller unit count and much higher price per unit reflect a different unit scale. The normalized cap rate is a provisional analytical measure."
+      considerations: "Its smaller unit count and much higher price per unit reflect a different unit scale. Its income profile is a supporting benchmark rather than the primary basis for comparison."
     },
     {
       id: "843-ardmore",
@@ -387,7 +387,7 @@ export const menlo: PropertyData = {
       pointId: "menlo-s2",
       summary: "A fifteen unit 1989 property that provides a larger scale investor comparison.",
       relevance: "The sale offers a lower price per unit and a current return benchmark near the subject's indicated cap rate.",
-      considerations: "Its much larger scale, elevator, parking configuration, and long marketing period reduce direct physical comparability. A conflicting source NOI was excluded."
+      considerations: "Its much larger scale, elevator, parking configuration, and long marketing period reduce direct physical comparability. The reported income data was not relied upon."
     }
   ],
   activeComps: [
@@ -409,7 +409,7 @@ export const menlo: PropertyData = {
       pointId: "menlo-a1",
       summary: "A nearby six unit 1982 offering priced at $1.695M after a $150,000 reduction and return to market.",
       relevance: "Its location, vintage, and similar building size make it a direct active competitor for the same buyer pool.",
-      considerations: "The listing has not established market value. A corrupted source NOI was excluded from the analysis."
+      considerations: "The listing has not established market value, so the comparison is limited to its asking price, physical profile, and marketing history."
     },
     {
       id: "955-normandie",

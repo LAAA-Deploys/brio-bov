@@ -232,6 +232,9 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
           className={`map-static ${interactive ? "is-hidden-screen" : ""}`}
           src={staticSrc}
           alt={`${title} location map`}
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
           hidden={staticFailed}
           onLoad={() => setStaticFailed(false)}
           onError={() => setStaticFailed(true)}
@@ -265,19 +268,21 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
         </span>
       </figcaption>
       {linkPoints.length > 0 && (
-        <div className="map-link-strip" aria-label={`${title} Google Maps links`}>
-          <span>Google Maps</span>
-          {linkPoints.map((point, index) => (
-            <a
-              key={point.id}
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.address)}&query_place_id=${encodeURIComponent(point.placeId as string)}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {mapMarkerLabel(linkPoints, index)} · {point.label}
-            </a>
-          ))}
-        </div>
+        <details className="map-links">
+          <summary>Open locations in Google Maps</summary>
+          <div aria-label={`${title} Google Maps links`}>
+            {linkPoints.map((point, index) => (
+              <a
+                key={point.id}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.address)}&query_place_id=${encodeURIComponent(point.placeId as string)}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {mapMarkerLabel(linkPoints, index)} · {point.label}
+              </a>
+            ))}
+          </div>
+        </details>
       )}
     </figure>
   );

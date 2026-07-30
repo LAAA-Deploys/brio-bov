@@ -100,10 +100,10 @@ td.num, th.num { text-align: right; }
 .inv-highlights li:before { content: '\2022'; color: #C5A258; position: absolute; left: 0; }
 .loc-grid { display: grid; grid-template-columns: 58% 42%; gap: 28px; align-items: start; }
 .loc-left p { font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
-.loc-wide-map { width: 100%; height: 260px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-top: 24px; }
+.loc-wide-map { width: 100%; aspect-ratio: 3 / 1; height: auto; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-top: 24px; }
 .loc-wide-map img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .loc-wide-map.comp-map { background: #e8e4d8; }
-.loc-wide-map.comp-map img { object-fit: contain; }
+.loc-wide-map.comp-map img { object-fit: cover; }
 .prop-grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .improv-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: start; margin-top: 24px; }
 .improv-list { list-style: none; }
@@ -213,3 +213,23 @@ td.num, th.num { text-align: right; }
 .toc-nav a { min-height: 44px; box-sizing: border-box; }
 .toc-nav a:focus-visible { outline: 2px solid #C5A258; outline-offset: -2px; color: #fff; }
 .toc-nav { scroll-behavior: smooth; }
+
+/* Map frames (Glen 2026-07-30). Maps are rendered to the frame's aspect ratio by
+   make_maps.py, so nothing is cropped or letterboxed at any width. Phones get a
+   taller render via <picture>; the frame switches to match. Verified by
+   audit_media.mjs. */
+.loc-wide-map { aspect-ratio: 3 / 1; height: auto !important; }
+@media (max-width: 700px) {
+  .loc-wide-map { aspect-ratio: 4 / 3; }
+}
+
+/* Portfolio hub property cards (Glen 2026-07-30). On phones the card stacks, so
+   a fixed-width side image gets squeezed into a tall box and loses most of the
+   photo. Below 700px the image becomes a full-width banner at its own aspect.
+   Verified by audit_media.mjs. */
+.prop-card-img { width: 170px; flex: 0 0 170px; aspect-ratio: 3 / 2; height: auto !important;
+                 min-height: 0 !important; border-radius: 8px; object-fit: cover; }
+@media (max-width: 700px) {
+  .bio-card:has(.prop-card-img) { flex-direction: column; }
+  .prop-card-img { width: 100%; flex: 0 0 auto; aspect-ratio: 16 / 9; }
+}

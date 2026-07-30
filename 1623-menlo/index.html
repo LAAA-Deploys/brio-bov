@@ -125,10 +125,10 @@ td.num, th.num { text-align: right; }
 .inv-highlights li:before { content: '\2022'; color: #C5A258; position: absolute; left: 0; }
 .loc-grid { display: grid; grid-template-columns: 58% 42%; gap: 28px; align-items: start; }
 .loc-left p { font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
-.loc-wide-map { width: 100%; height: 260px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-top: 24px; }
+.loc-wide-map { width: 100%; aspect-ratio: 3 / 1; height: auto; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-top: 24px; }
 .loc-wide-map img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .loc-wide-map.comp-map { background: #e8e4d8; }
-.loc-wide-map.comp-map img { object-fit: contain; }
+.loc-wide-map.comp-map img { object-fit: cover; }
 .prop-grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .improv-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: start; margin-top: 24px; }
 .improv-list { list-style: none; }
@@ -238,6 +238,26 @@ td.num, th.num { text-align: right; }
 .toc-nav a { min-height: 44px; box-sizing: border-box; }
 .toc-nav a:focus-visible { outline: 2px solid #C5A258; outline-offset: -2px; color: #fff; }
 .toc-nav { scroll-behavior: smooth; }
+
+/* Map frames (Glen 2026-07-30). Maps are rendered to the frame's aspect ratio by
+   make_maps.py, so nothing is cropped or letterboxed at any width. Phones get a
+   taller render via <picture>; the frame switches to match. Verified by
+   audit_media.mjs. */
+.loc-wide-map { aspect-ratio: 3 / 1; height: auto !important; }
+@media (max-width: 700px) {
+  .loc-wide-map { aspect-ratio: 4 / 3; }
+}
+
+/* Portfolio hub property cards (Glen 2026-07-30). On phones the card stacks, so
+   a fixed-width side image gets squeezed into a tall box and loses most of the
+   photo. Below 700px the image becomes a full-width banner at its own aspect.
+   Verified by audit_media.mjs. */
+.prop-card-img { width: 170px; flex: 0 0 170px; aspect-ratio: 3 / 2; height: auto !important;
+                 min-height: 0 !important; border-radius: 8px; object-fit: cover; }
+@media (max-width: 700px) {
+  .bio-card:has(.prop-card-img) { flex-direction: column; }
+  .prop-card-img { width: 100%; flex: 0 0 auto; aspect-ratio: 16 / 9; }
+}
 
 </style>
 </head>
@@ -355,7 +375,7 @@ td.num, th.num { text-align: right; }
       <table class="info-table"><thead><tr><th colspan="2">Property &amp; Location Details</th></tr></thead><tbody><tr><td>Address</td><td>1623 Menlo Avenue</td></tr><tr><td>City</td><td>Los Angeles, California 90006</td></tr><tr><td>APN</td><td>5056 022 005</td></tr><tr><td>Year Built</td><td>1979</td></tr><tr><td>Building SF</td><td>5,170</td></tr><tr><td>Lot Size</td><td>7,405 SF (0.17 ac)</td></tr><tr><td>Units</td><td>8</td></tr><tr><td>Parking</td><td>Gated on site parking reported in historical marketing. Count and configuration require field confirmation.</td></tr></tbody></table>
     </div>
   </div>
-  <div class="loc-wide-map"><img src="../images/maps-1623-menlo-subject.png" alt="Location Map" loading="lazy"></div>
+  <div class="loc-wide-map"><picture><source media="(max-width: 700px)" srcset="../images/maps-1623-menlo-subject-tall.png"><img src="../images/maps-1623-menlo-subject.png" alt="Location Map" loading="lazy"></picture></div>
 </div>
 
 <div class="page-break-marker"></div>
@@ -413,7 +433,7 @@ td.num, th.num { text-align: right; }
   <div class="section-title">Rent Comparables</div>
   <div class="section-subtitle">Achieved and Asking Rents in the Immediate Submarket</div>
   <div class="section-divider"></div>
-  <div class="loc-wide-map comp-map" style="height:340px;"><img src="../images/maps-1623-menlo-rent-comps.png" alt="Rent Comps Map" loading="lazy"></div>
+  <div class="loc-wide-map comp-map"><picture><source media="(max-width: 700px)" srcset="../images/maps-1623-menlo-rent-comps-tall.png"><img src="../images/maps-1623-menlo-rent-comps.png" alt="Rent Comps Map" loading="lazy"></picture></div>
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th>Unit Type</th><th class="num">SF</th><th class="num">Asking Rent</th><th class="num">Distance</th></tr></thead>
     <tbody><tr><td>1240 Magnolia Avenue, Unit 201</td><td>2BR 1BA</td><td class="num">-</td><td class="num">$2,395</td><td class="num">0.48 mi</td></tr><tr><td>1029 Westmoreland Avenue</td><td>2BR 1BA</td><td class="num">960</td><td class="num">$2,295</td><td class="num">0.66 mi</td></tr><tr><td>2231 Ellendale Place</td><td>2BR 1BA</td><td class="num">750</td><td class="num">$2,495</td><td class="num">0.70 mi</td></tr><tr><td>1037 Dewey Avenue</td><td>2BR 2BA</td><td class="num">778</td><td class="num">$2,748</td><td class="num">0.76 mi</td></tr><tr><td>980 Menlo Avenue</td><td>2BR 2BA</td><td class="num">950</td><td class="num">$2,450</td><td class="num">0.77 mi</td></tr>
@@ -429,11 +449,11 @@ td.num, th.num { text-align: right; }
   <div class="section-title">Sale Comparables</div>
   <div class="section-subtitle">2 Closed Sales in the Submarket</div>
   <div class="section-divider"></div>
-  <div class="loc-wide-map comp-map" style="height:340px;"><img src="../images/maps-1623-menlo-sale-comps.png" alt="Sale Comps Map" loading="lazy"></div>
+  <div class="loc-wide-map comp-map"><picture><source media="(max-width: 700px)" srcset="../images/maps-1623-menlo-sale-comps-tall.png"><img src="../images/maps-1623-menlo-sale-comps.png" alt="Sale Comps Map" loading="lazy"></picture></div>
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th class="num">Yr</th><th class="num">Units</th><th class="num">Bldg SF</th><th class="num">Sale Price</th><th class="num">$/Unit</th><th class="num">$/SF</th><th class="num">GRM</th><th class="num">Cap</th><th class="num">Date</th></tr></thead>
     <tbody><tr><td>1038 Dewey Avenue</td><td class="num">1989</td><td class="num">6</td><td class="num">5,216</td><td class="num">$2,130,000</td><td class="num">$355,000</td><td class="num">$408</td><td class="num">12.36</td><td class="num">5.69%</td><td class="num">November 21, 2025</td></tr><tr><td>843 South Ardmore Avenue</td><td class="num">1989</td><td class="num">15</td><td class="num">13,095</td><td class="num">$3,550,000</td><td class="num">$236,667</td><td class="num">$271</td><td class="num">10.48</td><td class="num">6.67%</td><td class="num">July 25, 2025</td></tr>
-<tr class="summary"><td colspan="4"><strong>Median (2 comps)</strong></td><td class="num"><strong>$3,550,000</strong></td><td class="num"><strong>$355,000</strong></td><td class="num"><strong>$408</strong></td><td class="num">-</td><td class="num">-</td><td class="num">-</td></tr>
+<tr class="summary"><td colspan="4"><strong>Median (2 comps)</strong></td><td class="num"><strong>$2,840,000</strong></td><td class="num"><strong>$295,833</strong></td><td class="num"><strong>$340</strong></td><td class="num">-</td><td class="num">-</td><td class="num">-</td></tr>
 </tbody>
   </table></div>
 <p class="narrative">The supplied closed sales frame the subject between a premium six unit result at $355,000 per unit and a larger fifteen unit result at approximately $237,000 per unit. The active competition asks approximately $283,000 to $339,000 per unit.</p>
@@ -446,11 +466,11 @@ td.num, th.num { text-align: right; }
   <div class="section-title">On-Market Comparables</div>
   <div class="section-subtitle">Active Competition and the Pricing Ceiling</div>
   <div class="section-divider"></div>
-  <div class="loc-wide-map comp-map" style="height:340px;"><img src="../images/maps-1623-menlo-active-comps.png" alt="On-Market Comps Map" loading="lazy"></div>
+  <div class="loc-wide-map comp-map"><picture><source media="(max-width: 700px)" srcset="../images/maps-1623-menlo-active-comps-tall.png"><img src="../images/maps-1623-menlo-active-comps.png" alt="On-Market Comps Map" loading="lazy"></picture></div>
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th class="num">Yr</th><th class="num">Units</th><th class="num">Bldg SF</th><th class="num">List Price</th><th class="num">$/Unit</th><th class="num">$/SF</th><th class="num">GRM</th><th class="num">Cap</th><th class="num">Date</th></tr></thead>
     <tbody><tr><td>1056 Dewey Avenue</td><td class="num">1982</td><td class="num">6</td><td class="num">4,874</td><td class="num">$1,695,000</td><td class="num">$282,500</td><td class="num">$348</td><td class="num">12.87</td><td class="num">-</td><td class="num">Active as of July 29, 2026</td></tr><tr><td>955 South Normandie Avenue</td><td class="num">1986</td><td class="num">14</td><td class="num">14,652</td><td class="num">$4,750,000</td><td class="num">$339,286</td><td class="num">$324</td><td class="num">13.20</td><td class="num">-</td><td class="num">Active as of July 29, 2026</td></tr>
-<tr class="summary"><td colspan="4"><strong>Median (2 comps)</strong></td><td class="num"><strong>$4,750,000</strong></td><td class="num"><strong>$339,286</strong></td><td class="num"><strong>$348</strong></td><td class="num">-</td><td class="num">-</td><td class="num">-</td></tr>
+<tr class="summary"><td colspan="4"><strong>Median (2 comps)</strong></td><td class="num"><strong>$3,222,500</strong></td><td class="num"><strong>$310,893</strong></td><td class="num"><strong>$336</strong></td><td class="num">-</td><td class="num">-</td><td class="num">-</td></tr>
 </tbody>
   </table></div>
   <div class="comp-narratives"><p class="narrative"><strong>1056 Dewey Avenue</strong> - A nearby six unit 1982 offering priced at $1.695M after a $150,000 reduction and return to market. Its location, vintage, and similar building size make it a direct active competitor for the same buyer pool.</p><p class="narrative"><strong>955 South Normandie Avenue</strong> - A fourteen unit 1986 offering that targets larger private capital in the same central Los Angeles submarket. The listing helps define the price expectations of larger non RSO oriented competition.</p></div>

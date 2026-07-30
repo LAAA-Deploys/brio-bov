@@ -125,10 +125,10 @@ td.num, th.num { text-align: right; }
 .inv-highlights li:before { content: '\2022'; color: #C5A258; position: absolute; left: 0; }
 .loc-grid { display: grid; grid-template-columns: 58% 42%; gap: 28px; align-items: start; }
 .loc-left p { font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
-.loc-wide-map { width: 100%; height: 260px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-top: 24px; }
+.loc-wide-map { width: 100%; aspect-ratio: 3 / 1; height: auto; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-top: 24px; }
 .loc-wide-map img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .loc-wide-map.comp-map { background: #e8e4d8; }
-.loc-wide-map.comp-map img { object-fit: contain; }
+.loc-wide-map.comp-map img { object-fit: cover; }
 .prop-grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .improv-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: start; margin-top: 24px; }
 .improv-list { list-style: none; }
@@ -238,6 +238,26 @@ td.num, th.num { text-align: right; }
 .toc-nav a { min-height: 44px; box-sizing: border-box; }
 .toc-nav a:focus-visible { outline: 2px solid #C5A258; outline-offset: -2px; color: #fff; }
 .toc-nav { scroll-behavior: smooth; }
+
+/* Map frames (Glen 2026-07-30). Maps are rendered to the frame's aspect ratio by
+   make_maps.py, so nothing is cropped or letterboxed at any width. Phones get a
+   taller render via <picture>; the frame switches to match. Verified by
+   audit_media.mjs. */
+.loc-wide-map { aspect-ratio: 3 / 1; height: auto !important; }
+@media (max-width: 700px) {
+  .loc-wide-map { aspect-ratio: 4 / 3; }
+}
+
+/* Portfolio hub property cards (Glen 2026-07-30). On phones the card stacks, so
+   a fixed-width side image gets squeezed into a tall box and loses most of the
+   photo. Below 700px the image becomes a full-width banner at its own aspect.
+   Verified by audit_media.mjs. */
+.prop-card-img { width: 170px; flex: 0 0 170px; aspect-ratio: 3 / 2; height: auto !important;
+                 min-height: 0 !important; border-radius: 8px; object-fit: cover; }
+@media (max-width: 700px) {
+  .bio-card:has(.prop-card-img) { flex-direction: column; }
+  .prop-card-img { width: 100%; flex: 0 0 auto; aspect-ratio: 16 / 9; }
+}
 
 </style>
 </head>
@@ -354,7 +374,7 @@ td.num, th.num { text-align: right; }
       <table class="info-table"><thead><tr><th colspan="2">Property &amp; Location Details</th></tr></thead><tbody><tr><td>Address</td><td>359 Parke Street</td></tr><tr><td>City</td><td>Pasadena, California 91101</td></tr><tr><td>APN</td><td>5725 029 018</td></tr><tr><td>Year Built</td><td>1957</td></tr><tr><td>Building SF</td><td>7,196</td></tr><tr><td>Lot Size</td><td>11,326 SF (0.26 ac)</td></tr><tr><td>Units</td><td>10</td></tr><tr><td>Parking</td><td>Fourteen spaces reported in historical marketing, including carports, one garage, and open parking</td></tr></tbody></table>
     </div>
   </div>
-  <div class="loc-wide-map"><img src="../images/maps-359-parke-subject.png" alt="Location Map" loading="lazy"></div>
+  <div class="loc-wide-map"><picture><source media="(max-width: 700px)" srcset="../images/maps-359-parke-subject-tall.png"><img src="../images/maps-359-parke-subject.png" alt="Location Map" loading="lazy"></picture></div>
 </div>
 
 <div class="page-break-marker"></div>
@@ -412,7 +432,7 @@ td.num, th.num { text-align: right; }
   <div class="section-title">Rent Comparables</div>
   <div class="section-subtitle">Achieved and Asking Rents in the Immediate Submarket</div>
   <div class="section-divider"></div>
-  <div class="loc-wide-map comp-map" style="height:340px;"><img src="../images/maps-359-parke-rent-comps.png" alt="Rent Comps Map" loading="lazy"></div>
+  <div class="loc-wide-map comp-map"><picture><source media="(max-width: 700px)" srcset="../images/maps-359-parke-rent-comps-tall.png"><img src="../images/maps-359-parke-rent-comps.png" alt="Rent Comps Map" loading="lazy"></picture></div>
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th>Unit Type</th><th class="num">SF</th><th class="num">Asking Rent</th><th class="num">Distance</th></tr></thead>
     <tbody><tr><td>380 Parke Street, Unit 10</td><td>1BR 1BA</td><td class="num">480</td><td class="num">$2,100</td><td class="num">0.13 mi</td></tr><tr><td>456 East Orange Grove Boulevard</td><td>1BR 1BA</td><td class="num">570</td><td class="num">$2,300</td><td class="num">0.12 mi</td></tr><tr><td>570 North Los Robles Avenue</td><td>2BR 1BA</td><td class="num">856</td><td class="num">$2,545</td><td class="num">0.19 mi</td></tr><tr><td>853 North Raymond Avenue</td><td>2BR 1BA</td><td class="num">975</td><td class="num">$2,300</td><td class="num">0.52 mi</td></tr><tr><td>303 North Oakland Avenue</td><td>2BR 1BA</td><td class="num">827</td><td class="num">$2,363</td><td class="num">0.54 mi</td></tr>
@@ -428,11 +448,11 @@ td.num, th.num { text-align: right; }
   <div class="section-title">Sale Comparables</div>
   <div class="section-subtitle">6 Closed Sales in the Submarket</div>
   <div class="section-divider"></div>
-  <div class="loc-wide-map comp-map" style="height:340px;"><img src="../images/maps-359-parke-sale-comps.png" alt="Sale Comps Map" loading="lazy"></div>
+  <div class="loc-wide-map comp-map"><picture><source media="(max-width: 700px)" srcset="../images/maps-359-parke-sale-comps-tall.png"><img src="../images/maps-359-parke-sale-comps.png" alt="Sale Comps Map" loading="lazy"></picture></div>
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th class="num">Yr</th><th class="num">Units</th><th class="num">Bldg SF</th><th class="num">Sale Price</th><th class="num">$/Unit</th><th class="num">$/SF</th><th class="num">GRM</th><th class="num">Cap</th><th class="num">Date</th></tr></thead>
     <tbody><tr><td>826 North Summit Avenue</td><td class="num">1956</td><td class="num">5</td><td class="num">3,658</td><td class="num">$1,085,000</td><td class="num">$217,000</td><td class="num">$297</td><td class="num">11.24</td><td class="num">6.04%</td><td class="num">April 28, 2026</td></tr><tr><td>965 North Summit Avenue</td><td class="num">1958</td><td class="num">6</td><td class="num">4,275</td><td class="num">$1,512,000</td><td class="num">$252,000</td><td class="num">$354</td><td class="num">12.82</td><td class="num">5.17%</td><td class="num">December 31, 2025</td></tr><tr><td>1757 East Villa Street</td><td class="num">1959</td><td class="num">6</td><td class="num">3,936</td><td class="num">$1,500,000</td><td class="num">$250,000</td><td class="num">$381</td><td class="num">-</td><td class="num">-</td><td class="num">July 10, 2026</td></tr><tr><td>696 Earlham Street</td><td class="num">1965</td><td class="num">6</td><td class="num">5,640</td><td class="num">$1,800,000</td><td class="num">$300,000</td><td class="num">$319</td><td class="num">12.48</td><td class="num">5.45%</td><td class="num">November 6, 2025</td></tr><tr><td>679 Earlham Street</td><td class="num">1965</td><td class="num">8</td><td class="num">6,291</td><td class="num">$2,260,000</td><td class="num">$282,500</td><td class="num">$359</td><td class="num">10.91</td><td class="num">6.52%</td><td class="num">August 27, 2025</td></tr><tr><td>423 North Garfield Avenue</td><td class="num">1962</td><td class="num">12</td><td class="num">9,272</td><td class="num">$2,850,000</td><td class="num">$237,500</td><td class="num">$307</td><td class="num">11.24</td><td class="num">6.14%</td><td class="num">May 8, 2026</td></tr>
-<tr class="summary"><td colspan="4"><strong>Median (6 comps)</strong></td><td class="num"><strong>$1,800,000</strong></td><td class="num"><strong>$252,000</strong></td><td class="num"><strong>$354</strong></td><td class="num">-</td><td class="num">-</td><td class="num">-</td></tr>
+<tr class="summary"><td colspan="4"><strong>Median (6 comps)</strong></td><td class="num"><strong>$1,656,000</strong></td><td class="num"><strong>$251,000</strong></td><td class="num"><strong>$336</strong></td><td class="num">-</td><td class="num">-</td><td class="num">-</td></tr>
 </tbody>
   </table></div>
 <p class="narrative">The six Pasadena sales span $217,000 to $300,000 per unit and approximately $297 to $381 per square foot. Income evidence, where supported, spans roughly 5.17% to 6.52% on a normalized cap rate basis.</p>

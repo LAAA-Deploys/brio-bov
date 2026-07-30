@@ -49,6 +49,22 @@ jobs:
           if [ $fail -eq 0 ]; then echo "Design lock guard passed"; fi
           exit $fail
 
+      # Every image and map must fit its frame. This catches what a broken-link
+      # check cannot see: a wide map squeezed into a tall box and cropped, a
+      # photo stretched out of aspect, or a frame left half empty. That exact
+      # failure shipped here once already.
+      - name: Media fit audit
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm i -D playwright@latest >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+          python3 -m http.server 8901 >/dev/null 2>&1 &
+          for i in $(seq 1 20); do curl -sf http://localhost:8901/index.html >/dev/null && break; sleep 1; done
+          node audit_media.mjs http://localhost:8901
+          rc=$?
+          rm -f package.json package-lock.json; rm -rf node_modules
+          exit $rc
+
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

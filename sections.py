@@ -7,6 +7,24 @@ import json
 from build_site import (e, num, money, pct, paras, rel, section_head, metrics4, SLIDE_JS)
 
 
+def map_frame(src, alt, d, extra_class=""):
+    """Emit a map in a <picture> so the render matches the frame at every width.
+
+    make_maps.py writes two files per map: `<name>.png` at 3:1 for the desktop
+    band and `<name>-tall.png` at 4:3 for phones. bov.css switches the frame
+    aspect at the same 700px breakpoint, so neither render is ever cropped or
+    letterboxed. Verified by audit_media.mjs.
+    """
+    if not src:
+        return ""
+    tall = src.replace(".png", "-tall.png")
+    cls = ("loc-wide-map " + extra_class).strip()
+    return ('  <div class="%s"><picture>'
+            '<source media="(max-width: 700px)" srcset="%s">'
+            '<img src="%s" alt="%s" loading="lazy"></picture></div>\n'
+            % (cls, rel(tall, d), rel(src, d), e(alt)))
+
+
 # ---------------------------------------------------------------------------
 # property page sections
 # ---------------------------------------------------------------------------
@@ -37,9 +55,7 @@ def investment(p, d):
 
 
 def location(p, d):
-    m = p["maps"].get("subject")
-    map_html = (f'  <div class="loc-wide-map"><img src="{rel(m, d)}" alt="Location Map" loading="lazy"></div>\n'
-                if m else "")
+    map_html = map_frame(p["maps"].get("subject"), "Location Map", d)
     rows = "".join(f"<tr><td>{e(k)}</td><td>{e(v)}</td></tr>" for k, v in [
         ("Address", p["address"]), ("City", p["city"]), ("APN", p["apn"]),
         ("Year Built", p["year_built"]), ("Building SF", num(p["building_sf"])),
@@ -135,9 +151,7 @@ def buyer_profile(p):
 
 
 def rent_comps(p, d):
-    m = p["maps"].get("rent")
-    map_html = (f'  <div class="loc-wide-map comp-map" style="height:340px;"><img src="{rel(m, d)}" alt="Rent Comps Map" loading="lazy"></div>\n'
-                if m else "")
+    map_html = map_frame(p["maps"].get("rent"), "Rent Comps Map", d, "comp-map")
     rows = "".join(
         f'<tr><td>{e(c["address"])}</td><td>{e(c["unit_type"])}</td>'
         f'<td class="num">{num(c["square_feet"]) if c.get("square_feet") else "-"}</td>'
@@ -173,7 +187,12 @@ def _comp_table(comps, price_label):
     n = len(comps)
 
     def med(k):
-        return sorted(c[k] for c in comps)[n // 2] if n else 0
+        """True median. For an even count take the mean of the two middle values;
+        sorted[n//2] alone reports the higher of a pair, which is not a median."""
+        if not n:
+            return 0
+        v = sorted(c[k] for c in comps)
+        return v[n // 2] if n % 2 else (v[n // 2 - 1] + v[n // 2]) / 2
 
     return f"""  <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th class="num">Yr</th><th class="num">Units</th><th class="num">Bldg SF</th><th class="num">{price_label}</th><th class="num">$/Unit</th><th class="num">$/SF</th><th class="num">GRM</th><th class="num">Cap</th><th class="num">Date</th></tr></thead>
@@ -185,9 +204,7 @@ def _comp_table(comps, price_label):
 
 
 def sale_comps(p, d):
-    m = p["maps"].get("sale")
-    map_html = (f'  <div class="loc-wide-map comp-map" style="height:340px;"><img src="{rel(m, d)}" alt="Sale Comps Map" loading="lazy"></div>\n'
-                if m else "")
+    map_html = map_frame(p["maps"].get("sale"), "Sale Comps Map", d, "comp-map")
     cards = "".join(
         f'<p class="narrative"><strong>{i}. {e(c["address"])}</strong> - {e(c["summary"])} '
         f'{e(c["relevance"])} {e(c["considerations"])}</p>'
@@ -207,9 +224,7 @@ def sale_comps(p, d):
 def on_market(p, d):
     if not p["active_comps"]:
         return ""
-    m = p["maps"].get("active")
-    map_html = (f'  <div class="loc-wide-map comp-map" style="height:340px;"><img src="{rel(m, d)}" alt="On-Market Comps Map" loading="lazy"></div>\n'
-                if m else "")
+    map_html = map_frame(p["maps"].get("active"), "On-Market Comps Map", d, "comp-map")
     cards = "".join(
         f'<p class="narrative"><strong>{e(c["address"])}</strong> - {e(c["summary"])} {e(c["relevance"])}</p>'
         for c in p["active_comps"])
@@ -328,8 +343,7 @@ def portfolio_overview(data, d):
     for p in data["properties"]:
         cards += f"""
     <a class="bio-card" href="{p['slug']}/" style="text-decoration:none;color:inherit;align-items:stretch;">
-      <img class="bio-headshot" src="{rel('images/card-' + p['slug'].split('-', 1)[1] + '.jpg', d)}" alt="{e(p['short_name'])}"
-           style="width:170px;height:100%;min-height:150px;border-radius:8px;object-fit:cover;flex:0 0 170px;" loading="lazy">
+      <img class="bio-headshot prop-card-img" src="{rel('images/card-' + p['slug'].split('-', 1)[1] + '.jpg', d)}" alt="{e(p['short_name'])}" loading="lazy">
       <div style="display:flex;flex-direction:column;flex:1;">
         <div class="bio-name">{e(p['short_name'])}</div>
         <div class="bio-title">{e(p['city'])}</div>
@@ -350,6 +364,6 @@ def portfolio_overview(data, d):
   <h3 class="sub-heading">The Properties</h3>
   <div class="bio-grid">{cards}
   </div>
-  <div class="loc-wide-map"><img src="{rel(data['meta']['portfolio_map'], d)}" alt="Portfolio Map" loading="lazy"></div>
+{map_frame(data['meta']['portfolio_map'], "Portfolio Map", d).rstrip()}
 </div>
 """

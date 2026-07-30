@@ -417,6 +417,7 @@ footer p { margin: 4px 0 0; color: rgba(255,255,255,.62); font-size: .82rem; }
 @media print {
   @page { size: Letter; margin: 0; }
   html, body { background: #fff !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .site-header, footer { display: none !important; }
   .print-composition { background: #fff; }
   .print-cover { height: 11in; min-height: 11in; break-after: page; }
   .print-cover-content { padding: .72in; }

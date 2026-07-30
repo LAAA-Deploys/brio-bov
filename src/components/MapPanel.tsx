@@ -16,8 +16,12 @@ declare global {
       };
     };
     __brioGoogleMapsPromise?: Promise<void>;
+    __brioGoogleMapsAuthHandlerInstalled?: boolean;
+    gm_authFailure?: () => void;
   }
 }
+
+const authFailureListeners = new Set<() => void>();
 
 const markerColors: Record<MapPoint["kind"], string> = {
   subject: "#c5a258",
@@ -33,6 +37,39 @@ type ManifestEntry = {
   placeId: string;
   formattedAddress: string;
 };
+
+let mapManifestPromise: Promise<ManifestEntry[]> | undefined;
+
+function loadMapManifest() {
+  if (mapManifestPromise) return mapManifestPromise;
+  mapManifestPromise = fetch("/assets/maps/map-manifest.json")
+    .then((response) => {
+      if (!response.ok) throw new Error("Map manifest could not load");
+      return response.json() as Promise<{ entries?: ManifestEntry[] }>;
+    })
+    .then((manifest) => {
+      if (!manifest.entries) throw new Error("Map manifest is incomplete");
+      return manifest.entries;
+    })
+    .catch((error) => {
+      mapManifestPromise = undefined;
+      throw error;
+    });
+  return mapManifestPromise;
+}
+
+function registerGoogleMapsAuthFailure(listener: () => void) {
+  authFailureListeners.add(listener);
+  if (!window.__brioGoogleMapsAuthHandlerInstalled) {
+    const previousHandler = window.gm_authFailure;
+    window.gm_authFailure = () => {
+      previousHandler?.();
+      authFailureListeners.forEach((callback) => callback());
+    };
+    window.__brioGoogleMapsAuthHandlerInstalled = true;
+  }
+  return () => authFailureListeners.delete(listener);
+}
 
 function loadGoogleMaps(key: string) {
   if (window.google?.maps) return Promise.resolve();
@@ -82,11 +119,10 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
 
   useEffect(() => {
     let active = true;
-    fetch("/assets/maps/map-manifest.json")
-      .then((response) => response.json())
-      .then((manifest: { entries?: ManifestEntry[] }) => {
-        if (!active || !manifest.entries) return;
-        setVerifiedPoints(hydrateMapPoints(points, manifest.entries));
+    loadMapManifest()
+      .then((entries) => {
+        if (!active) return;
+        setVerifiedPoints(hydrateMapPoints(points, entries));
       })
       .catch(() => {
         if (active) setVerifiedPoints([]);
@@ -122,12 +158,19 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
       !hasCompleteCoordinates(resolvedPoints)
     ) return;
     let active = true;
+    let authFailed = false;
     const host = hostRef.current;
+    const unregisterAuthFailure = registerGoogleMapsAuthFailure(() => {
+      if (!active) return;
+      authFailed = true;
+      setInteractive(false);
+      host.replaceChildren();
+    });
     setInteractive(false);
     host.replaceChildren();
     loadGoogleMaps(key)
       .then(() => {
-        if (!active || !hostRef.current || !window.google?.maps) return;
+        if (!active || authFailed || !hostRef.current || !window.google?.maps) return;
         const center = {
           lat: resolvedPoints[0].lat as number,
           lng: resolvedPoints[0].lng as number
@@ -175,6 +218,7 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
       .catch(() => setInteractive(false));
     return () => {
       active = false;
+      unregisterAuthFailure();
       setInteractive(false);
       host.replaceChildren();
     };

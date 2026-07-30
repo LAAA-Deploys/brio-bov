@@ -8,5 +8,8 @@ proof/
 .env.*
 !.env.example
 *.log
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 Thumbs.db
 .DS_Store

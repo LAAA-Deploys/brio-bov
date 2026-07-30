@@ -110,6 +110,7 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
     ) return;
     let active = true;
     const host = hostRef.current;
+    setInteractive(false);
     host.replaceChildren();
     loadGoogleMaps(key)
       .then(() => {
@@ -161,6 +162,7 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
       .catch(() => setInteractive(false));
     return () => {
       active = false;
+      setInteractive(false);
       host.replaceChildren();
     };
   }, [points.length, resolvedPoints, shouldLoadInteractive]);

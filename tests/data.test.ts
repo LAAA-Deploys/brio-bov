@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { hydrateMapPoints, mapMarkerLabel } from "../src/components/MapPanel";
 import { menlo, parke, portfolio } from "../src/data/portfolio";
+import manifest from "../public/assets/maps/map-manifest.json";
 
 describe("approved Brio valuation data", () => {
   it("ties the locked portfolio values", () => {
@@ -35,5 +37,20 @@ describe("approved Brio valuation data", () => {
 
   it("does not assert a Menlo unit mix", () => {
     expect(menlo.rentRoll.every((line) => line.configuration === "Configuration to be verified")).toBe(true);
+  });
+
+  it("hydrates every sanctioned map point from the verified manifest", () => {
+    for (const property of [parke, menlo]) {
+      const hydrated = hydrateMapPoints(property.mapPoints, manifest.entries);
+      expect(hydrated.every((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng))).toBe(true);
+      expect(hydrated.every((point) => Boolean(point.placeId))).toBe(true);
+    }
+  });
+
+  it("numbers comparable markers independently from the subject marker", () => {
+    const points = parke.mapPoints.slice(0, 3);
+    expect(mapMarkerLabel(points, 0)).toBe("S");
+    expect(mapMarkerLabel(points, 1)).toBe("1");
+    expect(mapMarkerLabel(points, 2)).toBe("2");
   });
 });

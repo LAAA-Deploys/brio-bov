@@ -455,7 +455,6 @@ function ComparableCard({ comp, property }: { comp: SaleComp; property: Property
           id={`${property.slug}-${comp.id}`}
           title={`${comp.address} and subject`}
           points={mapPoints}
-          staticImage={comp.status === "Active" ? "/assets/maps/1623-menlo-active-comps.png" : undefined}
           compact
         />
       )}

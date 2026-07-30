@@ -10,7 +10,7 @@ fs.mkdirSync(output, { recursive: true });
 
 const server = spawn(
   process.execPath,
-  ["./node_modules/vite/bin/vite.js", "--host", "127.0.0.1", "--port", port, "--strictPort"],
+  ["./node_modules/vite/bin/vite.js", "preview", "--host", "127.0.0.1", "--port", port, "--strictPort"],
   { cwd: process.cwd(), env: process.env, stdio: ["ignore", "pipe", "pipe"], windowsHide: true }
 );
 

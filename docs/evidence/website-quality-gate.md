@@ -20,7 +20,8 @@ subject to Glen's approval of the final reviewed commit SHA.
   stored in `src/data/portfolio.ts` and validated by automated tests.
 - Client-visible copy was scanned for internal process language, stale-deal
   residue, placeholders, TODO/FIXME markers, and unsupported prior-deal names.
-- All 33 referenced local image assets and all 22 rooftop map entities resolve.
+- All referenced local imagery, 10 comp-detail relationship maps, and all 22
+  rooftop map entities resolve.
 - Regulatory language distinguishes verified official facts from seller
   confirmation and due-diligence items.
 - Desktop and mobile routes were rendered and visually inspected.

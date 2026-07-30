@@ -50,6 +50,33 @@ const markerColors: Record<MapPoint["kind"], string> = {
   rent: "#537a63"
 };
 
+type ManifestEntry = {
+  id: string;
+  lat: number;
+  lng: number;
+  placeId: string;
+  formattedAddress: string;
+};
+
+export function hydrateMapPoints(points: MapPoint[], entries: ManifestEntry[]) {
+  const byId = new Map(entries.map((entry) => [entry.id, entry]));
+  return points.map((point) => {
+    const verified = byId.get(manifestAliases[point.id]);
+    return verified ? {
+      ...point,
+      address: verified.formattedAddress,
+      lat: verified.lat,
+      lng: verified.lng,
+      placeId: verified.placeId
+    } : point;
+  });
+}
+
+export function mapMarkerLabel(points: MapPoint[], index: number) {
+  if (points[index].kind === "subject") return "S";
+  return String(points.slice(0, index + 1).filter((point) => point.kind !== "subject").length);
+}
+
 function loadGoogleMaps(key: string) {
   if (window.google?.maps) return Promise.resolve();
   if (window.__brioGoogleMapsPromise) return window.__brioGoogleMapsPromise;
@@ -85,19 +112,9 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
     let active = true;
     fetch("/assets/maps/map-manifest.json")
       .then((response) => response.json())
-      .then((manifest: { entities?: Array<{ id: string; lat: number; lng: number; placeId: string; formattedAddress: string }> }) => {
-        if (!active || !manifest.entities) return;
-        const byId = new Map(manifest.entities.map((entity) => [entity.id, entity]));
-        setVerifiedPoints(points.map((point) => {
-          const verified = byId.get(manifestAliases[point.id]);
-          return verified ? {
-            ...point,
-            address: verified.formattedAddress,
-            lat: verified.lat,
-            lng: verified.lng,
-            placeId: verified.placeId
-          } : point;
-        }));
+      .then((manifest: { entries?: ManifestEntry[] }) => {
+        if (!active || !manifest.entries) return;
+        setVerifiedPoints(hydrateMapPoints(points, manifest.entries));
       })
       .catch(() => setVerifiedPoints(points));
     return () => {
@@ -137,7 +154,7 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
             position,
             title: point.label,
             label: {
-              text: point.kind === "subject" ? "S" : String(index + 1),
+              text: mapMarkerLabel(resolvedPoints, index),
               color: "#ffffff",
               fontWeight: "700"
             },
@@ -188,7 +205,7 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
                 target="_blank"
                 rel="noreferrer"
               >
-                <span>{point.kind === "subject" ? "S" : index + 1}</span>
+                <span>{mapMarkerLabel(verifiedPoints, index)}</span>
                 {point.label}
               </a>
             ))}

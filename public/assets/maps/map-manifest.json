@@ -1,0 +1,701 @@
+{
+  "schemaVersion": 1,
+  "deal": "Brio Real Estate portfolio BOV",
+  "generatedAt": "2026-07-30T18:09:30.515Z",
+  "resolver": "C:/Users/gscher/laaa-geo/capabilities/resolveAddress.mjs",
+  "keyHandling": "Environment only; no credential persisted.",
+  "browserMaps": {
+    "javascriptApiKeyAvailable": false,
+    "fallback": "Use the persisted Google Static Maps assets plus each entity's Google Maps click-through URL until an authorized browser-restricted key is supplied at runtime."
+  },
+  "selectionBasis": {
+    "parkeSold": "Six usable non-Catalina sales in the approved 359 Parke property-specific MLS cohort, in approved table order.",
+    "menloSold": "Two approved sold comps in the 1623 Menlo property-specific MLS cohort, in approved table order.",
+    "menloActive": "Two approved active competitors in the 1623 Menlo property-specific MLS cohort, in approved table order.",
+    "rent": "Five selected nearby observations explicitly listed in each saved Rentometer report, in report order."
+  },
+  "entries": [
+    {
+      "id": "parke-subject",
+      "property": "359-parke",
+      "category": "subject",
+      "order": 0,
+      "inputAddress": "359 Parke Street, Pasadena, CA 91101",
+      "source": "Brio approval packet subject dossier",
+      "lat": 34.1571986,
+      "lng": -118.14308179999998,
+      "placeId": "ChIJhSK2oRPDwoARzPaandO1Xzk",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "359 Parke St, Pasadena, CA 91101, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Marker tip is on the long 359 Parke apartment roof; confirmed against visible parcel/address labels and building-facing Street View."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.1571986%2C-118.14308179999998&query_place_id=ChIJhSK2oRPDwoARzPaandO1Xzk",
+      "validationAsset": "validation/parke-subject.png"
+    },
+    {
+      "id": "parke-sold-01-826-n-summit",
+      "property": "359-parke",
+      "category": "sold",
+      "order": 1,
+      "inputAddress": "826 North Summit Avenue, Pasadena, CA",
+      "source": "359 Parke MLS closed-sale comp review, 2026-07-29",
+      "lat": 34.1600555,
+      "lng": -118.147316,
+      "placeId": "ChIJCcpq3xHDwoARsL1Vh6a-yHE",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "826 N Summit Ave, Pasadena, CA 91103, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.1600555%2C-118.147316&query_place_id=ChIJCcpq3xHDwoARsL1Vh6a-yHE",
+      "validationAsset": "validation/parke-sold-01-826-n-summit.png"
+    },
+    {
+      "id": "parke-sold-02-965-n-summit",
+      "property": "359-parke",
+      "category": "sold",
+      "order": 2,
+      "inputAddress": "965 North Summit Avenue, Pasadena, CA",
+      "source": "359 Parke MLS closed-sale comp review, 2026-07-29",
+      "lat": 34.162546299999995,
+      "lng": -118.14807460000002,
+      "placeId": "ChIJSdDm5Q_DwoARvv2fRHLvxrs",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "965 N Summit Ave, Pasadena, CA 91103, USA",
+      "types": [
+        "subpremise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.162546299999995%2C-118.14807460000002&query_place_id=ChIJSdDm5Q_DwoARvv2fRHLvxrs",
+      "validationAsset": "validation/parke-sold-02-965-n-summit.png"
+    },
+    {
+      "id": "parke-sold-03-1757-e-villa",
+      "property": "359-parke",
+      "category": "sold",
+      "order": 3,
+      "inputAddress": "1757 East Villa Street, Pasadena, CA",
+      "source": "359 Parke MLS closed-sale comp review, 2026-07-29",
+      "lat": 34.154587,
+      "lng": -118.11417429999999,
+      "placeId": "ChIJn4315UzDwoARcWlOguIDDTs",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "1757 E Villa St, Pasadena, CA 91106, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.154587%2C-118.11417429999999&query_place_id=ChIJn4315UzDwoARcWlOguIDDTs",
+      "validationAsset": "validation/parke-sold-03-1757-e-villa.png"
+    },
+    {
+      "id": "parke-sold-04-696-earlham",
+      "property": "359-parke",
+      "category": "sold",
+      "order": 4,
+      "inputAddress": "696 Earlham Street, Pasadena, CA",
+      "source": "359 Parke MLS closed-sale comp review, 2026-07-29",
+      "lat": 34.1564873,
+      "lng": -118.13612309999999,
+      "placeId": "ChIJKUReURXDwoAReKCnNnq5khk",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "696 Earlham St, Pasadena, CA 91101, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.1564873%2C-118.13612309999999&query_place_id=ChIJKUReURXDwoAReKCnNnq5khk",
+      "validationAsset": "validation/parke-sold-04-696-earlham.png"
+    },
+    {
+      "id": "parke-sold-05-679-earlham",
+      "property": "359-parke",
+      "category": "sold",
+      "order": 5,
+      "inputAddress": "679 Earlham Street, Pasadena, CA",
+      "source": "359 Parke MLS closed-sale comp review, 2026-07-29",
+      "lat": 34.157002399999996,
+      "lng": -118.1364071,
+      "placeId": "ChIJc_I1WxXDwoARgu6jWxqLCiU",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "679 Earlham St, Pasadena, CA 91101, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.157002399999996%2C-118.1364071&query_place_id=ChIJc_I1WxXDwoARgu6jWxqLCiU",
+      "validationAsset": "validation/parke-sold-05-679-earlham.png"
+    },
+    {
+      "id": "parke-sold-06-423-n-garfield",
+      "property": "359-parke",
+      "category": "sold",
+      "order": 6,
+      "inputAddress": "423 North Garfield Avenue, Pasadena, CA",
+      "source": "359 Parke MLS closed-sale comp review, 2026-07-29",
+      "lat": 34.153220999999995,
+      "lng": -118.14490699999999,
+      "placeId": "ChIJFdzJJW3DwoARKG9LwAcrE9Q",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "423 Garfield Ave, Pasadena, CA 91101, USA",
+      "types": [
+        "subpremise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.153220999999995%2C-118.14490699999999&query_place_id=ChIJFdzJJW3DwoARKG9LwAcrE9Q",
+      "validationAsset": "validation/parke-sold-06-423-n-garfield.png"
+    },
+    {
+      "id": "parke-rent-01-380-parke",
+      "property": "359-parke",
+      "category": "rent",
+      "order": 1,
+      "inputAddress": "380 Parke Street, Pasadena, CA 91101",
+      "source": "359 Parke Rentometer rent check, 2026-07-29",
+      "lat": 34.1565893,
+      "lng": -118.1423849,
+      "placeId": "ChIJIePpbxPDwoARNAiuRb9LqQc",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "380 Parke St, Pasadena, CA 91101, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.1565893%2C-118.1423849&query_place_id=ChIJIePpbxPDwoARNAiuRb9LqQc",
+      "validationAsset": "validation/parke-rent-01-380-parke.png"
+    },
+    {
+      "id": "parke-rent-02-456-e-orange-grove",
+      "property": "359-parke",
+      "category": "rent",
+      "order": 2,
+      "inputAddress": "456 East Orange Grove Boulevard, Pasadena, CA",
+      "source": "359 Parke Rentometer rent check, 2026-07-29",
+      "lat": 34.1574466,
+      "lng": -118.14088799999998,
+      "placeId": "ChIJmbo2hxTDwoAR4rcHWEX9Qpw",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "456 E Orange Grove Blvd, Pasadena, CA 91104, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Building-level rooftop accepted at Google's standardized 456 E Orange Grove Blvd result. Rentometer supplied no unit number; the marker is not in a road or neighboring parcel."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.1574466%2C-118.14088799999998&query_place_id=ChIJmbo2hxTDwoAR4rcHWEX9Qpw",
+      "validationAsset": "validation/parke-rent-02-456-e-orange-grove.png"
+    },
+    {
+      "id": "parke-rent-03-570-n-los-robles",
+      "property": "359-parke",
+      "category": "rent",
+      "order": 3,
+      "inputAddress": "570 North Los Robles Avenue, Pasadena, CA",
+      "source": "359 Parke Rentometer rent check, 2026-07-29",
+      "lat": 34.1557337,
+      "lng": -118.14106299999999,
+      "placeId": "ChIJbQS1pRTDwoAR41a2yQnNlCg",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "570 N Los Robles Ave, Pasadena, CA 91101, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.1557337%2C-118.14106299999999&query_place_id=ChIJbQS1pRTDwoAR41a2yQnNlCg",
+      "validationAsset": "validation/parke-rent-03-570-n-los-robles.png"
+    },
+    {
+      "id": "parke-rent-04-853-n-raymond",
+      "property": "359-parke",
+      "category": "rent",
+      "order": 4,
+      "inputAddress": "853 North Raymond Avenue, Pasadena, CA",
+      "source": "359 Parke Rentometer rent check, 2026-07-29",
+      "lat": 34.160546599999996,
+      "lng": -118.1494709,
+      "placeId": "ChIJW8hOSw7DwoAR3ebekhgHRHM",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "853 N Raymond Ave, Pasadena, CA 91103, USA",
+      "types": [
+        "subpremise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.160546599999996%2C-118.1494709&query_place_id=ChIJW8hOSw7DwoAR3ebekhgHRHM",
+      "validationAsset": "validation/parke-rent-04-853-n-raymond.png"
+    },
+    {
+      "id": "parke-rent-05-303-n-oakland",
+      "property": "359-parke",
+      "category": "rent",
+      "order": 5,
+      "inputAddress": "303 North Oakland Avenue, Pasadena, CA",
+      "source": "359 Parke Rentometer rent check, 2026-07-29",
+      "lat": 34.1511121,
+      "lng": -118.1403364,
+      "placeId": "ChIJs1WZ62vDwoARzswXXa7aOXw",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "303 N Oakland Ave, Pasadena, CA 91101, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.1511121%2C-118.1403364&query_place_id=ChIJs1WZ62vDwoARzswXXa7aOXw",
+      "validationAsset": "validation/parke-rent-05-303-n-oakland.png"
+    },
+    {
+      "id": "menlo-subject",
+      "property": "1623-menlo",
+      "category": "subject",
+      "order": 0,
+      "inputAddress": "1623 Menlo Avenue, Los Angeles, CA 90006",
+      "source": "Brio approval packet subject dossier",
+      "lat": 34.043589,
+      "lng": -118.29082349999999,
+      "placeId": "ChIJtSR6AI_HwoARdLeEKyce8dc",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "1623 Menlo Ave, Los Angeles, CA 90006, USA",
+      "types": [
+        "subpremise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Marker tip is on the long white 1623 Menlo apartment roof beside the parking field; confirmed against the building-facing Street View."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.043589%2C-118.29082349999999&query_place_id=ChIJtSR6AI_HwoARdLeEKyce8dc",
+      "validationAsset": "validation/menlo-subject.png"
+    },
+    {
+      "id": "menlo-sold-01-1038-dewey",
+      "property": "1623-menlo",
+      "category": "sold",
+      "order": 1,
+      "inputAddress": "1038 Dewey Avenue, Los Angeles, CA 90006",
+      "source": "1623 Menlo MLS closed-sale comp review, 2026-07-29",
+      "lat": 34.051542,
+      "lng": -118.2955051,
+      "placeId": "ChIJMYJFEYHHwoARAWMm0nPrubc",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "1038 Dewey Ave, Los Angeles, CA 90006, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.051542%2C-118.2955051&query_place_id=ChIJMYJFEYHHwoARAWMm0nPrubc",
+      "validationAsset": "validation/menlo-sold-01-1038-dewey.png"
+    },
+    {
+      "id": "menlo-sold-02-843-s-ardmore",
+      "property": "1623-menlo",
+      "category": "sold",
+      "order": 2,
+      "inputAddress": "843 South Ardmore Avenue, Los Angeles, CA 90005",
+      "source": "1623 Menlo MLS closed-sale comp review, 2026-07-29",
+      "lat": 34.0565978,
+      "lng": -118.3023121,
+      "placeId": "ChIJo1ftp4G4woARMw5VMQvsMp0",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "843 S Ardmore Ave, Los Angeles, CA 90005, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.0565978%2C-118.3023121&query_place_id=ChIJo1ftp4G4woARMw5VMQvsMp0",
+      "validationAsset": "validation/menlo-sold-02-843-s-ardmore.png"
+    },
+    {
+      "id": "menlo-active-01-1056-dewey",
+      "property": "1623-menlo",
+      "category": "active",
+      "order": 1,
+      "inputAddress": "1056 Dewey Avenue, Los Angeles, CA 90006",
+      "source": "1623 Menlo MLS on-market comp review, 2026-07-29",
+      "lat": 34.0510442,
+      "lng": -118.2954828,
+      "placeId": "ChIJR7PNPYHHwoARmva5llCLaOY",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "1056 Dewey Ave, Los Angeles, CA 90006, USA",
+      "types": [
+        "subpremise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.0510442%2C-118.2954828&query_place_id=ChIJR7PNPYHHwoARmva5llCLaOY",
+      "validationAsset": "validation/menlo-active-01-1056-dewey.png"
+    },
+    {
+      "id": "menlo-active-02-955-s-normandie",
+      "property": "1623-menlo",
+      "category": "active",
+      "order": 2,
+      "inputAddress": "955 South Normandie Avenue, Los Angeles, CA 90006",
+      "source": "1623 Menlo MLS on-market comp review, 2026-07-29",
+      "lat": 34.0538664,
+      "lng": -118.3001751,
+      "placeId": "ChIJgwE4CIC4woARAl4s751Yj1E",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "955 Normandie Ave, Los Angeles, CA 90006, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Marker tip is on the Normandie Villa roof. The red-tile roof edge and massing match the saved MLS exterior; the nearby church POI label does not indicate a parcel mismatch."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.0538664%2C-118.3001751&query_place_id=ChIJgwE4CIC4woARAl4s751Yj1E",
+      "validationAsset": "validation/menlo-active-02-955-s-normandie.png"
+    },
+    {
+      "id": "menlo-rent-01-1240-magnolia",
+      "property": "1623-menlo",
+      "category": "rent",
+      "order": 1,
+      "inputAddress": "1240 Magnolia Avenue, Los Angeles, CA 90006",
+      "source": "1623 Menlo Rentometer rent check, 2026-07-29",
+      "lat": 34.0479187,
+      "lng": -118.2862395,
+      "placeId": "ChIJB4DrvZrHwoARiDpmRql32dI",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "1240 Magnolia Ave, Los Angeles, CA 90006, USA",
+      "types": [
+        "subpremise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.0479187%2C-118.2862395&query_place_id=ChIJB4DrvZrHwoARiDpmRql32dI",
+      "validationAsset": "validation/menlo-rent-01-1240-magnolia.png"
+    },
+    {
+      "id": "menlo-rent-02-1029-westmoreland",
+      "property": "1623-menlo",
+      "category": "rent",
+      "order": 2,
+      "inputAddress": "1029 South Westmoreland Avenue, Los Angeles, CA 90006",
+      "source": "1623 Menlo Rentometer rent check, 2026-07-29",
+      "lat": 34.051393399999995,
+      "lng": -118.2895631,
+      "placeId": "ChIJywX_YYPHwoARyWv-klWN1f8",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "1029 Westmoreland Ave, Los Angeles, CA 90006, USA",
+      "types": [
+        "premise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.051393399999995%2C-118.2895631&query_place_id=ChIJywX_YYPHwoARyWv-klWN1f8",
+      "validationAsset": "validation/menlo-rent-02-1029-westmoreland.png"
+    },
+    {
+      "id": "menlo-rent-03-2231-ellendale",
+      "property": "1623-menlo",
+      "category": "rent",
+      "order": 3,
+      "inputAddress": "2231 Ellendale Place, Los Angeles, CA 90007",
+      "source": "1623 Menlo Rentometer rent check, 2026-07-29",
+      "lat": 34.0353225,
+      "lng": -118.28919669999998,
+      "placeId": "ChIJn5HtuPLHwoARXo3UD9-ZCkE",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "2231 Ellendale Pl, Los Angeles, CA 90007, USA",
+      "types": [
+        "subpremise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.0353225%2C-118.28919669999998&query_place_id=ChIJn5HtuPLHwoARXo3UD9-ZCkE",
+      "validationAsset": "validation/menlo-rent-03-2231-ellendale.png"
+    },
+    {
+      "id": "menlo-rent-04-1037-dewey",
+      "property": "1623-menlo",
+      "category": "rent",
+      "order": 4,
+      "inputAddress": "1037 Dewey Avenue, Los Angeles, CA 90006",
+      "source": "1623 Menlo Rentometer rent check, 2026-07-29",
+      "lat": 34.0515471,
+      "lng": -118.2960298,
+      "placeId": "ChIJQ6VyG4HHwoARQogmBk9xd3o",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "1037 Dewey Ave, Los Angeles, CA 90006, USA",
+      "types": [
+        "subpremise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.0515471%2C-118.2960298&query_place_id=ChIJQ6VyG4HHwoARQogmBk9xd3o",
+      "validationAsset": "validation/menlo-rent-04-1037-dewey.png"
+    },
+    {
+      "id": "menlo-rent-05-980-menlo",
+      "property": "1623-menlo",
+      "category": "rent",
+      "order": 5,
+      "inputAddress": "980 Menlo Avenue, Los Angeles, CA 90006",
+      "source": "1623 Menlo Rentometer rent check, 2026-07-29",
+      "lat": 34.0527736,
+      "lng": -118.2899999,
+      "placeId": "ChIJrXP_DYPHwoARkubzFpU1M2Q",
+      "precision": "ROOFTOP",
+      "resolverSource": "places",
+      "formattedAddress": "980 Menlo Ave, Los Angeles, CA 90006, USA",
+      "types": [
+        "subpremise",
+        "street_address"
+      ],
+      "needsReview": false,
+      "resolverReason": null,
+      "visualReview": {
+        "status": "accepted",
+        "reviewer": "Codex brio_maps",
+        "reviewedAt": "2026-07-30T18:10:15.714Z",
+        "note": "Validation satellite still inspected at zoom 20; marker tip lands on the addressed structure/parcel, not a road, centroid, or neighboring property."
+      },
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=34.0527736%2C-118.2899999&query_place_id=ChIJrXP_DYPHwoARkubzFpU1M2Q",
+      "validationAsset": "validation/menlo-rent-05-980-menlo.png"
+    }
+  ],
+  "requiredAssets": {
+    "portfolio": "print/portfolio.png",
+    "subject": {
+      "parke": "print/parke-subject.png",
+      "menlo": "print/menlo-subject.png"
+    },
+    "sold": {
+      "parke": "print/parke-sold-comps.png",
+      "parkeDenseMarkerInset": "print/parke-sold-comps-earlham-inset.png",
+      "menlo": "print/menlo-sold-comps.png"
+    },
+    "active": {
+      "menlo": "print/menlo-active-competition.png"
+    },
+    "rent": {
+      "parke": "print/parke-rent-comps.png",
+      "menlo": "print/menlo-rent-comps.png"
+    },
+    "saleCompRelationships": {
+      "parke-sold-01-826-n-summit": "relationships/parke-sold-01-826-n-summit.png",
+      "parke-sold-02-965-n-summit": "relationships/parke-sold-02-965-n-summit.png",
+      "parke-sold-03-1757-e-villa": "relationships/parke-sold-03-1757-e-villa.png",
+      "parke-sold-04-696-earlham": "relationships/parke-sold-04-696-earlham.png",
+      "parke-sold-05-679-earlham": "relationships/parke-sold-05-679-earlham.png",
+      "parke-sold-06-423-n-garfield": "relationships/parke-sold-06-423-n-garfield.png",
+      "menlo-sold-01-1038-dewey": "relationships/menlo-sold-01-1038-dewey.png",
+      "menlo-sold-02-843-s-ardmore": "relationships/menlo-sold-02-843-s-ardmore.png"
+    },
+    "subjectImagery": {
+      "parke": {
+        "aerial": "subjects/parke/aerial.png",
+        "streetPrimary": "subjects/parke/street-primary.jpg",
+        "streetSecondary": "subjects/parke/street-secondary.jpg",
+        "streetContext": "subjects/parke/street-context.jpg",
+        "localMap": "subjects/parke/maps/local.png",
+        "regionalMap": "subjects/parke/maps/regional.png"
+      },
+      "menlo": {
+        "aerial": "subjects/menlo/aerial.png",
+        "streetPrimary": "subjects/menlo/street-primary.jpg",
+        "streetSecondary": "subjects/menlo/street-secondary.jpg",
+        "streetContext": "subjects/menlo/street-context.jpg",
+        "localMap": "subjects/menlo/maps/local.png",
+        "regionalMap": "subjects/menlo/maps/regional.png"
+      }
+    }
+  },
+  "qa": {
+    "resolverGateFailures": [],
+    "visualReviewStatus": "accepted",
+    "reviewedAt": "2026-07-30T18:10:15.714Z",
+    "reviewer": "Codex brio_maps",
+    "entityCount": 22,
+    "acceptedEntityCount": 22,
+    "unresolvedEntityIds": [],
+    "groupMapReview": {
+      "portfolio": "Accepted after differentiating the two gold subject markers as P (Parke) and M (Menlo).",
+      "parkeSold": "Accepted with the dedicated Earlham inset because markers 4 and 5 overlap at portfolio-comp scale; the inset preserves exact pins and readable numbering.",
+      "menloSold": "Accepted; subject and sold labels 1-2 are readable and correctly bounded.",
+      "menloActive": "Accepted; subject and active labels 1-2 are readable and correctly bounded.",
+      "parkeRent": "Accepted; dense subject/rent markers remain distinguishable and exact rooftop validations are separately persisted.",
+      "menloRent": "Accepted; rent labels 1-5 and the subject are readable. Labels 2 and 5 are close but individually visible.",
+      "relationshipMaps": "Accepted; eight subject-to-sale-comp maps use the persisted rooftop coordinates and matching table/detail-page numbers."
+    },
+    "responsivePrintNote": "These are high-resolution static Google Maps assets for print/PDF and web fallback. Final desktop, 390px, and PDF layout QA remains with the site build."
+  }
+}

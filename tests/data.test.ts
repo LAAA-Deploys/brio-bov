@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { hydrateMapPoints, mapMarkerLabel } from "../src/components/mapUtils";
+import {
+  hasCompleteCoordinates,
+  hydrateMapPoints,
+  mapMarkerLabel
+} from "../src/components/mapUtils";
 import { menlo, parke, portfolio } from "../src/data/portfolio";
 import manifest from "../public/assets/maps/map-manifest.json";
 
@@ -58,5 +62,11 @@ describe("approved Brio valuation data", () => {
     const points = [parke.mapPoints[0], menlo.mapPoints[0]];
     expect(mapMarkerLabel(points, 0)).toBe("P");
     expect(mapMarkerLabel(points, 1)).toBe("M");
+  });
+
+  it("enables interactive maps only with a complete verified point set", () => {
+    expect(hasCompleteCoordinates(parke.mapPoints)).toBe(false);
+    expect(hasCompleteCoordinates([parke.mapPoints[0]])).toBe(true);
+    expect(hasCompleteCoordinates(hydrateMapPoints(parke.mapPoints, manifest.entries))).toBe(true);
   });
 });

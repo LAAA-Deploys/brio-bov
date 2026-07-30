@@ -57,3 +57,9 @@ export function mapMarkerLabel(points: MapPoint[], index: number) {
   }
   return String(points.slice(0, index + 1).filter((point) => point.kind !== "subject").length);
 }
+
+export function hasCompleteCoordinates(points: MapPoint[]) {
+  return points.length > 0 && points.every(
+    (point) => Number.isFinite(point.lat) && Number.isFinite(point.lng)
+  );
+}

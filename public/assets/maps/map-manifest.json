@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "deal": "Brio Real Estate portfolio BOV",
   "generatedAt": "2026-07-30T18:09:30.515Z",
-  "resolver": "C:/Users/gscher/laaa-geo/capabilities/resolveAddress.mjs",
+  "resolver": "LAAA rooftop-resolution workflow",
   "keyHandling": "Environment only; no credential persisted.",
   "browserMaps": {
     "javascriptApiKeyAvailable": false,

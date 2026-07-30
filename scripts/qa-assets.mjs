@@ -25,9 +25,13 @@ const missingRelationshipMaps = relationshipMaps.filter(
   (filename) => !fs.existsSync(path.join("public", "assets", "maps", filename))
 );
 
-const mapManifest = JSON.parse(fs.readFileSync("public/assets/maps/map-manifest.json", "utf8"));
+const mapManifestSource = fs.readFileSync("public/assets/maps/map-manifest.json", "utf8");
+const mapManifest = JSON.parse(mapManifestSource);
 if (mapManifest.qa?.entityCount !== 22 || mapManifest.qa?.acceptedEntityCount !== 22) {
   throw new Error("Map manifest does not show 22 accepted rooftop entities.");
+}
+if (/C:[/\\]Users|gscher/i.test(mapManifestSource)) {
+  throw new Error("Public map manifest contains a local user path.");
 }
 if (missing.length) throw new Error(`Missing local assets:\n${missing.map((item) => item.ref).join("\n")}`);
 if (missingRelationshipMaps.length) {

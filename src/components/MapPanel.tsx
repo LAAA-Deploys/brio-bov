@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { MapPoint } from "../data/types";
-import { hydrateMapPoints, mapMarkerLabel } from "./mapUtils";
+import { hasCompleteCoordinates, hydrateMapPoints, mapMarkerLabel } from "./mapUtils";
 
 declare global {
   interface Window {
@@ -59,11 +59,12 @@ type Props = {
 export function MapPanel({ id, title, points, staticImage, compact = false }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const [interactive, setInteractive] = useState(false);
-  const [verifiedPoints, setVerifiedPoints] = useState(points);
+  const [verifiedPoints, setVerifiedPoints] = useState<MapPoint[]>([]);
   const resolvedPoints = useMemo(
     () => verifiedPoints.filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng)),
     [verifiedPoints]
   );
+  const displayPoints = verifiedPoints.length === points.length ? verifiedPoints : points;
 
   useEffect(() => {
     let active = true;
@@ -73,7 +74,9 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
         if (!active || !manifest.entries) return;
         setVerifiedPoints(hydrateMapPoints(points, manifest.entries));
       })
-      .catch(() => setVerifiedPoints(points));
+      .catch(() => {
+        if (active) setVerifiedPoints([]);
+      });
     return () => {
       active = false;
     };
@@ -81,8 +84,15 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
 
   useEffect(() => {
     const key = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-    if (!key || !hostRef.current || resolvedPoints.length === 0) return;
+    if (
+      !key ||
+      !hostRef.current ||
+      resolvedPoints.length !== points.length ||
+      !hasCompleteCoordinates(resolvedPoints)
+    ) return;
     let active = true;
+    const host = hostRef.current;
+    host.replaceChildren();
     loadGoogleMaps(key)
       .then(() => {
         if (!active || !hostRef.current || !window.google?.maps) return;
@@ -133,8 +143,9 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
       .catch(() => setInteractive(false));
     return () => {
       active = false;
+      host.replaceChildren();
     };
-  }, [resolvedPoints]);
+  }, [points.length, resolvedPoints]);
 
   const staticSrc = staticImage ?? `/assets/maps/${id}.png`;
 
@@ -153,7 +164,7 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
         {!interactive && (
           <div className="map-address-list">
             <strong>{title}</strong>
-            {verifiedPoints.map((point, index) => (
+            {displayPoints.map((point, index) => (
               <a
                 key={point.id}
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.address)}${
@@ -162,7 +173,7 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
                 target="_blank"
                 rel="noreferrer"
               >
-                <span>{mapMarkerLabel(verifiedPoints, index)}</span>
+                <span>{mapMarkerLabel(displayPoints, index)}</span>
                 {point.label}
               </a>
             ))}
@@ -173,9 +184,9 @@ export function MapPanel({ id, title, points, staticImage, compact = false }: Pr
         <span>{title}</span>
         <span className="map-legend">
           <i className="legend-subject" /> Subject
-          {verifiedPoints.some((p) => p.kind === "sale") && <><i className="legend-sale" /> Closed sale</>}
-          {verifiedPoints.some((p) => p.kind === "active") && <><i className="legend-active" /> Active</>}
-          {verifiedPoints.some((p) => p.kind === "rent") && <><i className="legend-rent" /> Rent</>}
+          {displayPoints.some((p) => p.kind === "sale") && <><i className="legend-sale" /> Closed sale</>}
+          {displayPoints.some((p) => p.kind === "active") && <><i className="legend-active" /> Active</>}
+          {displayPoints.some((p) => p.kind === "rent") && <><i className="legend-rent" /> Rent</>}
         </span>
       </figcaption>
     </figure>

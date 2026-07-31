@@ -127,6 +127,33 @@ SLUG_TO_RAW = {"1623-menlo": "menlo", "359-parke": "parke"}
 # rewritten here to the current figures. The market_narrative paragraphs also
 # stated the SUBJECT's per-unit and cap rate inside the Sale Comps section, which
 # is before the valuation reveal, so those are restated qualitatively.
+#
+# Scalar field overrides. The Menlo parking value carried the same hedging the
+# setup sheet resolves ("Count and configuration require field confirmation"),
+# and both values ran long enough to make the info-table row four times the
+# height of its neighbours.
+FIELD_OVERRIDES = {
+    "1623-menlo": {"parking": "Gated access with on-site parking"},
+    "359-parke": {"parking": "Fourteen spaces: carports, one garage, and open parking"},
+}
+
+# Buyer-profile and strategy cards also carried the retired cap rates and GRM
+# (6.44% Parke; 6.92% and 9.45 Menlo). They render in the Buyer Profile section,
+# which sits BEFORE the valuation reveal, so the subject's yield metrics are
+# removed rather than restated. The pricing case is made in Financial Analysis.
+CARD_OVERRIDES = {
+    "359-parke": {
+        "strategy": {0: ("Lead with current yield",
+                         "Position the going-in return and the balanced five-and-five unit mix as the core investment case.")},
+    },
+    "1623-menlo": {
+        "buyerProfiles": {1: ("Exchange buyer",
+                              "A buyer prioritizing a durable going-in yield and a later vintage than much of the surrounding apartment stock.")},
+        "strategy": {0: ("Lead with the current return",
+                         "Present the in-place income and the gross rent multiplier as the primary value proposition.")},
+    },
+}
+
 COPY_OVERRIDES = {
     "359-parke": {
         "valuationNarrative": {
@@ -146,6 +173,13 @@ COPY_OVERRIDES = {
         },
         "marketNarrative": {
             1: "On a per-unit basis the subject sits above the larger closed sale and below both active asking levels. On a per-square-foot basis it aligns closely with the smaller nearby Dewey closing. Its current income yield is stronger than the supported closed-sale metrics, which is the core of the pricing argument.",
+        },
+        # The old rent-comp paragraph said the unit mix was not established and
+        # that no unit-level pro forma was applied. Financial Analysis now shows
+        # exactly that pro forma from the setup sheet, so the two contradicted
+        # each other. The legal-configuration disclosure stays in Disclosures.
+        "rentNarrative": {
+            1: "The market rent column in the financial analysis reflects the unit mix stated on the LAAA setup sheet. The valuation conclusion remains anchored on current scheduled rent, with the market column presented as upside rather than as the basis of value.",
         },
         "overview": {
             1: "The current rent roll, normalized operating statement, two closed sales, two active competitors, and nearby asking rents establish the property's income and market position. The unit mix is seven one-bedroom units of approximately 625 SF and one two-bedroom unit of approximately 800 SF."
@@ -173,15 +207,16 @@ MAPS = {
 TRACK_RECORD = {
     "source": "Airtable LAAA Closed Deals tblSQs0OQxuGNcEpG",
     "pulled": "2026-07-30",
-    "raw": {"closed": 487, "volume": 1548928900, "units": 4684},
+    "raw": {"closed": 487, "volume": 1534698900, "units": 4665,
+             "apartments": {"closed": 338, "volume": 1151000730, "units": 4650}},
     "metrics": [
         ("485+", "Closed Transactions"),
         ("$1.5B+", "Total Sales Volume"),
-        ("4,600+", "Units Sold"),
+        ("4,650+", "Apartment Units Sold"),
         ("#1", "Most Active · LA County"),
     ],
     "narrative": [
-        "Since 2013, the LAAA Team has closed more than 485 multifamily transactions totaling over $1.5B in volume across Los Angeles, Ventura, and Santa Barbara counties, with particular depth in rent-controlled vintage apartment product.",
+        "Since 2013, the LAAA Team has closed more than 485 transactions totaling over $1.5B in volume across Los Angeles, Ventura, and Santa Barbara counties, including more than 335 apartment sales covering over 4,650 units, with particular depth in rent-controlled vintage product.",
         "Our practice is built on disciplined underwriting, the deepest comparable-sales dataset in the submarket, and a marketing engine that reaches every active multifamily buyer in Los Angeles. We advise owners on when and how to sell, not just whether, and we price to clear rather than to languish.",
         "For the Brio portfolio, that means an evidence-based opinion of value on each asset independently, anchored in recent Pico Union and Pasadena apartment sales, presented with the same rigor we would bring to defending the price against a buyer's due-diligence challenge.",
     ],
@@ -220,15 +255,15 @@ BIOS = {
 }
 
 TEAM = [
-    ("Aida Memary Scher", "Associate Director", "Aida_Memary_Scher.png"),
-    ("Luka Leader", "Associate Investments", "Luka_Leader.png"),
-    ("Morgan Wetmore", "Associate Investments", "Morgan_Wetmore.png"),
+    ("Aida Memary Scher", "Associate Director Investments", "Aida_Memary_Scher.png"),
+    ("Luka Leader", "Associate", "Luka_Leader.png"),
+    ("Morgan Wetmore", "Associate", "Morgan_Wetmore.png"),
     ("Logan Ward", "Associate Investments", "Logan_Ward.png"),
     ("Alexandro Tapia", "Associate Investments", "Alexandro_Tapia.png"),
     ("Blake Lewitt", "Associate Investments", "Blake_Lewitt.png"),
     ("Mike Palade", "Agent Assistant", "Mike_Palade.png"),
     ("Tony H. Dang", "Business Operations Manager", "Tony_Dang.png"),
-    ("Tirajeh Vossoughi-Horton", "Intern", "Tirajeh_Vossoughi-Horton.png"),
+    ("Tirajeh Vossoughi-Horton", "Investment Brokerage Intern", "Tirajeh_Vossoughi-Horton.png"),
 ]
 
 
@@ -247,6 +282,12 @@ def build_property(slug):
         for idx, text in repl.items():
             lines[idx] = text
         raw[field] = lines
+    raw.update(FIELD_OVERRIDES.get(slug, {}))
+    for field, repl in CARD_OVERRIDES.get(slug, {}).items():
+        cards = [dict(c) for c in raw[field]]
+        for idx, (title, copy) in repl.items():
+            cards[idx]["title"], cards[idx]["copy"] = title, copy
+        raw[field] = cards
 
     def comp(c):
         return {

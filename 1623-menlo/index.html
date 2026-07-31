@@ -259,6 +259,45 @@ td.num, th.num { text-align: right; }
   .prop-card-img { width: 100%; flex: 0 0 auto; aspect-ratio: 16 / 9; }
 }
 
+/* ---------------------------------------------------------------------------
+   Data tables (Glen 2026-07-30). No wrapping, ever.
+
+   Root cause of the wrapping: `.table-scroll table { min-width: 700px }` with
+   `width: 100%` forced ten columns into 700px, so the browser broke the text to
+   make it fit. "843 South Ardmore Avenue" burned four lines and row heights
+   went ragged.
+
+   Correct behaviour: inside a scroller the table sizes to its CONTENT
+   (`width: max-content`), never narrower than the container (`min-width: 100%`).
+   Every column is then exactly as wide as its widest value, nothing wraps, and
+   every row is the same height. On a phone the table scrolls sideways instead
+   of collapsing. Enforced by audit_tables.mjs.
+
+   Scope: only tables inside .table-scroll. .info-table holds label/value prose
+   (addresses, parking notes) which SHOULD wrap.
+   --------------------------------------------------------------------------- */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative; }
+.table-scroll table { width: max-content; min-width: 100%; margin-bottom: 0; }
+.table-scroll th,
+.table-scroll td { white-space: nowrap; }
+/* digits share one advance width so columns of figures line up exactly */
+.table-scroll td.num, .table-scroll th.num,
+.summary-table td, .fin-num td { font-variant-numeric: tabular-nums; }
+/* the address column is the only one allowed to breathe, and only on desktop */
+.table-scroll td:first-child { padding-right: 18px; }
+/* swipe affordance so a phone user knows there is more table to the right */
+.table-scroll::after { content: ""; position: sticky; right: 0; top: 0; float: right;
+  width: 24px; height: 100%; pointer-events: none;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.9)); }
+.section-alt .table-scroll::after { background: linear-gradient(to right, rgba(248,249,250,0), rgba(248,249,250,0.9)); }
+
+@media (max-width: 768px) {
+  /* smaller type buys real column width back on a phone without wrapping */
+  .table-scroll table { font-size: 11px; }
+  .table-scroll th { padding: 7px 9px; font-size: 9px; }
+  .table-scroll td { padding: 7px 9px; }
+}
+
 </style>
 </head>
 <body>
@@ -299,11 +338,11 @@ td.num, th.num { text-align: right; }
   <div class="section-subtitle">LA Apartment Advisors at Marcus &amp;amp; Millichap</div>
   <div class="section-divider"></div>
   <div class="tr-tagline"><span style="display:block;font-size:1.1em;font-weight:700;margin-bottom:4px;">LAAA Team of Marcus &amp; Millichap</span>Expertise, Execution, Excellence.</div>
-  <div class="metrics-grid-4"><div class="metric-card"><span class="metric-value">485+</span><span class="metric-label">Closed Transactions</span></div><div class="metric-card"><span class="metric-value">$1.5B+</span><span class="metric-label">Total Sales Volume</span></div><div class="metric-card"><span class="metric-value">4,600+</span><span class="metric-label">Units Sold</span></div><div class="metric-card"><span class="metric-value">#1</span><span class="metric-label">Most Active · LA County</span></div></div>
+  <div class="metrics-grid-4"><div class="metric-card"><span class="metric-value">485+</span><span class="metric-label">Closed Transactions</span></div><div class="metric-card"><span class="metric-value">$1.5B+</span><span class="metric-label">Total Sales Volume</span></div><div class="metric-card"><span class="metric-value">4,650+</span><span class="metric-label">Apartment Units Sold</span></div><div class="metric-card"><span class="metric-value">#1</span><span class="metric-label">Most Active · LA County</span></div></div>
   <div class="tr-map-print"><img src="../images/maps-portfolio-subjects.png" alt="LAAA Portfolio Map" loading="lazy"></div>
   <div class="tr-service-quote">
     <h3>"We Didn't Invent Great Service, We Just Work Relentlessly to Provide It."</h3>
-<p>Since 2013, the LAAA Team has closed more than 485 multifamily transactions totaling over $1.5B in volume across Los Angeles, Ventura, and Santa Barbara counties, with particular depth in rent-controlled vintage apartment product.</p>
+<p>Since 2013, the LAAA Team has closed more than 485 transactions totaling over $1.5B in volume across Los Angeles, Ventura, and Santa Barbara counties, including more than 335 apartment sales covering over 4,650 units, with particular depth in rent-controlled vintage product.</p>
 <p>Our practice is built on disciplined underwriting, the deepest comparable-sales dataset in the submarket, and a marketing engine that reaches every active multifamily buyer in Los Angeles. We advise owners on when and how to sell, not just whether, and we price to clear rather than to languish.</p>
 <p>For the Brio portfolio, that means an evidence-based opinion of value on each asset independently, anchored in recent Pico Union and Pasadena apartment sales, presented with the same rigor we would bring to defending the price against a buyer&#x27;s due-diligence challenge.</p>
   </div>
@@ -316,7 +355,7 @@ td.num, th.num { text-align: right; }
     <div class="costar-badge-sub">CoStar &bull; 2019, 2020, 2021 &bull; #4 in California</div>
   </div>
   <div class="bio-grid"><div class="bio-card"><img class="bio-headshot" src="../images/team-Glen_Scher.jpg" alt="Glen Scher"><div><div class="bio-name">Glen Scher</div><div class="bio-title">Senior Managing Director Investments</div><div class="bio-text">Co-founder of the LAAA Team and one of the most active multifamily brokers in Los Angeles, with 485+ transactions and $1.5B+ in closed sales. Glen has advised owners across central Los Angeles and the San Gabriel Valley since 2014, with deep transaction history in the rent-controlled vintage apartment product that defines both assets in this portfolio.</div></div></div><div class="bio-card"><img class="bio-headshot" src="../images/team-Filip_Niculete.jpg" alt="Filip Niculete"><div><div class="bio-name">Filip Niculete</div><div class="bio-title">Senior Managing Director Investments</div><div class="bio-text">Co-founder of the LAAA Team and one of Southern California&#x27;s top multifamily brokers. Since 2011, Filip has built a reputation for execution, integrity, and relentless work ethic, helping lead the team to $1.5B+ in closed transactions while consistently leading the market in active inventory.</div></div></div></div>
-  <div class="team-grid"><div class="team-card"><img class="team-headshot" src="../images/team-Aida_Memary_Scher.jpg" alt="Aida Memary Scher"><div class="team-card-name">Aida Memary Scher</div><div class="team-card-title">Associate Director</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Luka_Leader.jpg" alt="Luka Leader"><div class="team-card-name">Luka Leader</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Morgan_Wetmore.jpg" alt="Morgan Wetmore"><div class="team-card-name">Morgan Wetmore</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Logan_Ward.jpg" alt="Logan Ward"><div class="team-card-name">Logan Ward</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Alexandro_Tapia.jpg" alt="Alexandro Tapia"><div class="team-card-name">Alexandro Tapia</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Blake_Lewitt.jpg" alt="Blake Lewitt"><div class="team-card-name">Blake Lewitt</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Mike_Palade.jpg" alt="Mike Palade"><div class="team-card-name">Mike Palade</div><div class="team-card-title">Agent Assistant</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Tony_Dang.jpg" alt="Tony H. Dang"><div class="team-card-name">Tony H. Dang</div><div class="team-card-title">Business Operations Manager</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Tirajeh_Vossoughi-Horton.jpg" alt="Tirajeh Vossoughi-Horton"><div class="team-card-name">Tirajeh Vossoughi-Horton</div><div class="team-card-title">Intern</div></div></div>
+  <div class="team-grid"><div class="team-card"><img class="team-headshot" src="../images/team-Aida_Memary_Scher.jpg" alt="Aida Memary Scher"><div class="team-card-name">Aida Memary Scher</div><div class="team-card-title">Associate Director Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Luka_Leader.jpg" alt="Luka Leader"><div class="team-card-name">Luka Leader</div><div class="team-card-title">Associate</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Morgan_Wetmore.jpg" alt="Morgan Wetmore"><div class="team-card-name">Morgan Wetmore</div><div class="team-card-title">Associate</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Logan_Ward.jpg" alt="Logan Ward"><div class="team-card-name">Logan Ward</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Alexandro_Tapia.jpg" alt="Alexandro Tapia"><div class="team-card-name">Alexandro Tapia</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Blake_Lewitt.jpg" alt="Blake Lewitt"><div class="team-card-name">Blake Lewitt</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Mike_Palade.jpg" alt="Mike Palade"><div class="team-card-name">Mike Palade</div><div class="team-card-title">Agent Assistant</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Tony_Dang.jpg" alt="Tony H. Dang"><div class="team-card-name">Tony H. Dang</div><div class="team-card-title">Business Operations Manager</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Tirajeh_Vossoughi-Horton.jpg" alt="Tirajeh Vossoughi-Horton"><div class="team-card-name">Tirajeh Vossoughi-Horton</div><div class="team-card-title">Investment Brokerage Intern</div></div></div>
   <div class="condition-note"><div class="condition-note-label">Key Achievements</div>
     <p class="achievements-list">
       &bull; <strong>Chairman&#x27;s Club</strong> - Marcus &amp; Millichap&#x27;s top-tier annual honor<br>
@@ -372,7 +411,7 @@ td.num, th.num { text-align: right; }
 <p>The neighborhood&#x27;s central position supports renter demand from households seeking practical access to Downtown Los Angeles, the University Park area, Koreatown, and employment across the central basin.</p>
     </div>
     <div class="loc-right">
-      <table class="info-table"><thead><tr><th colspan="2">Property &amp; Location Details</th></tr></thead><tbody><tr><td>Address</td><td>1623 Menlo Avenue</td></tr><tr><td>City</td><td>Los Angeles, California 90006</td></tr><tr><td>APN</td><td>5056 022 005</td></tr><tr><td>Year Built</td><td>1979</td></tr><tr><td>Building SF</td><td>5,170</td></tr><tr><td>Lot Size</td><td>7,405 SF (0.17 ac)</td></tr><tr><td>Units</td><td>8</td></tr><tr><td>Parking</td><td>Gated on site parking reported in historical marketing. Count and configuration require field confirmation.</td></tr></tbody></table>
+      <table class="info-table"><thead><tr><th colspan="2">Property &amp; Location Details</th></tr></thead><tbody><tr><td>Address</td><td>1623 Menlo Avenue</td></tr><tr><td>City</td><td>Los Angeles, California 90006</td></tr><tr><td>APN</td><td>5056 022 005</td></tr><tr><td>Year Built</td><td>1979</td></tr><tr><td>Building SF</td><td>5,170</td></tr><tr><td>Lot Size</td><td>7,405 SF (0.17 ac)</td></tr><tr><td>Units</td><td>8</td></tr><tr><td>Parking</td><td>Gated access with on-site parking</td></tr></tbody></table>
     </div>
   </div>
   <div class="loc-wide-map"><picture><source media="(max-width: 700px)" srcset="../images/maps-1623-menlo-subject-tall.png"><img src="../images/maps-1623-menlo-subject.png" alt="Location Map" loading="lazy"></picture></div>
@@ -423,8 +462,8 @@ td.num, th.num { text-align: right; }
   <div class="section-subtitle">Target Investors and How We Reach Them</div>
   <div class="section-divider"></div>
   <div class="buyer-split">
-    <div class="buyer-split-left"><h3 class="sub-heading">Target Buyer Profile</h3><div class="obj-item"><p class="obj-q">Central Los Angeles private investor</p><p class="obj-a">An apartment owner seeking current cash flow and a manageable eight unit asset in a central location.</p></div><div class="obj-item"><p class="obj-q">Exchange buyer</p><p class="obj-a">A buyer prioritizing the 6.92% going in yield and a later vintage than much of the surrounding apartment stock.</p></div><div class="obj-item"><p class="obj-q">Operational investor</p><p class="obj-a">A disciplined owner prepared to verify unit configuration and pursue measured improvements without relying on a speculative pro forma.</p></div></div>
-    <div class="buyer-split-right"><h3 class="sub-heading">Transaction Strategy</h3><div class="obj-item"><p class="obj-q">Lead with the current return</p><p class="obj-a">Present the 6.92% current cap rate and 9.45 current gross rent multiplier as the primary value proposition.</p></div><div class="obj-item"><p class="obj-q">Resolve diligence early</p><p class="obj-a">Organize lease, permit, parking, and unit configuration records before launch so buyers can underwrite with confidence.</p></div><div class="obj-item"><p class="obj-q">Use competition to create urgency</p><p class="obj-a">Contrast the subject&#x27;s current yield and price per unit with nearby active offerings while distinguishing asking prices from closed evidence.</p></div></div>
+    <div class="buyer-split-left"><h3 class="sub-heading">Target Buyer Profile</h3><div class="obj-item"><p class="obj-q">Central Los Angeles private investor</p><p class="obj-a">An apartment owner seeking current cash flow and a manageable eight unit asset in a central location.</p></div><div class="obj-item"><p class="obj-q">Exchange buyer</p><p class="obj-a">A buyer prioritizing a durable going-in yield and a later vintage than much of the surrounding apartment stock.</p></div><div class="obj-item"><p class="obj-q">Operational investor</p><p class="obj-a">A disciplined owner prepared to verify unit configuration and pursue measured improvements without relying on a speculative pro forma.</p></div></div>
+    <div class="buyer-split-right"><h3 class="sub-heading">Transaction Strategy</h3><div class="obj-item"><p class="obj-q">Lead with the current return</p><p class="obj-a">Present the in-place income and the gross rent multiplier as the primary value proposition.</p></div><div class="obj-item"><p class="obj-q">Resolve diligence early</p><p class="obj-a">Organize lease, permit, parking, and unit configuration records before launch so buyers can underwrite with confidence.</p></div><div class="obj-item"><p class="obj-q">Use competition to create urgency</p><p class="obj-a">Contrast the subject&#x27;s current yield and price per unit with nearby active offerings while distinguishing asking prices from closed evidence.</p></div></div>
   </div>
 </div>
 
@@ -441,7 +480,7 @@ td.num, th.num { text-align: right; }
 </tbody>
   </table></div>
 <p class="narrative">The selected two bedroom asking rents range from $2,295 to $2,748 per month and are located within approximately eight tenths of a mile of the subject. The evidence provides useful context for current leasing conditions near the property.</p>
-<p class="narrative">Because the legal and physical unit mix has not been conclusively established, the asking rent evidence is not applied to a unit by unit pro forma. The valuation remains based entirely on the current scheduled rent.</p>
+<p class="narrative">The market rent column in the financial analysis reflects the unit mix stated on the LAAA setup sheet. The valuation conclusion remains anchored on current scheduled rent, with the market column presented as upside rather than as the basis of value.</p>
 </div>
 
 <div class="page-break-marker"></div>

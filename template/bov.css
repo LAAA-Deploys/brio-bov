@@ -233,3 +233,42 @@ td.num, th.num { text-align: right; }
   .bio-card:has(.prop-card-img) { flex-direction: column; }
   .prop-card-img { width: 100%; flex: 0 0 auto; aspect-ratio: 16 / 9; }
 }
+
+/* ---------------------------------------------------------------------------
+   Data tables (Glen 2026-07-30). No wrapping, ever.
+
+   Root cause of the wrapping: `.table-scroll table { min-width: 700px }` with
+   `width: 100%` forced ten columns into 700px, so the browser broke the text to
+   make it fit. "843 South Ardmore Avenue" burned four lines and row heights
+   went ragged.
+
+   Correct behaviour: inside a scroller the table sizes to its CONTENT
+   (`width: max-content`), never narrower than the container (`min-width: 100%`).
+   Every column is then exactly as wide as its widest value, nothing wraps, and
+   every row is the same height. On a phone the table scrolls sideways instead
+   of collapsing. Enforced by audit_tables.mjs.
+
+   Scope: only tables inside .table-scroll. .info-table holds label/value prose
+   (addresses, parking notes) which SHOULD wrap.
+   --------------------------------------------------------------------------- */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative; }
+.table-scroll table { width: max-content; min-width: 100%; margin-bottom: 0; }
+.table-scroll th,
+.table-scroll td { white-space: nowrap; }
+/* digits share one advance width so columns of figures line up exactly */
+.table-scroll td.num, .table-scroll th.num,
+.summary-table td, .fin-num td { font-variant-numeric: tabular-nums; }
+/* the address column is the only one allowed to breathe, and only on desktop */
+.table-scroll td:first-child { padding-right: 18px; }
+/* swipe affordance so a phone user knows there is more table to the right */
+.table-scroll::after { content: ""; position: sticky; right: 0; top: 0; float: right;
+  width: 24px; height: 100%; pointer-events: none;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.9)); }
+.section-alt .table-scroll::after { background: linear-gradient(to right, rgba(248,249,250,0), rgba(248,249,250,0.9)); }
+
+@media (max-width: 768px) {
+  /* smaller type buys real column width back on a phone without wrapping */
+  .table-scroll table { font-size: 11px; }
+  .table-scroll th { padding: 7px 9px; font-size: 9px; }
+  .table-scroll td { padding: 7px 9px; }
+}

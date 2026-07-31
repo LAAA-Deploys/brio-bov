@@ -22,8 +22,13 @@
     "pulled": "2026-07-30",
     "raw": {
       "closed": 487,
-      "volume": 1548928900,
-      "units": 4684
+      "volume": 1534698900,
+      "units": 4665,
+      "apartments": {
+        "closed": 338,
+        "volume": 1151000730,
+        "units": 4650
+      }
     },
     "metrics": [
       [
@@ -35,8 +40,8 @@
         "Total Sales Volume"
       ],
       [
-        "4,600+",
-        "Units Sold"
+        "4,650+",
+        "Apartment Units Sold"
       ],
       [
         "#1",
@@ -44,7 +49,7 @@
       ]
     ],
     "narrative": [
-      "Since 2013, the LAAA Team has closed more than 485 multifamily transactions totaling over $1.5B in volume across Los Angeles, Ventura, and Santa Barbara counties, with particular depth in rent-controlled vintage apartment product.",
+      "Since 2013, the LAAA Team has closed more than 485 transactions totaling over $1.5B in volume across Los Angeles, Ventura, and Santa Barbara counties, including more than 335 apartment sales covering over 4,650 units, with particular depth in rent-controlled vintage product.",
       "Our practice is built on disciplined underwriting, the deepest comparable-sales dataset in the submarket, and a marketing engine that reaches every active multifamily buyer in Los Angeles. We advise owners on when and how to sell, not just whether, and we price to clear rather than to languish.",
       "For the Brio portfolio, that means an evidence-based opinion of value on each asset independently, anchored in recent Pico Union and Pasadena apartment sales, presented with the same rigor we would bring to defending the price against a buyer's due-diligence challenge."
     ],
@@ -149,17 +154,17 @@
     "grid": [
       {
         "name": "Aida Memary Scher",
-        "title": "Associate Director",
+        "title": "Associate Director Investments",
         "headshot": "images/team-Aida_Memary_Scher.jpg"
       },
       {
         "name": "Luka Leader",
-        "title": "Associate Investments",
+        "title": "Associate",
         "headshot": "images/team-Luka_Leader.jpg"
       },
       {
         "name": "Morgan Wetmore",
-        "title": "Associate Investments",
+        "title": "Associate",
         "headshot": "images/team-Morgan_Wetmore.jpg"
       },
       {
@@ -189,7 +194,7 @@
       },
       {
         "name": "Tirajeh Vossoughi-Horton",
-        "title": "Intern",
+        "title": "Investment Brokerage Intern",
         "headshot": "images/team-Tirajeh_Vossoughi-Horton.jpg"
       }
     ]
@@ -220,7 +225,7 @@
         }
       ],
       "apn": "5725 029 018",
-      "parking": "Fourteen spaces reported in historical marketing, including carports, one garage, and open parking",
+      "parking": "Fourteen spaces: carports, one garage, and open parking",
       "location_title": "A central Pasadena apartment location with durable renter access",
       "price": 2500000,
       "value_range": "$2,350,000 to $2,500,000",
@@ -419,7 +424,7 @@
       "strategy": [
         {
           "title": "Lead with current yield",
-          "copy": "Position the 6.44% current cap rate and balanced unit mix as the core investment case."
+          "copy": "Position the going-in return and the balanced five-and-five unit mix as the core investment case."
         },
         {
           "title": "Frame rent potential carefully",
@@ -703,7 +708,7 @@
         }
       ],
       "apn": "5056 022 005",
-      "parking": "Gated on site parking reported in historical marketing. Count and configuration require field confirmation.",
+      "parking": "Gated access with on-site parking",
       "location_title": "Central Los Angeles connectivity with durable renter demand",
       "price": 2200000,
       "value_range": "$2,000,000 to $2,200,000",
@@ -870,7 +875,7 @@
       ],
       "rent_narrative": [
         "The selected two bedroom asking rents range from $2,295 to $2,748 per month and are located within approximately eight tenths of a mile of the subject. The evidence provides useful context for current leasing conditions near the property.",
-        "Because the legal and physical unit mix has not been conclusively established, the asking rent evidence is not applied to a unit by unit pro forma. The valuation remains based entirely on the current scheduled rent."
+        "The market rent column in the financial analysis reflects the unit mix stated on the LAAA setup sheet. The valuation conclusion remains anchored on current scheduled rent, with the market column presented as upside rather than as the basis of value."
       ],
       "market_narrative": [
         "The supplied closed sales frame the subject between a premium six unit result at $355,000 per unit and a larger fifteen unit result at approximately $237,000 per unit. The active competition asks approximately $283,000 to $339,000 per unit.",
@@ -892,7 +897,7 @@
         },
         {
           "title": "Exchange buyer",
-          "copy": "A buyer prioritizing the 6.92% going in yield and a later vintage than much of the surrounding apartment stock."
+          "copy": "A buyer prioritizing a durable going-in yield and a later vintage than much of the surrounding apartment stock."
         },
         {
           "title": "Operational investor",
@@ -902,7 +907,7 @@
       "strategy": [
         {
           "title": "Lead with the current return",
-          "copy": "Present the 6.92% current cap rate and 9.45 current gross rent multiplier as the primary value proposition."
+          "copy": "Present the in-place income and the gross rent multiplier as the primary value proposition."
         },
         {
           "title": "Resolve diligence early",

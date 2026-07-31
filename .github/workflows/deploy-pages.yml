@@ -49,17 +49,44 @@ jobs:
           if [ $fail -eq 0 ]; then echo "Design lock guard passed"; fi
           exit $fail
 
-      # Every image and map must fit its frame. This catches what a broken-link
-      # check cannot see: a wide map squeezed into a tall box and cropped, a
-      # photo stretched out of aspect, or a frame left half empty. That exact
-      # failure shipped here once already.
-      - name: Media fit audit
+      # Retired figures must never reappear. The prior build priced Menlo at
+      # $2.10M and Parke at $2.45M; every derived metric on the page was written
+      # against those. When the price moved, eight narrative passages still
+      # carried the old cap rates, GRMs and per-unit figures. A price change is
+      # never just the price, so the old values are banned outright.
+      - name: Retired-value guard
+        run: |
+          fail=0
+          for tok in '2.10M' '$2,100,000' '6.92%' '9.45' '$262,500' '$145,336' \
+                     '2.45M' '$2,450,000' '6.44%' '10.06' '$245,000' '$157,838' \
+                     '$4,550,000' 'conclusively established' 'require field confirmation'; do
+            if grep -rqF --include='*.html' -e "$tok" .; then
+              echo "FAIL: retired value or hedging copy present: $tok"; fail=1
+            fi
+          done
+          # every approved figure must actually be on its page
+          grep -q '\$2,200,000' 1623-menlo/index.html || { echo "FAIL: Menlo price missing"; fail=1; }
+          grep -q '\$2,500,000' 359-parke/index.html  || { echo "FAIL: Parke price missing"; fail=1; }
+          if [ $fail -eq 0 ]; then echo "Retired-value guard passed"; fi
+          exit $fail
+
+      # Data tables must never wrap. Ten columns squeezed into a fixed 700px
+      # broke addresses across four lines and left row heights ragged.
+      - name: Table fit audit
         run: |
           npm init -y >/dev/null 2>&1
           npm i -D playwright@latest >/dev/null 2>&1
           npx playwright install --with-deps chromium >/dev/null 2>&1
           python3 -m http.server 8901 >/dev/null 2>&1 &
           for i in $(seq 1 20); do curl -sf http://localhost:8901/index.html >/dev/null && break; sleep 1; done
+          node audit_tables.mjs http://localhost:8901
+
+      # Every image and map must fit its frame. This catches what a broken-link
+      # check cannot see: a wide map squeezed into a tall box and cropped, a
+      # photo stretched out of aspect, or a frame left half empty. That exact
+      # failure shipped here once already.
+      - name: Media fit audit
+        run: |
           node audit_media.mjs http://localhost:8901
           rc=$?
           rm -f package.json package-lock.json; rm -rf node_modules

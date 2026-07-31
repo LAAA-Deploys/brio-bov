@@ -98,8 +98,14 @@ jobs:
       # photo stretched out of aspect, or a frame left half empty. That exact
       # failure shipped here once already.
       - name: Media fit audit
+        run: node audit_media.mjs http://localhost:8901
+
+      # Every section must be reachable from the nav. Two flex-scroller defects
+      # made the first and last links unreachable on a phone and neither was
+      # visible to a link check or a screenshot.
+      - name: Navigation audit
         run: |
-          node audit_media.mjs http://localhost:8901
+          node audit_nav.mjs http://localhost:8901
           rc=$?
           rm -f package.json package-lock.json; rm -rf node_modules
           exit $rc

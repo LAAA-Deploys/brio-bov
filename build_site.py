@@ -124,7 +124,11 @@ def toc(links, d):
     for href, label in links:
         h = href if href.startswith("#") else rel(href, d)
         out.append(f'<a href="{h}">{e(label)}</a>')
-    return '<nav class="toc-nav" id="toc-nav">\n  ' + "\n  ".join(out) + "\n</nav>\n"
+    # Wrapped so the edge fades can sit outside the scrolling element and signal
+    # that there are more links off-screen. Without them the links are chopped
+    # mid-word on a phone and the bar reads as broken rather than scrollable.
+    return ('<div class="toc-nav-wrap" id="toc-nav-wrap">'
+            '<nav class="toc-nav" id="toc-nav">\n  ' + "\n  ".join(out) + "\n</nav></div>\n")
 
 
 def section_head(title, subtitle):
@@ -270,30 +274,84 @@ var params = new URLSearchParams(window.location.search);
 var client = params.get('client');
 if (client) { var el = document.getElementById('client-greeting'); if (el) el.textContent = 'Prepared Exclusively for ' + client; }
 var navWrap = document.getElementById('toc-nav');
-document.querySelectorAll('.toc-nav a[href^="#"]').forEach(function(link) {
-  link.addEventListener('click', function(ev) {
+var autoScrolling = false, autoScrollTimer = null;
+document.querySelectorAll('.toc-nav a[href^="#"]').forEach(function (link) {
+  link.addEventListener('click', function (ev) {
     ev.preventDefault();
     var target = document.querySelector(this.getAttribute('href'));
-    if (target) { var nh = navWrap.offsetHeight; window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - nh - 4, behavior: 'smooth' }); }
+    if (!target) return;
+    var self = this;
+    /* A tapped link is the user's intent, so bring it into view immediately and
+       suppress the scroll-spy's own re-centring until the smooth scroll ends.
+       Otherwise the spy fires all the way down and drags the nav sideways. */
+    autoScrolling = true;
+    clearTimeout(autoScrollTimer);
+    autoScrollTimer = setTimeout(function () { autoScrolling = false; }, 1200);
+    if (navWrap.scrollWidth > navWrap.clientWidth) {
+      navWrap.scrollTo({ left: Math.max(0, self.offsetLeft - (navWrap.clientWidth / 2) + (self.offsetWidth / 2)),
+                         behavior: 'smooth' });
+    }
+    /* Measure the offset AFTER any pending layout so lazy images that have
+       already loaded are accounted for. */
+    var nh = navWrap.getBoundingClientRect().height;
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - nh - 4,
+                      behavior: 'smooth' });
   });
 });
 var tocLinks = document.querySelectorAll('.toc-nav a[href^="#"]'); var tocSections = [];
 tocLinks.forEach(function(link) { var s = document.getElementById(link.getAttribute('href').substring(1)); if (s) tocSections.push({ link: link, section: s }); });
+
+/* Keeping the active link visible must never fight the user. An earlier version
+   re-centred the nav on EVERY window scroll event, so swiping the nav sideways
+   to reach a link snapped it straight back and the link became unreachable on a
+   phone. Three rules now: only move when the active link actually CHANGES,
+   never within 2.5s of the user touching the nav, and never while a click-driven
+   smooth scroll is still running. */
+var lastActive = null, navTouchedAt = 0;
+/* Only genuine user input counts as "the user is driving". Listening for the
+   nav's own `scroll` event would also fire for our programmatic re-centring,
+   so the nav would suppress itself and stop following the page entirely. */
+['touchstart', 'pointerdown', 'wheel'].forEach(function (evt) {
+  navWrap && navWrap.addEventListener(evt, function () { navTouchedAt = Date.now(); },
+    { passive: true });
+});
+function centreActive(link) {
+  if (!navWrap || navWrap.scrollWidth <= navWrap.clientWidth) return;   // nothing to scroll
+  if (Date.now() - navTouchedAt < 2500) return;                        // user is driving
+  var lr = link.getBoundingClientRect(), nr = navWrap.getBoundingClientRect();
+  if (lr.left >= nr.left && lr.right <= nr.right) return;              // already visible
+  var target = link.offsetLeft - (navWrap.clientWidth / 2) + (link.offsetWidth / 2);
+  navWrap.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+}
 function updateActiveTocLink() {
   if (!navWrap) return;
-  var nh = navWrap.offsetHeight + 20; var sp = window.pageYOffset + nh; var cur = null;
-  tocSections.forEach(function(it) { if (it.section.offsetTop <= sp) cur = it.link; });
-  tocLinks.forEach(function(l) { l.classList.remove('toc-active'); });
-  if (cur) {
-    cur.classList.add('toc-active');
-    /* keep the active link visible in the scrolling nav on phones */
-    var lr = cur.getBoundingClientRect(), nr = navWrap.getBoundingClientRect();
-    if (lr.left < nr.left || lr.right > nr.right) {
-      navWrap.scrollTo({ left: cur.offsetLeft - (navWrap.clientWidth / 2) + (cur.offsetWidth / 2), behavior: 'smooth' });
-    }
-  }
+  var nh = navWrap.offsetHeight + 20, sp = window.pageYOffset + nh, cur = null;
+  tocSections.forEach(function (it) { if (it.section.offsetTop <= sp) cur = it.link; });
+  if (cur === lastActive) return;                                      // nothing changed
+  tocLinks.forEach(function (l) { l.classList.remove('toc-active'); });
+  lastActive = cur;
+  if (cur) { cur.classList.add('toc-active'); if (!autoScrolling) centreActive(cur); }
 }
-window.addEventListener('scroll', updateActiveTocLink); updateActiveTocLink();
+var ticking = false;
+window.addEventListener('scroll', function () {
+  if (ticking) return;
+  ticking = true;
+  window.requestAnimationFrame(function () { updateActiveTocLink(); ticking = false; });
+}, { passive: true });
+updateActiveTocLink();
+
+/* Fade whichever edge still has links beyond it, so a chopped word on a phone
+   reads as "there is more this way" instead of looking broken. */
+var navWrapOuter = document.getElementById('toc-nav-wrap');
+function updateNavFades() {
+  if (!navWrap || !navWrapOuter) return;
+  var max = navWrap.scrollWidth - navWrap.clientWidth;
+  navWrapOuter.classList.toggle('can-left', navWrap.scrollLeft > 4);
+  navWrapOuter.classList.toggle('can-right', navWrap.scrollLeft < max - 4);
+}
+navWrap && navWrap.addEventListener('scroll', updateNavFades, { passive: true });
+window.addEventListener('resize', updateNavFades);
+updateNavFades();
 """
 
 SLIDE_JS = """

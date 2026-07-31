@@ -212,7 +212,6 @@ td.num, th.num { text-align: right; }
    retained; only the touch target and focus visibility are improved. */
 .toc-nav a { min-height: 44px; box-sizing: border-box; }
 .toc-nav a:focus-visible { outline: 2px solid #C5A258; outline-offset: -2px; color: #fff; }
-.toc-nav { scroll-behavior: smooth; }
 
 /* Map frames (Glen 2026-07-30). Maps are rendered to the frame's aspect ratio by
    make_maps.py, so nothing is cropped or letterboxed at any width. Phones get a
@@ -272,3 +271,35 @@ td.num, th.num { text-align: right; }
   .table-scroll th { padding: 7px 9px; font-size: 9px; }
   .table-scroll td { padding: 7px 9px; }
 }
+
+/* Nav scroll affordance (Glen 2026-07-30). The bar scrolls horizontally on a
+   phone, but with a hard edge the links are simply chopped mid-word and it
+   reads as broken rather than scrollable. Navy fades at whichever edge has
+   more content, so the cut always looks deliberate. Same treatment the data
+   tables already use. */
+.toc-nav-wrap { position: sticky; top: 0; z-index: 100; }
+.toc-nav-wrap::before,
+.toc-nav-wrap::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 34px; z-index: 2;
+  pointer-events: none; opacity: 0; transition: opacity .18s ease;
+}
+.toc-nav-wrap::before { left: 0;  background: linear-gradient(to right, #1B3A5C 12%, rgba(27,58,92,0)); }
+.toc-nav-wrap::after  { right: 0; background: linear-gradient(to left,  #1B3A5C 12%, rgba(27,58,92,0)); }
+.toc-nav-wrap.can-left::before  { opacity: 1; }
+.toc-nav-wrap.can-right::after  { opacity: 1; }
+.toc-nav-wrap .toc-nav { position: static; }
+
+/* Nav centring must be overflow-safe (Glen 2026-07-30).
+   Camarillo's nav uses `justify-content: center`. Once the links overflow the
+   bar, centring pushes the leading items into negative space that scrollLeft:0
+   cannot reach, so on a phone the first links (Portfolio, Track Record) were
+   permanently unreachable and the bar appeared to open in the middle.
+   `safe center` centres only while there is room and falls back to flex-start
+   when it overflows. */
+.toc-nav { justify-content: safe center; }
+
+/* Trailing space in a flex scroll container (Glen 2026-07-30).
+   `padding-right` on an overflowing flex scroller is collapsed by browsers, so
+   the final link (Contact) sat flush against the edge and could not be brought
+   fully into view. A zero-width flex spacer restores the end padding. */
+.toc-nav::after { content: ""; flex: 0 0 12px; }

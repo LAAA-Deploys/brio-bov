@@ -19,18 +19,19 @@
  * Usage: node audit_media.mjs [baseUrl]
  */
 import { chromium } from 'playwright';
+import { discoverPages, assertRendered } from './audit_pages.mjs';
 
 const BASE = process.argv[2] || 'http://localhost:8901';
-const PAGES = ['/index.html', '/359-parke/index.html', '/1623-menlo/index.html'];
+const PAGES = discoverPages();   // every staged route, never a hardcoded list
 const WIDTHS = [320, 390, 768, 1440];
 
 // Budgets. A map may lose at most 12% of its source area; a photo 45%.
-const CROP_BUDGET = { map: 0.12, photo: 0.45 };
+const CROP_BUDGET = { map: 0.12, photo: 0.45, cover: 0.78 };
 const LETTERBOX_BUDGET = 0.12;   // dead space allowed inside a frame
 const ASPECT_TOLERANCE = 0.02;   // 2% distortion before it reads as stretched
 const UPSCALE_BUDGET = 1.15;     // rendered vs natural
 
-const audit = (B) => {
+const audit = async (B) => {
   const { CROP_BUDGET, LETTERBOX_BUDGET, ASPECT_TOLERANCE, UPSCALE_BUDGET } = B;
   const out = [];
   const isMap = (src) => /map/i.test(src || '');
@@ -54,7 +55,10 @@ const audit = (B) => {
       const scale = Math.max(cw / nw, ch / nh);
       const visible = (cw / scale) * (ch / scale) / (nw * nh);
       r.visible = +(visible * 100).toFixed(0);
-      const budget = 1 - CROP_BUDGET[isMap(src) ? 'map' : 'photo'];
+      // A full-bleed cover legitimately crops hard at every viewport, so it gets
+      // its own budget. Maps stay strict: a cropped map is the defect that
+      // shipped here once already.
+      const budget = 1 - CROP_BUDGET[kind === 'bg' ? 'cover' : isMap(src) ? 'map' : 'photo'];
       if (visible < budget) {
         return { ...r, issue: 'CROPPED', detail: `only ${r.visible}% of the source is visible` };
       }
@@ -98,8 +102,25 @@ const audit = (B) => {
     const box = el.getBoundingClientRect();
     if (box.width < 4 || box.height < 4) continue;
     const src = bg.match(/url\(["']?(.*?)["']?\)/)?.[1] || '';
-    out.push({ src: src.split('/').slice(-1)[0], kind: 'bg', box: `${Math.round(box.width)}x${Math.round(box.height)}`,
-               fit: cs.backgroundSize, issue: null, _bg: true });
+    // This loop used to push issue:null unconditionally, so a CSS background was
+    // recorded and never judged. Proved 2026-07-30: pointing the full-bleed
+    // cover hero at a file that does not exist still printed "0 failing, PASS
+    // every map fits its frame exactly". The single most prominent element on
+    // the page was the one element the audit never looked at. Load it and run it
+    // through the same measure() every <img> gets.
+    const dim = await new Promise((res) => {
+      const probe = new Image();
+      probe.onload = () => res({ w: probe.naturalWidth, h: probe.naturalHeight });
+      probe.onerror = () => res(null);
+      probe.src = src;
+    });
+    const name = src.split('/').slice(-1)[0];
+    if (!dim || !dim.w) {
+      out.push({ src: name, kind: 'bg', issue: 'BROKEN', detail: 'background image failed to load' });
+      continue;
+    }
+    const judged = measure(el, name, dim.w, dim.h, box, cs.backgroundSize, 'bg');
+    if (judged) out.push({ ...judged, _bg: true });
   }
   return out;
 };
@@ -107,6 +128,7 @@ const audit = (B) => {
 const browser = await chromium.launch();
 const findings = [];
 let checked = 0;
+let renderFailures = 0;
 
 for (const w of WIDTHS) {
   const ctx = await browser.newContext({ viewport: { width: w, height: 900 } });
@@ -123,6 +145,7 @@ for (const w of WIDTHS) {
         .map(i => new Promise(r => { i.onload = i.onerror = r; })));
     });
     await page.waitForTimeout(350);
+    if (!await assertRendered(page, path)) { renderFailures++; continue; }
     const rows = await page.evaluate(audit, { CROP_BUDGET, LETTERBOX_BUDGET, ASPECT_TOLERANCE, UPSCALE_BUDGET });
     for (const r of rows) {
       checked++;
@@ -138,7 +161,9 @@ await browser.close();
 // change can fix it. Splitting these keeps the gate actionable rather than
 // permanently red, which is how a gate ends up switched off.
 const isMapSrc = (s) => /map/i.test(String(s || ''));
-const FAIL_ISSUES = new Set(['STRETCHED', 'ZERO', 'OVERFLOW']);
+// BROKEN is always a failure. An image that does not load is not a resolution
+// limitation anybody has to live with, it is a missing file.
+const FAIL_ISSUES = new Set(['STRETCHED', 'ZERO', 'OVERFLOW', 'BROKEN']);
 const fails = findings.filter(f => FAIL_ISSUES.has(f.issue)
   || (isMapSrc(f.src) && (f.issue === 'CROPPED' || f.issue === 'LETTERBOX')));
 const warns = findings.filter(f => !fails.includes(f));
@@ -167,7 +192,10 @@ if (!findings.length) {
   }
 }
 console.log(`\n  ${fails.length} failing, ${warns.length} warning`);
-if (!fails.length) {
+if (renderFailures) {
+  console.log(`  FAIL  ${renderFailures} page render(s) were empty or truncated and could not be audited`);
+}
+if (!fails.length && !renderFailures) {
   console.log('  PASS  every map fits its frame exactly; anything remaining is a source-resolution limit');
 }
-process.exit(fails.length ? 1 : 0);
+process.exit(fails.length || renderFailures ? 1 : 0);

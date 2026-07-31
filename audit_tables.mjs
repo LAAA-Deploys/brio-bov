@@ -37,9 +37,10 @@
  * Usage: node audit_tables.mjs [baseUrl]
  */
 import { chromium } from 'playwright';
+import { discoverPages, assertRendered } from './audit_pages.mjs';
 
 const BASE = process.argv[2] || 'http://localhost:8901';
-const PAGES = ['/index.html', '/359-parke/index.html', '/1623-menlo/index.html'];
+const PAGES = discoverPages();   // every staged route, never a hardcoded list
 const WIDTHS = [390, 768, 1440];
 
 const LIMITS = {
@@ -217,7 +218,11 @@ const audit = (L) => {
     // uniform row heights: no wrapping means every body row should match
     const hs = !isData ? [] : bodyRows.filter(r => !r.classList.contains('summary'))
                        .map(r => r.getBoundingClientRect().height).filter(h => h > 4);
-    if (hs.length > 2) {
+    // Two rows is enough to be ragged. This was > 2, which silently exempted
+    // every short table, including the live sale-comps table that has exactly
+    // two comps. Proved by A/B: the identical row-height defect went unreported
+    // on the 2-row table and fired on the 5-row one.
+    if (hs.length > 1) {
       const min = Math.min(...hs), max = Math.max(...hs);
       if (min > 0 && (max - min) / min > L.rowHeightTolerance) {
         out.push({ table: tag, issue: 'RAGGED', detail: `row heights run ${Math.round(min)}px to ${Math.round(max)}px` });
@@ -244,6 +249,7 @@ const audit = (L) => {
 const browser = await chromium.launch();
 const findings = [];
 let tables = 0;
+let renderFailures = 0;
 
 for (const w of WIDTHS) {
   const ctx = await browser.newContext({ viewport: { width: w, height: 900 } });
@@ -252,6 +258,7 @@ for (const w of WIDTHS) {
     await page.goto(BASE + path, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(250);
+    if (!await assertRendered(page, path)) { renderFailures++; continue; }
     tables += await page.evaluate(() => document.querySelectorAll('table').length);
     for (const r of await page.evaluate(audit, LIMITS)) {
       findings.push({ width: w, page: path.replace('/index.html', '') || '/', ...r });
@@ -285,4 +292,7 @@ if (!findings.length) {
     if (seen.size > 8) console.log(`    ... and ${seen.size - 8} more`);
   }
 }
-process.exit(findings.length ? 1 : 0);
+if (renderFailures) {
+  console.log(`\n  FAIL  ${renderFailures} page render(s) were empty or truncated and could not be audited`);
+}
+process.exit(findings.length || renderFailures ? 1 : 0);

@@ -18,14 +18,19 @@
  * Usage: node audit_nav.mjs [baseUrl]
  */
 import { chromium } from 'playwright';
-const PAGES=['/index.html','/359-parke/index.html','/1623-menlo/index.html'];
+import { discoverPages, assertRendered } from './audit_pages.mjs';
+const PAGES = discoverPages();   // every staged route, never a hardcoded list
 const BASE = process.argv[2] || 'http://localhost:8901';
-const b = await chromium.launch(); let bad=0;
+const b = await chromium.launch(); let bad=0; let renderFailures=0;
 for (const w of [320,390,768,1440]) {
   const ctx = await b.newContext({ viewport:{width:w,height:844}, hasTouch:w<700, isMobile:w<700 });
   const p = await ctx.newPage();
   for (const path of PAGES) {
     await p.goto(BASE+path,{waitUntil:'networkidle'});
+    // Guard before the probe: on a truncated page getElementById('toc-nav')
+    // returns null and the probe died with an unguarded TypeError, which also
+    // aborted the whole sweep so no later page was checked at all.
+    if (!await assertRendered(p, path)) { renderFailures++; continue; }
     const r = await p.evaluate(async ()=>{
       const n=document.getElementById('toc-nav');
       n.style.scrollBehavior='auto';
@@ -49,5 +54,6 @@ for (const w of [320,390,768,1440]) {
   await ctx.close();
 }
 await b.close();
-console.log(bad? `\n  ${bad} FAILURES` : '\n  PASS every nav link is reachable at every width on every page');
-process.exit(bad?1:0);
+if (renderFailures) console.log(`\n  FAIL  ${renderFailures} page render(s) were empty or truncated`);
+console.log(bad||renderFailures ? `\n  ${bad+renderFailures} FAILURES` : '\n  PASS every nav link is reachable at every width on every page');
+process.exit(bad||renderFailures ?1:0);

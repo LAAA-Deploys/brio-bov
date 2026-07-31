@@ -13,6 +13,8 @@ reads anything but bov-site.json.
 import json
 from pathlib import Path
 
+import refresh_stats
+
 ROOT = Path(__file__).parent
 RAW = json.loads((ROOT / "raw" / "brio-raw.json").read_text(encoding="utf-8"))
 
@@ -58,7 +60,7 @@ SETUP = {
         # A $0 line is suppressed at render rather than printed as "$0".
         "expense_lines": [
             ("Property Tax", 27352, 27352, 1), ("Insurance", 6463, 6463, 2),
-            ("Utilities", 16400, 16400, 3), ("Trash", 0, 0, 4),
+            ("Utilities", 16400, 16400, 3), ("Trash", 5000, 5000, 4),
             ("Repairs & Maintenance", 6000, 6000, 5), ("Contracts", 3000, 3000, 5),
             ("General & Admin", 1200, 1200, 5), ("Reserves", 1600, 1600, 6),
             ("Management", 10848, 10848, 7),
@@ -67,7 +69,7 @@ SETUP = {
             1: ("Property Tax", "Los Angeles County reassesses to the purchase price at close. Shown at {tax_pct} of the {price} recommended price. A buyer should underwrite the reassessed figure, not the seller's current Prop 13 bill."),
             2: ("Insurance", "Annualized from the owner-provided operating information."),
             3: ("Utilities", "Owner-paid water, sewer and common-area utilities, annualized from the owner-provided operating information."),
-            4: ("Trash", "No refuse expense appears in the seller's bills or profit and loss statements. An eight-unit building in the City of Los Angeles will carry a private hauler cost, and a buyer should underwrite roughly $5,000 per year. This is a known gap in the seller-supplied data, not an omission in the analysis."),
+            4: ("Trash", "No refuse expense appears in the seller's bills or profit and loss statements. An eight-unit building in the City of Los Angeles carries a private hauler cost, so we underwrite $5,000 per year rather than carry the line at zero. A buyer will incur this cost whether or not the seller's records show it."),
             5: ("Repairs, Contracts and Administration", "Owner-reported annualized operating figures."),
             6: ("Reserves", "$200 per unit per year, the LAAA standard tier for this vintage."),
             7: ("Management", "Third-party management, consistent with the setup sheet basis for this asset."),
@@ -113,7 +115,7 @@ SETUP = {
         "monthly_sgi": (20441, 23100),
         "expense_lines": [
             ("Property Tax", 30668, 30668, 1), ("Insurance", 8995, 8995, 2),
-            ("Utilities", 15200, 15200, 3), ("Trash", 0, 0, 4),
+            ("Utilities", 15200, 15200, 3), ("Trash", 5000, 5000, 4),
             ("Repairs & Maintenance", 7500, 7500, 5), ("Contracts", 3000, 3000, 5),
             ("General & Admin", 1500, 1500, 5), ("Reserves", 2000, 2000, 6),
             ("Management", 11899, 11899, 7),
@@ -122,7 +124,7 @@ SETUP = {
             1: ("Property Tax", "Los Angeles County reassesses to the purchase price at close. Shown at {tax_pct} of the {price} recommended price. A buyer should underwrite the reassessed figure, not the seller's current Prop 13 bill."),
             2: ("Insurance", "Annualized from the owner-provided operating information."),
             3: ("Utilities", "Owner-paid water, sewer and common-area utilities, annualized from the owner-provided operating information. Pasadena bills refuse through the city utility account, so a separate hauler line may not apply here; a buyer should confirm what this figure includes."),
-            4: ("Trash", "No separate refuse expense appears in the seller's operating information. Pasadena provides municipal collection billed on the city utility account, so it may already sit inside Utilities above. A buyer should confirm during due diligence."),
+            4: ("Trash", "No separate refuse expense appears in the seller's operating information, so we underwrite $5,000 per year rather than carry the line at zero. Pasadena bills municipal refuse collection on the city utility account, so a buyer should confirm in due diligence whether part of this cost already sits inside the Utilities line above."),
             5: ("Repairs, Contracts and Administration", "Owner-reported annualized operating figures."),
             6: ("Reserves", "$200 per unit per year, the LAAA standard tier for this vintage."),
             7: ("Management", "Third-party management, consistent with the setup sheet basis for this asset."),
@@ -245,7 +247,12 @@ TRACK_RECORD = {
         ("#1", "Most Active · LA County"),
     ],
     "narrative": [
-        "Since 2013, the LAAA Team has closed more than 485 transactions totaling over $1.5B in volume across Los Angeles, Ventura, and Santa Barbara counties, including more than 335 apartment sales covering over 4,650 units, with particular depth in rent-controlled vintage product.",
+        # Every figure here is a placeholder filled from the live Airtable pull.
+        # It shipped once as fixed prose claiming the whole track record sat in
+        # three California counties, when 53 closings were in 20 other states
+        # plus DC. Hand-written geography goes stale the moment a deal closes
+        # somewhere new, so the claim is now generated, not typed.
+        "Since 2013, the LAAA Team has closed {closed} transactions totaling {volume} in volume across {geo}, including {apt_closed} apartment sales covering {apt_units} units concentrated in Los Angeles, with particular depth in rent-controlled vintage product.",
         "Our practice is built on disciplined underwriting, the deepest comparable-sales dataset in the submarket, and a marketing engine that reaches every active multifamily buyer in Los Angeles. We advise owners on when and how to sell, not just whether, and we price to clear rather than to languish.",
         "For the Brio portfolio, that means an evidence-based opinion of value on each asset independently, anchored in recent Pico Union and Pasadena apartment sales, presented with the same rigor we would bring to defending the price against a buyer's due-diligence challenge.",
     ],
@@ -261,13 +268,13 @@ TRACK_RECORD = {
 
 MARKETING = {
     "metrics": [
-        ("23,795+", "Email Subscribers"),
-        ("26.1%", "Avg Open Rate"),
+        ("23,681", "Email Subscribers"),
+        ("3,183", "Verified Opens Per Launch"),
         ("7 Days", "To Full Market Reach"),
         ("40+", "Transactions Per Year"),
     ],
     "channels": [
-        ("Proprietary buyer database", "23,795+ active multifamily investors, segmented by product type, submarket, and check size"),
+        ("Proprietary buyer database", "{subscribers:,} active multifamily investors, segmented by product type, submarket, and check size"),
         ("Marcus & Millichap national platform", "the largest private-capital investment brokerage network in the country"),
         ("Direct outreach", "targeted calls to the owners and exchange buyers most likely to trade into this product"),
         ("Full digital syndication", "LoopNet, CoStar, Crexi, MLS, and the LAAA listing platform at laaa.com"),
@@ -285,8 +292,12 @@ BIOS = {
 
 TEAM = [
     ("Aida Memary Scher", "Associate Director Investments", "Aida_Memary_Scher.jpg"),
-    ("Luka Leader", "Associate", "Luka_Leader.jpg"),
-    ("Morgan Wetmore", "Associate", "Morgan_Wetmore.jpg"),
+    # Titles are the laaa.com values from laaa-platform/data/team.ts, which Glen
+    # made the authority (2026-07-30). team_contacts.md had these two as plain
+    # "Associate" and the public site as "Associate Investments"; the published
+    # site wins, same as the headshots.
+    ("Luka Leader", "Associate Investments", "Luka_Leader.jpg"),
+    ("Morgan Wetmore", "Associate Investments", "Morgan_Wetmore.jpg"),
     ("Logan Ward", "Associate Investments", "Logan_Ward.jpg"),
     ("Alexandro Tapia", "Associate Investments", "Alexandro_Tapia.jpg"),
     ("Blake Lewitt", "Associate Investments", "Blake_Lewitt.jpg"),
@@ -363,15 +374,34 @@ def derive(s):
     s["cap_market"] = round(noi_m / price * 100, 2)
     s["grm_current"] = round(price / rent_c, 2)
     s["grm_market"] = round(price / rent_m, 2)
-    # Guard the GRM/GIM distinction rather than trusting it stays right. If the
-    # multiplier ever matches price/gross-income instead of price/rent, it has
-    # silently become a GIM under a GRM label.
+    # Guard the GRM/GIM distinction at the INPUT, not at the output.
+    #
+    # The first version of this check compared the published GRM against the GIM
+    # and only ran `if sgi_c != rent_c`. That self-disables: corrupt rent_c to
+    # equal SGI upstream and the condition that triggers the check is removed by
+    # the very bug it exists to catch. Falsification confirmed it, a build with
+    # rent_c redefined as SGI wrote Menlo GRM 9.61, the exact mislabeled GIM the
+    # docstring warns about, with no assertion raised.
+    #
+    # So verify the divisor itself against the unit mix, which is the underlying
+    # evidence, and only then confirm the multiplier is not the GIM.
+    # Sum the STATED row totals, not count x rent_current. The per-unit figures
+    # are rounded averages of individually varying rents, so on Parke the five
+    # two-bedrooms show $2,218 each against a stated row total of $11,091: the
+    # recomputation is $12/yr light and it is the recomputation that is wrong.
+    # Same reason the operating totals are taken as stated rather than re-summed.
+    slug = s.get("slug", "property")
+    mix_rent = sum(u["monthly_current"] for u in s["unit_mix"]) * 12
+    assert mix_rent == rent_c, (
+        f"{slug}: scheduled rent {rent_c:,} disagrees with the unit mix "
+        f"({mix_rent:,}). GRM would be struck on the wrong divisor."
+    )
     sgi_c = op["sgi"][0]
-    if sgi_c and sgi_c != rent_c:
+    if sgi_c:
         gim = round(price / sgi_c, 2)
-        assert s["grm_current"] != gim, (
-            f"{s.get('slug', 'property')}: GRM {s['grm_current']} equals the GIM. "
-            f"GRM must divide by scheduled rent ({rent_c:,}), not gross income ({sgi_c:,})."
+        assert s["grm_current"] != gim or sgi_c == mix_rent, (
+            f"{slug}: GRM {s['grm_current']} equals the GIM. GRM must divide by "
+            f"scheduled rent ({rent_c:,}), not gross income ({sgi_c:,})."
         )
     s["expense_total"] = exp
     s["expense_per_unit"] = round(exp / units, 2)
@@ -500,7 +530,80 @@ def build_property(slug):
     }
 
 
+# Exists only so an offline build still renders. A build that falls back to
+# these cannot ship: refresh_stats stamps stats.live=false and the deploy gate
+# refuses it. Never treat these as current.
+STALE_FALLBACK = {"closed": "487", "volume": "$1.53B", "states": 21,
+                  "geo": "21 states and Washington, D.C.",
+                  "apt_closed": "338", "apt_units": "4,650",
+                  "subscribers": 23681, "opens": 3183}
+
+
+def _fill(text, f):
+    return text.format(**f) if "{" in text else text
+
+
+def track_record_copy(live):
+    tr = dict(TRACK_RECORD)
+    tr["narrative"] = [_fill(n, live or STALE_FALLBACK) for n in TRACK_RECORD["narrative"]]
+    return tr
+
+
+def marketing_copy(live):
+    f = live or STALE_FALLBACK
+    mk = dict(MARKETING)
+    # The first two cards are the two figures that shipped wrong: a subscriber
+    # count and an open rate both copied from a different deal. They are derived
+    # now so they cannot be typed wrong again. The remaining cards are claims
+    # about how we work, not measurements, so they stay authored.
+    mk["metrics"] = [(f"{f['subscribers']:,}", "Email Subscribers"),
+                     (f"{f['opens']:,}", "Verified Opens Per Launch")] + list(MARKETING["metrics"][2:])
+    mk["channels"] = [(t, _fill(b, f)) for t, b in MARKETING["channels"]]
+    return mk
+
+
+def live_figures(deals, mc):
+    """Headline copy, computed from the live pull instead of typed by hand."""
+    apts = [r for r in deals if r.get("Property Type") == "Apartments"]
+    geo = refresh_stats.geography(deals)
+    volume = sum(r.get("Close Price") or 0 for r in deals)
+    return {
+        "closed": f"{len(deals):,}",
+        "volume": f"${volume / 1e9:.2f}B" if volume >= 1e9 else f"${volume / 1e6:,.0f}M",
+        "states": geo["states"],
+        "geo": geo["label"],
+        "apt_closed": f"{len(apts):,}",
+        "apt_units": f"{sum(r.get('Units') or 0 for r in apts):,}",
+        "subscribers": mc["subscribers"],
+        "opens": mc["per_launch"]["opens_verified"],
+    }
+
+
 def main():
+    # Live figures FIRST, before anything is written.
+    #
+    # This build used to write bov-site.json from the static dicts above, and a
+    # SEPARATE refresh_stats.py run would then overwrite the numbers with live
+    # ones. Any later rebuild silently reverted the page to the stale hardcoded
+    # copy. That is not hypothetical: the live figures were on the site for 77
+    # minutes on 2026-07-30 before the Menlo reprice re-ran this file and wiped
+    # them, and nobody could tell by looking. One command, one order, no window.
+    deals = mc = live = None
+    try:
+        deals, mc = refresh_stats.pull()
+        live = live_figures(deals, mc)
+        print(f"live pull OK: {live['closed']} closings across {live['states']} states, "
+              f"{live['apt_closed']} apartment sales, {live['subscribers']:,} subscribers, "
+              f"{live['opens']:,} verified opens per launch")
+    except Exception as exc:
+        print("!" * 74)
+        print("LIVE PULL FAILED. Falling back to the static figures in this file.")
+        print(f"  {type(exc).__name__}: {exc}")
+        print("  Those numbers are a snapshot and are probably stale. The build is")
+        print("  marked stats.live=false and the deploy gate will refuse to publish")
+        print("  it. Fix the credentials or the network, then rebuild.")
+        print("!" * 74)
+
     props = [build_property("359-parke"), build_property("1623-menlo")]
     total_units = sum(p["units"] for p in props)
     combined = sum(p["price"] for p in props)
@@ -515,7 +618,11 @@ def main():
             "title": "Brio Real Estate Portfolio",
             "subtitle": "Two-Property Multifamily Portfolio",
             "month_year": "July 2026",
-            "hero": props[0]["hero"],
+            # Both buildings, not one. A single-property photo on a portfolio
+            # cover reads as an oversight. Built by make_hero.py; never hand-edit
+            # the composite.
+            "hero": "images/portfolio-hero-split.jpg",
+            "hero_tall": "images/portfolio-hero-split-tall.jpg",
             "portfolio_map": "images/maps-portfolio-subjects.png",
         },
         "portfolio": {
@@ -524,8 +631,8 @@ def main():
             "total_current_rent": sum(p["scheduled_rent"][0] * 12 for p in props),
             "total_noi": sum(p["noi_current"] for p in props),
         },
-        "track_record": TRACK_RECORD,
-        "marketing": MARKETING,
+        "track_record": track_record_copy(live),
+        "marketing": marketing_copy(live),
         "team": {
             "leads": [
                 {"name": "Glen Scher", "title": "Senior Managing Director Investments",
@@ -584,6 +691,18 @@ def main():
         print(f"  {p['slug']:12s} ${p['price']:,}  {p['units']}u  "
               f"${p['price_per_unit']:,}/unit  ${p['price_per_sf']:.2f}/SF  "
               f"cap {p['cap_current']}%  GRM {p['grm_current']}")
+
+    # The per-property tiers and the stats block land in the SAME run. Making
+    # this a second command is precisely what allowed a rebuild to drop the live
+    # data without anyone noticing.
+    if deals is not None:
+        print()
+        refresh_stats.main(deals, mc)
+    else:
+        stale = json.loads(out.read_text(encoding="utf-8"))
+        stale["stats"] = {"live": False, "reason": "live pull failed at build time"}
+        out.write_text(json.dumps(stale, indent=2), encoding="utf-8")
+        print("\nstats.live=false, so this build must not be deployed.")
 
 
 if __name__ == "__main__":

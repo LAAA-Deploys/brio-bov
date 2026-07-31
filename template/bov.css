@@ -5,7 +5,12 @@ html { scroll-padding-top: 50px; }
 p { margin-bottom: 16px; font-size: 14px; line-height: 1.7; }
 h1,h2,h3 { font-family: 'DM Serif Display', Georgia, serif; }
 .cover { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; overflow: hidden; }
-.cover-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: brightness(0.45); z-index: 0; }
+.cover-bg { position: absolute; inset: 0; background-image: var(--hero); background-size: cover; background-position: center; filter: brightness(0.45); z-index: 0; }
+/* The portfolio hub cover is a 50/50 split of both buildings. Cover-cropping
+   that on a phone lands the crop exactly on the seam, so narrow viewports get
+   the stacked variant. Falls back to --hero on property pages, which set no
+   tall image. */
+@media (max-width: 768px) { .cover-bg { background-image: var(--hero-tall, var(--hero)); } }
 .cover-content { position: relative; z-index: 2; padding: 60px 40px; max-width: 860px; }
 .cover-logo { width: 300px; margin: 0 auto 30px; display: block; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
 .cover-label { font-size: 13px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: #C5A258; margin-bottom: 18px; }

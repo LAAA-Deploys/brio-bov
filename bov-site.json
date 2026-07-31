@@ -8,14 +8,15 @@
     "title": "Brio Real Estate Portfolio",
     "subtitle": "Two-Property Multifamily Portfolio",
     "month_year": "July 2026",
-    "hero": "images/subjects-parke-parke-hero.jpg",
+    "hero": "images/portfolio-hero-split.jpg",
+    "hero_tall": "images/portfolio-hero-split-tall.jpg",
     "portfolio_map": "images/maps-portfolio-subjects.png"
   },
   "portfolio": {
     "combined_value": 4650000,
     "total_units": 18,
     "total_current_rent": 465672,
-    "total_noi": 301939
+    "total_noi": 291939
   },
   "track_record": {
     "source": "Airtable LAAA Closed Deals tblSQs0OQxuGNcEpG",
@@ -49,7 +50,7 @@
       ]
     ],
     "narrative": [
-      "Since 2013, the LAAA Team has closed more than 485 transactions totaling over $1.5B in volume across Los Angeles, Ventura, and Santa Barbara counties, including more than 335 apartment sales covering over 4,650 units, with particular depth in rent-controlled vintage product.",
+      "Since 2013, the LAAA Team has closed 487 transactions totaling $1.53B in volume across 21 states and Washington, D.C., including 338 apartment sales covering 4,650 units concentrated in Los Angeles, with particular depth in rent-controlled vintage product.",
       "Our practice is built on disciplined underwriting, the deepest comparable-sales dataset in the submarket, and a marketing engine that reaches every active multifamily buyer in Los Angeles. We advise owners on when and how to sell, not just whether, and we price to clear rather than to languish.",
       "For the Brio portfolio, that means an evidence-based opinion of value on each asset independently, anchored in recent Pico Union and Pasadena apartment sales, presented with the same rigor we would bring to defending the price against a buyer's due-diligence challenge."
     ],
@@ -86,12 +87,12 @@
   "marketing": {
     "metrics": [
       [
-        "23,795+",
+        "23,680",
         "Email Subscribers"
       ],
       [
-        "26.1%",
-        "Avg Open Rate"
+        "3,183",
+        "Verified Opens Per Launch"
       ],
       [
         "7 Days",
@@ -105,7 +106,7 @@
     "channels": [
       [
         "Proprietary buyer database",
-        "23,795+ active multifamily investors, segmented by product type, submarket, and check size"
+        "23,680 active multifamily investors, segmented by product type, submarket, and check size"
       ],
       [
         "Marcus & Millichap national platform",
@@ -159,12 +160,12 @@
       },
       {
         "name": "Luka Leader",
-        "title": "Associate",
+        "title": "Associate Investments",
         "headshot": "images/team-Luka_Leader.jpg"
       },
       {
         "name": "Morgan Wetmore",
-        "title": "Associate",
+        "title": "Associate Investments",
         "headshot": "images/team-Morgan_Wetmore.jpg"
       },
       {
@@ -239,10 +240,10 @@
       "price_per_sf": 347.42,
       "grm_current": 10.27,
       "grm_market": 9.08,
-      "cap_current": 6.29,
-      "cap_market": 7.53,
-      "noi_current": 157225,
-      "noi_market": 188176,
+      "cap_current": 6.09,
+      "cap_market": 7.33,
+      "noi_current": 152225,
+      "noi_market": 183176,
       "operating": {
         "sgi": [
           245292,
@@ -258,44 +259,44 @@
           268938
         ],
         "expenses": [
-          80762,
-          80762
+          85762,
+          85762
         ],
         "expense_ratio": [
-          33.9,
-          30.0
+          36.0,
+          31.9
         ],
         "noi": [
-          157225,
-          188176
+          152225,
+          183176
         ],
         "loan_payments": [
-          -125780,
-          -125780
+          -121780,
+          -121780
         ],
         "pretax_cf": [
-          31445,
-          62396
+          30445,
+          61396
         ],
         "pretax_cf_pct": [
-          3.94,
-          7.82
+          3.57,
+          7.21
         ],
         "principal_reduction": [
-          19948,
-          19948
+          19314,
+          19314
         ],
         "total_return": [
-          51393,
-          82344
+          49759,
+          80710
         ],
         "total_return_pct": [
-          6.44,
-          10.32
+          5.84,
+          9.48
         ]
       },
       "financing": {
-        "loan_amount": 1702351,
+        "loan_amount": 1648213,
         "rate": 6.25,
         "amortization": 30,
         "dcr": 1.25
@@ -353,8 +354,8 @@
         ],
         [
           "Trash",
-          0,
-          0,
+          5000,
+          5000,
           4
         ],
         [
@@ -403,7 +404,7 @@
         ],
         "4": [
           "Trash",
-          "No separate refuse expense appears in the seller's operating information. Pasadena provides municipal collection billed on the city utility account, so it may already sit inside Utilities above. A buyer should confirm during due diligence."
+          "No separate refuse expense appears in the seller's operating information, so we underwrite $5,000 per year rather than carry the line at zero. Pasadena bills municipal refuse collection on the city utility account, so a buyer should confirm in due diligence whether part of this cost already sits inside the Utilities line above."
         ],
         "5": [
           "Repairs, Contracts and Administration",
@@ -418,9 +419,9 @@
           "Third-party management, consistent with the setup sheet basis for this asset."
         ]
       },
-      "expense_total": 80762,
-      "expense_per_sf": 11.22,
-      "expense_per_unit": 8076.2,
+      "expense_total": 85762,
+      "expense_per_sf": 11.92,
+      "expense_per_unit": 8576.2,
       "highlights": [
         "Ten units: five 1BRs and five 2BRs",
         "$20,291 monthly scheduled rent",
@@ -452,7 +453,7 @@
         "The recommended position presents a current yield that is competitive with the most relevant Pasadena transactions while keeping price per unit below the stronger premium results."
       ],
       "valuation_narrative": [
-        "The income approach supports value through a normalized current net operating income of $157,225. At $2,500,000 the implied going-in cap rate is 6.29% and the current gross rent multiplier is 10.27. On the market rent schedule the same basis produces a 7.53% cap rate and a 9.08 multiplier.",
+        "The income approach supports value through a normalized current net operating income of $152,225. At $2,500,000 the implied going-in cap rate is 6.09% and the current gross rent multiplier is 10.27. On the market rent schedule the same basis produces a 7.33% cap rate and a 9.08 multiplier.",
         "The sales comparison approach supports $250,000 per unit and approximately $347 per square foot. These metrics fall within the supplied Pasadena evidence and align with the subject's income profile, scale, and vintage.",
         "We therefore recommend a list price of $2,500,000, within the supported range of $2,350,000 to $2,500,000, subject to inspection, lease review, and confirmation of operating expenses."
       ],
@@ -730,6 +731,28 @@
         "sale": "images/maps-359-parke-sale-comps.png",
         "rent": "images/maps-359-parke-rent-comps.png",
         "active": null
+      },
+      "track_record": {
+        "all": {
+          "count": 487,
+          "volume": 1534698899.5,
+          "units": 4665
+        },
+        "asset_class": {
+          "count": 338,
+          "volume": 1151000729.5,
+          "units": 4650
+        },
+        "asset_class_label": "Apartments",
+        "local": {
+          "count": 18,
+          "volume": 37648000,
+          "units": 121
+        },
+        "local_basis": {
+          "type": "submarket",
+          "label": "Pasadena"
+        }
       }
     },
     {
@@ -771,10 +794,10 @@
       "price_per_sf": 415.86,
       "grm_current": 9.68,
       "grm_market": 8.76,
-      "cap_current": 6.73,
-      "cap_market": 7.78,
-      "noi_current": 144714,
-      "noi_market": 167353,
+      "cap_current": 6.5,
+      "cap_market": 7.55,
+      "noi_current": 139714,
+      "noi_market": 162353,
       "operating": {
         "sgi": [
           223620,
@@ -790,44 +813,44 @@
           239594
         ],
         "expenses": [
-          72241,
-          72241
+          77241,
+          77241
         ],
         "expense_ratio": [
-          33.3,
-          30.2
+          35.6,
+          32.2
         ],
         "noi": [
-          144714,
-          167353
+          139714,
+          162353
         ],
         "loan_payments": [
-          -115771,
-          -115771
+          -111771,
+          -111771
         ],
         "pretax_cf": [
-          28943,
-          51582
+          27943,
+          50582
         ],
         "pretax_cf_pct": [
-          4.96,
-          8.85
+          4.38,
+          7.94
         ],
         "principal_reduction": [
-          18361,
-          18361
+          17726,
+          17726
         ],
         "total_return": [
-          47304,
-          69943
+          45669,
+          68308
         ],
         "total_return_pct": [
-          8.11,
-          11.99
+          7.17,
+          10.72
         ]
       },
       "financing": {
-        "loan_amount": 1566888,
+        "loan_amount": 1512751,
         "rate": 6.25,
         "amortization": 30,
         "dcr": 1.25
@@ -885,8 +908,8 @@
         ],
         [
           "Trash",
-          0,
-          0,
+          5000,
+          5000,
           4
         ],
         [
@@ -935,7 +958,7 @@
         ],
         "4": [
           "Trash",
-          "No refuse expense appears in the seller's bills or profit and loss statements. An eight-unit building in the City of Los Angeles will carry a private hauler cost, and a buyer should underwrite roughly $5,000 per year. This is a known gap in the seller-supplied data, not an omission in the analysis."
+          "No refuse expense appears in the seller's bills or profit and loss statements. An eight-unit building in the City of Los Angeles carries a private hauler cost, so we underwrite $5,000 per year rather than carry the line at zero. A buyer will incur this cost whether or not the seller's records show it."
         ],
         "5": [
           "Repairs, Contracts and Administration",
@@ -950,9 +973,9 @@
           "Third-party management, consistent with the setup sheet basis for this asset."
         ]
       },
-      "expense_total": 72241,
-      "expense_per_sf": 13.97,
-      "expense_per_unit": 9030.12,
+      "expense_total": 77241,
+      "expense_per_sf": 14.94,
+      "expense_per_unit": 9655.12,
       "highlights": [
         "Eight units built in 1979",
         "$18,515 monthly scheduled rent",
@@ -984,7 +1007,7 @@
         "The result balances the nearby Dewey physical comparison against the lower per-unit signal from the larger Ardmore sale, with the current active listings framing the upper end of the range."
       ],
       "valuation_narrative": [
-        "The income approach supports value through a normalized current net operating income of $144,714. At $2,150,000 the implied going-in cap rate is 6.73% and the current gross rent multiplier is 9.68. On the market rent schedule the same basis produces a 7.78% cap rate and a 8.76 multiplier.",
+        "The income approach supports value through a normalized current net operating income of $139,714. At $2,150,000 the implied going-in cap rate is 6.50% and the current gross rent multiplier is 9.68. On the market rent schedule the same basis produces a 7.55% cap rate and a 8.76 multiplier.",
         "The sales comparison approach supports $268,750 per unit and approximately $416 per square foot. These metrics fit within the supplied closed and active evidence, with the higher price per square foot supported by the nearby Dewey closing and the stronger current yield.",
         "We therefore recommend a list price of $2,150,000, within the supported range of $2,000,000 to $2,150,000, subject to inspection, lease review, and confirmation of legal unit configuration."
       ],
@@ -1213,7 +1236,74 @@
         "sale": "images/maps-1623-menlo-sale-comps.png",
         "rent": "images/maps-1623-menlo-rent-comps.png",
         "active": "images/maps-1623-menlo-active-comps.png"
+      },
+      "track_record": {
+        "all": {
+          "count": 487,
+          "volume": 1534698899.5,
+          "units": 4665
+        },
+        "asset_class": {
+          "count": 338,
+          "volume": 1151000729.5,
+          "units": 4650
+        },
+        "asset_class_label": "Apartments",
+        "local": {
+          "count": 23,
+          "volume": 55251000,
+          "units": 184
+        },
+        "local_basis": {
+          "type": "radius",
+          "label": "within 5 miles",
+          "radius_mi": 5
+        }
       }
     }
-  ]
+  ],
+  "stats": {
+    "live": true,
+    "generated": "2026-07-31T04:13:26+00:00",
+    "geography": {
+      "states": 21,
+      "has_dc": true,
+      "label": "21 states and Washington, D.C.",
+      "outside_ca": 53,
+      "outside_ca_volume": 126256383
+    },
+    "sources": {
+      "track_record": "Airtable appJh9m9A1LzMeI6I/tblSQs0OQxuGNcEpG, Deal Stage=closed",
+      "marketing": "Mailchimp API, full-list sends only; opens are proxy-excluded"
+    },
+    "marketing": {
+      "subscribers": 23680,
+      "brokers": 14102,
+      "principals": 9908,
+      "developers": 1793,
+      "campaigns_sent": 1749,
+      "per_launch": {
+        "opens_raw": 7168,
+        "opens_verified": 3183,
+        "clickers": 445,
+        "property_page_clicks": 408,
+        "sample_campaigns": 8
+      }
+    },
+    "portfolio_track_record": {
+      "all": {
+        "count": 487,
+        "volume": 1534698899.5,
+        "units": 4665
+      },
+      "asset_class": {
+        "count": 338,
+        "volume": 1151000729.5,
+        "units": 4650
+      },
+      "asset_class_label": "Apartments",
+      "local": null,
+      "local_basis": null
+    }
+  }
 }

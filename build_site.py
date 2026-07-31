@@ -92,7 +92,15 @@ def head(title, desc, data, d, canonical):
 """
 
 
-def cover(*, logo, label, title, address, stats, leads, client, month, hero, d):
+def cover_tall(hero_tall, d):
+    """The hub cover is a two-panel split, and background-size:cover on a phone
+    center-crops straight onto the seam. A portrait variant is supplied so the
+    narrow viewport gets the panels stacked instead. Property covers pass none
+    and the CSS falls back to the single wide image."""
+    return f"--hero-tall:url('{rel(hero_tall, d)}');" if hero_tall else ""
+
+
+def cover(*, logo, label, title, address, stats, leads, client, month, hero, d, hero_tall=None):
     stat_html = "".join(
         f'<div class="cover-stat"><span class="cover-stat-value">{e(v)}</span>'
         f'<span class="cover-stat-label">{e(l)}</span></div>' for v, l in stats)
@@ -102,7 +110,7 @@ def cover(*, logo, label, title, address, stats, leads, client, month, hero, d):
         f'<div class="cover-headshot-title">{e(a["title"])}</div></div>' for a in leads)
     return f"""
 <div class="cover">
-  <div class="cover-bg" style="background-image:url('{rel(hero, d)}');"></div>
+  <div class="cover-bg" style="--hero:url('{rel(hero, d)}');{cover_tall(hero_tall, d)}"></div>
   <div class="cover-content">
     <img src="{rel(logo, d)}" class="cover-logo" alt="LAAA Team">
     <div class="cover-label">{e(label)}</div>

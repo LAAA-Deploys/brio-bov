@@ -56,7 +56,7 @@ def miles(a, b, c, d):
 def closed_deals():
     key = cred("AIRTABLE_API_KEY")
     fields = ["Property Address", "Deal Stage", "Property Type", "City", "Submarket",
-              "Close Price", "Units", "Latitude", "Longitude", "Year Closed"]
+              "Close Price", "Units", "Latitude", "Longitude", "Year Closed", "State"]
     out, offset = [], None
     while True:
         q = [("pageSize", "100")] + [("fields[]", f) for f in fields]
@@ -161,12 +161,62 @@ def mailchimp():
     }
 
 
-def main():
+def pull():
+    """One live fetch. Callers that need the figures BEFORE writing bov-site.json
+    (make_data.py builds its headline copy from them) pull once and hand the
+    result to main() so the build never hits the APIs twice."""
+    return closed_deals(), mailchimp()
+
+
+_ABBR = {
+    "AL": "ALABAMA", "AK": "ALASKA", "AZ": "ARIZONA", "AR": "ARKANSAS", "CA": "CALIFORNIA",
+    "CO": "COLORADO", "CT": "CONNECTICUT", "DE": "DELAWARE", "FL": "FLORIDA", "GA": "GEORGIA",
+    "HI": "HAWAII", "ID": "IDAHO", "IL": "ILLINOIS", "IN": "INDIANA", "IA": "IOWA",
+    "KS": "KANSAS", "KY": "KENTUCKY", "LA": "LOUISIANA", "ME": "MAINE", "MD": "MARYLAND",
+    "MA": "MASSACHUSETTS", "MI": "MICHIGAN", "MN": "MINNESOTA", "MS": "MISSISSIPPI",
+    "MO": "MISSOURI", "MT": "MONTANA", "NE": "NEBRASKA", "NV": "NEVADA",
+    "NH": "NEW HAMPSHIRE", "NJ": "NEW JERSEY", "NM": "NEW MEXICO", "NY": "NEW YORK",
+    "NC": "NORTH CAROLINA", "ND": "NORTH DAKOTA", "OH": "OHIO", "OK": "OKLAHOMA",
+    "OR": "OREGON", "PA": "PENNSYLVANIA", "RI": "RHODE ISLAND", "SC": "SOUTH CAROLINA",
+    "SD": "SOUTH DAKOTA", "TN": "TENNESSEE", "TX": "TEXAS", "UT": "UTAH", "VT": "VERMONT",
+    "VA": "VIRGINIA", "WA": "WASHINGTON", "WV": "WEST VIRGINIA", "WI": "WISCONSIN",
+    "WY": "WYOMING",
+}
+_DC = {"DC", "DISTRICT OF COLUMBIA", "WASHINGTON, D.C.", "WASHINGTON DC"}
+
+
+def _state(raw):
+    v = (raw or "").strip().upper()
+    return "DC" if v in _DC else _ABBR.get(v, v)
+
+
+def geography(deals):
+    """State spread, so a geographic claim in the copy can never go stale.
+
+    Written after the live page claimed the whole track record sat in three
+    California counties while 53 closings were in 20 other states plus DC.
+
+    The normalization is not optional. This table stores the same state both
+    ways ("California" and "CA", "Colorado" and "CO"), so counting distinct raw
+    values returns 24 when the real answer is 21 states plus DC. A naive count
+    would have published an inflated number on a client-facing page.
+    """
+    norm = [_state(r.get("State")) for r in deals]
+    states = {s for s in norm if s and s != "DC"}
+    has_dc = "DC" in norm
+    outside = [r for r in deals if _state(r.get("State")) not in ("CALIFORNIA", "")]
+    label = f"{len(states)} states" + (" and Washington, D.C." if has_dc else "")
+    return {"states": len(states), "has_dc": has_dc, "label": label,
+            "outside_ca": len(outside),
+            "outside_ca_volume": sum(r.get("Close Price") or 0 for r in outside)}
+
+
+def main(deals=None, mc=None):
     data = json.loads((ROOT / "bov-site.json").read_text(encoding="utf-8"))
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
-    deals = closed_deals()
-    mc = mailchimp()
+    if deals is None or mc is None:
+        deals, mc = pull()
 
     for p in data["properties"]:
         subj = {"lat": None, "lng": None, "submarket": p.get("submarket"), "asset_class": "Apartments"}
@@ -176,7 +226,9 @@ def main():
         p["track_record"] = track_record(deals, subj)
 
     data["stats"] = {
+        "live": True,
         "generated": now,
+        "geography": geography(deals),
         "sources": {
             "track_record": f"Airtable {AIRTABLE_BASE}/{CLOSED_DEALS}, Deal Stage=closed",
             "marketing": "Mailchimp API, full-list sends only; opens are proxy-excluded",

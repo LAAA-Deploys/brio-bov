@@ -71,9 +71,13 @@ jobs:
           # double-escaped entities. Passing a pre-escaped string through the
           # template escaper printed a literal "Marcus &amp; Millichap" in three
           # headings and it reached production.
-          if grep -rqE '&amp;(amp|bull|middot|nbsp|quot|#[0-9]+);' --include='*.html' .; then
+          # Any named or numeric entity, not a hand-listed few. The original
+          # list missed &amp;rsquo; &amp;mdash; &amp;copy; and every other entity nobody
+          # thought to enumerate. A literal "&amp;" in front of an entity name is
+          # always the double-escape bug, so a general pattern is safe here.
+          if grep -rqE '&amp;([a-zA-Z][a-zA-Z0-9]{1,10}|#[0-9]+);' --include='*.html' .; then
             echo "FAIL: double-escaped HTML entity is rendering as literal text"
-            grep -rhoE '&amp;(amp|bull|middot|nbsp|quot|#[0-9]+);' --include='*.html' . | sort -u | head
+            grep -rhoE '&amp;([a-zA-Z][a-zA-Z0-9]{1,10}|#[0-9]+);' --include='*.html' . | sort -u | head
             fail=1
           fi
           # the internal segment name must never reach a client-facing page
@@ -83,14 +87,46 @@ jobs:
           if [ $fail -eq 0 ]; then echo "Retired-value guard passed"; fi
           exit $fail
 
+      # Deploy an explicit allowlist, never the repo. Until 2026-07-30 this
+      # workflow uploaded `path: .`, which served make_data.py, sections.py,
+      # bov-site.json and raw/brio-raw.json to the public web at guessable
+      # URLs. Nothing damaging was in them, but the next deal's raw file is one
+      # careless field away from publishing seller motivation or debt payoff.
+      #
+      # Fail-closed on purpose: a new build script, a scratch file or a data
+      # dump is excluded unless someone deliberately adds it here. The whole
+      # lesson of this repo is that new things slip past allow-by-default.
+      - name: Stage the site
+        run: |
+          rm -rf _site && mkdir _site
+          fail=0
+          for f in index.html CNAME .nojekyll og.jpg robots.txt; do
+            [ -f "$f" ] && cp "$f" _site/ || { echo "FAIL: missing $f"; fail=1; }
+          done
+          for d in images 359-parke 1623-menlo; do
+            [ -d "$d" ] && cp -r "$d" _site/ || { echo "FAIL: missing $d/"; fail=1; }
+          done
+          # Nothing executable, no data, no templates. If this ever trips, the
+          # allowlist above grew something it should not have.
+          if find _site -type f \( -name '*.py' -o -name '*.mjs' -o -name '*.json' \
+                                   -o -name '*.md' -o -name '*.yml' \) | grep -q .; then
+            echo "FAIL: build source or data reached the deploy artifact:"
+            find _site -type f \( -name '*.py' -o -name '*.mjs' -o -name '*.json' \
+                                  -o -name '*.md' -o -name '*.yml' \)
+            fail=1
+          fi
+          echo "Staged $(find _site -type f | wc -l) files"
+          exit $fail
+
       # Data tables must never wrap. Ten columns squeezed into a fixed 700px
       # broke addresses across four lines and left row heights ragged.
+      # The audits run against _site, so they test what actually ships.
       - name: Table fit audit
         run: |
           npm init -y >/dev/null 2>&1
           npm i -D playwright@latest >/dev/null 2>&1
           npx playwright install --with-deps chromium >/dev/null 2>&1
-          python3 -m http.server 8901 >/dev/null 2>&1 &
+          (cd _site && python3 -m http.server 8901 >/dev/null 2>&1 &)
           for i in $(seq 1 20); do curl -sf http://localhost:8901/index.html >/dev/null && break; sleep 1; done
           node audit_tables.mjs http://localhost:8901
 
@@ -114,6 +150,6 @@ jobs:
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v5

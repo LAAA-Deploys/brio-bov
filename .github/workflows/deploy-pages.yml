@@ -67,6 +67,18 @@ jobs:
           # every approved figure must actually be on its page
           grep -q '\$2,200,000' 1623-menlo/index.html || { echo "FAIL: Menlo price missing"; fail=1; }
           grep -q '\$2,500,000' 359-parke/index.html  || { echo "FAIL: Parke price missing"; fail=1; }
+          # double-escaped entities. Passing a pre-escaped string through the
+          # template escaper printed a literal "Marcus &amp; Millichap" in three
+          # headings and it reached production.
+          if grep -rqE '&amp;(amp|bull|middot|nbsp|quot|#[0-9]+);' --include='*.html' .; then
+            echo "FAIL: double-escaped HTML entity is rendering as literal text"
+            grep -rhoE '&amp;(amp|bull|middot|nbsp|quot|#[0-9]+);' --include='*.html' . | sort -u | head
+            fail=1
+          fi
+          # the internal segment name must never reach a client-facing page
+          if grep -rqiE '>[^<]*\bclients\b[^<]*<' --include='*.html' .; then
+            echo "FAIL: the internal term \"Clients\" appears in visible copy; use Principals"; fail=1
+          fi
           if [ $fail -eq 0 ]; then echo "Retired-value guard passed"; fi
           exit $fail
 

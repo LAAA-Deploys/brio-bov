@@ -139,9 +139,28 @@ def metrics4(items):
         f'<span class="metric-label">{e(l)}</span></div>' for v, l in items) + "</div>\n"
 
 
-def track_record(data, d):
+def track_record(data, d, prop=None):
     tr = data["track_record"]
     t = data["team"]
+    # Three tiers, live from Airtable (Glen 2026-07-30): everything closed, then
+    # this asset class, then THIS property's own market. The local tier uses the
+    # subject's submarket where LAAA has depth there and a radius otherwise, and
+    # the basis is always stated so the claim can never overreach.
+    live = (data.get("stats") or {}).get("portfolio_track_record")
+    lt = (prop or {}).get("track_record") or live
+    if lt:
+        local, basis = lt.get("local"), lt.get("local_basis") or {}
+        cards = [(f"{lt['all']['count']}", "Closed Transactions"),
+                 (f"{lt['asset_class']['count']}", "Apartment Sales")]
+        if local:
+            label = (f"in {basis['label']}" if basis.get("type") == "submarket"
+                     else basis["label"].capitalize())
+            cards.append((f"{local['count']}", label))
+        else:
+            cards.append((money(lt["asset_class"]["volume"] / 1e9, 2).replace("$", "$") + "B",
+                          "Apartment Volume"))
+        cards.append(("#1", "Most Active in LA County"))
+        tr = dict(tr, metrics=cards)
     bios = "".join(
         f'<div class="bio-card"><img class="bio-headshot" src="{rel(a["headshot"], d)}" alt="{e(a["name"])}"><div>'
         f'<div class="bio-name">{e(a["name"])}</div><div class="bio-title">{e(a["title"])}</div>'
@@ -154,7 +173,7 @@ def track_record(data, d):
     press = "".join(f'<span class="press-logo">{e(p)}</span>' for p in tr["press"])
     return f"""
 <div class="section section-alt" id="track-record">
-{section_head("Team Track Record", "LA Apartment Advisors at Marcus &amp; Millichap")}\
+{section_head("Team Track Record", "LA Apartment Advisors at Marcus & Millichap")}\
   <div class="tr-tagline"><span style="display:block;font-size:1.1em;font-weight:700;margin-bottom:4px;">LAAA Team of Marcus &amp; Millichap</span>Expertise, Execution, Excellence.</div>
 {metrics4(tr["metrics"])}\
   <div class="tr-map-print"><img src="{rel('images/maps-portfolio-subjects.png', d)}" alt="LAAA Portfolio Map" loading="lazy"></div>
@@ -184,12 +203,45 @@ def track_record(data, d):
 def marketing(data):
     m = data["marketing"]
     chan = "".join(f"<li><strong>{e(c[0])}</strong> - {e(c[1])}</li>" for c in m["channels"])
+
+    # Live Mailchimp figures. Nothing here is hardcoded: the 2026-07-30 build
+    # shipped 23,795 subscribers and a 26.1% open rate copied from another deal
+    # and both were wrong. Opens are Mailchimp's proxy-excluded count, so machine
+    # opens from Apple Mail Privacy are already removed.
+    mk = (data.get("stats") or {}).get("marketing")
+    split = ""
+    if mk:
+        pl = mk["per_launch"]
+        cards = [(f"{mk['subscribers']:,}", "Investors Reached"),
+                 (f"{mk['brokers']:,}", "Cooperating Brokers"),
+                 (f"{pl['opens_verified']:,}", "Verified Opens per Launch"),
+                 (f"{pl['property_page_clicks']:,}", "Clicked to the Property")]
+        m = dict(m, metrics=cards)
+        # "Clients" is the INTERNAL segment name and must never appear here.
+        split = (f'  <p class="narrative" style="margin-top:-6px;">Of the {mk["subscribers"]:,} investors on our '
+                 f'list, {mk["brokers"]:,} are cooperating brokers, {mk["principals"]:,} are principals and '
+                 f'property owners, and {mk["developers"]:,} are developers. Every launch reaches all of them '
+                 f'the same day.</p>\n')
+
+    proactive = """
+  <h3 class="sub-heading">How We Find Your Buyer</h3>
+  <div class="inv-text">
+    <p>Most brokers are reactive. They post the listing, run an email blast, and wait for the phone to ring. We do all of that, and we do it well. Then we do the part almost nobody does. We pick up the phone.</p>
+    <p>Before your building goes to market, our system builds a probable buyer list for it specifically. It pulls the county assessment record for every property in the surrounding area: who owns it, where their mail goes, what they paid, when they bought, who financed it, and how many other buildings they hold. Out of that come the three groups most likely to buy your building. Owners of comparable product nearby. Buyers who have closed on buildings like yours recently. Exchange buyers with money that has to be placed on a deadline.</p>
+    <p><strong>That list runs well over 100 names, and we call every one of them.</strong></p>
+    <p>This is a proven system and we built it ourselves. It is not a Marcus &amp; Millichap product and it did not come with the brand. Our team designed it, we own it, and we use it on every listing we take.</p>
+    <p>Sitting on top of it is the part software cannot buy. Careers spanning 20 years of notes on these same buyers. We have their direct numbers and their emails. We know what they bought last, what they passed on and why, and what they are hunting for now. Every seller we take on inherits all of it on day one.</p>
+    <p>Then we work it. Buyer lists, offer matrices, and a straight answer every week on who called, who toured, and what they said.</p>
+  </div>
+"""
     return f"""
 <div class="page-break-marker"></div>
 <div class="section" id="marketing">
-{section_head("Our Marketing Approach &amp; Reach", "Every Active LA Multifamily Buyer, Within Days of Launch")}\
+{section_head("Our Marketing Approach & Reach", "Every Active LA Multifamily Buyer, Within Days of Launch")}\
 {metrics4(m["metrics"])}\
+{split}\
   <div class="mkt-quote">"We are PROACTIVE marketers, not reactive."</div>
+{proactive}\
   <div class="inv-highlights"><h4>How We Reach the Market</h4><ul>{chan}</ul></div>
 {paras(m["narrative"], "narrative")}
 </div>

@@ -227,6 +227,7 @@
       "apn": "5725 029 018",
       "parking": "Fourteen spaces: carports, one garage, and open parking",
       "location_title": "A central Pasadena apartment location with durable renter access",
+      "submarket": "Pasadena",
       "price": 2500000,
       "value_range": "$2,350,000 to $2,500,000",
       "units": 10,
@@ -681,6 +682,28 @@
         "sale": "images/maps-359-parke-sale-comps.png",
         "rent": "images/maps-359-parke-rent-comps.png",
         "active": null
+      },
+      "track_record": {
+        "all": {
+          "count": 487,
+          "volume": 1534698899.5,
+          "units": 4665
+        },
+        "asset_class": {
+          "count": 338,
+          "volume": 1151000729.5,
+          "units": 4650
+        },
+        "asset_class_label": "Apartments",
+        "local": {
+          "count": 18,
+          "volume": 37648000,
+          "units": 121
+        },
+        "local_basis": {
+          "type": "submarket",
+          "label": "Pasadena"
+        }
       }
     },
     {
@@ -710,6 +733,7 @@
       "apn": "5056 022 005",
       "parking": "Gated access with on-site parking",
       "location_title": "Central Los Angeles connectivity with durable renter demand",
+      "submarket": null,
       "price": 2200000,
       "value_range": "$2,000,000 to $2,200,000",
       "units": 8,
@@ -1115,7 +1139,66 @@
         "sale": "images/maps-1623-menlo-sale-comps.png",
         "rent": "images/maps-1623-menlo-rent-comps.png",
         "active": "images/maps-1623-menlo-active-comps.png"
+      },
+      "track_record": {
+        "all": {
+          "count": 487,
+          "volume": 1534698899.5,
+          "units": 4665
+        },
+        "asset_class": {
+          "count": 338,
+          "volume": 1151000729.5,
+          "units": 4650
+        },
+        "asset_class_label": "Apartments",
+        "local": {
+          "count": 23,
+          "volume": 55251000,
+          "units": 184
+        },
+        "local_basis": {
+          "type": "radius",
+          "label": "within 5 miles",
+          "radius_mi": 5
+        }
       }
     }
-  ]
+  ],
+  "stats": {
+    "generated": "2026-07-31T01:37:17+00:00",
+    "sources": {
+      "track_record": "Airtable appJh9m9A1LzMeI6I/tblSQs0OQxuGNcEpG, Deal Stage=closed",
+      "marketing": "Mailchimp API, full-list sends only; opens are proxy-excluded"
+    },
+    "marketing": {
+      "subscribers": 23681,
+      "brokers": 14102,
+      "principals": 9908,
+      "developers": 1793,
+      "campaigns_sent": 1749,
+      "per_launch": {
+        "opens_raw": 7168,
+        "opens_verified": 3183,
+        "clickers": 445,
+        "property_page_clicks": 408,
+        "sample_campaigns": 8
+      }
+    },
+    "portfolio_track_record": {
+      "all": {
+        "count": 487,
+        "volume": 1534698899.5,
+        "units": 4665
+      },
+      "asset_class": {
+        "count": 338,
+        "volume": 1151000729.5,
+        "units": 4650
+      },
+      "asset_class_label": "Apartments",
+      "local": null,
+      "local_basis": null
+    }
+  }
 }

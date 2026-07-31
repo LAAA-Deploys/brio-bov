@@ -45,7 +45,7 @@ def property_page(data, p):
                 leads=data["team"]["leads"], client=data["meta"]["client"],
                 month=data["meta"]["month_year"], hero=p["hero"], d=d),
         B.toc(nav, d),
-        B.track_record(data, d),
+        B.track_record(data, d, p),
         B.marketing(data),
         S.investment(p, d),
         S.location(p, d),

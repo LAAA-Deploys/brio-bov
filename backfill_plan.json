@@ -1,0 +1,170 @@
+[
+  {
+    "id": "rec2WGaOIkgb8Shuy",
+    "addr": "6301 Ming Ave",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recAJmaXtfsPNoTzC",
+    "addr": "4401 Belle Terrace",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recCE0PVpWIvKCAqP",
+    "addr": "909 Jasmine Parke Dr",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recNc3cQnFKtIm0l3",
+    "addr": "309 Quantico Ave",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recNwl4E7qLnDrzZ9",
+    "addr": "903 Jasmine Parke Dr",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recPR5t3673DKnfKf",
+    "addr": "6900 Valleyview Dr",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recWlHlWlHxPlTmb4",
+    "addr": "630 A St",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recct20x4DzfWDTmb",
+    "addr": "1201 40th St",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "reckqr9x4NFn4yBMC",
+    "addr": "336 Roberts Lane",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recvRIxGAcps5yG2k",
+    "addr": "924 C St",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recyrbpdPXvOnWddx",
+    "addr": "1951 Golden State Ave",
+    "submarket": "Bakersfield",
+    "why": "city"
+  },
+  {
+    "id": "recMy5ffWeC9IUJrg",
+    "addr": "13911-13917 Los Angeles St",
+    "submarket": "Baldwin Park",
+    "why": "city (new)"
+  },
+  {
+    "id": "recZBrYrpOlLKan1E",
+    "addr": "7231 Boleyn Dr",
+    "submarket": "Cincinnati",
+    "why": "city (new)"
+  },
+  {
+    "id": "recjKikNiuDK5Qv75",
+    "addr": "2221 Stanton Ave",
+    "submarket": "Des Moines",
+    "why": "city (new)"
+  },
+  {
+    "id": "recblS71y9D0Nvg6x",
+    "addr": "378 - 388 Park Avenue",
+    "submarket": "East Hartford",
+    "why": "city (new)"
+  },
+  {
+    "id": "recRNIuIMfOviHQeU",
+    "addr": "11323-11327 Schmidt Rd",
+    "submarket": "El Monte",
+    "why": "city (new)"
+  },
+  {
+    "id": "recYNfLOOBHos0PQH",
+    "addr": "3536 Cogswell Rd",
+    "submarket": "El Monte",
+    "why": "city (new)"
+  },
+  {
+    "id": "recGIjAi5l36ukS3Z",
+    "addr": "3666 S Pearl St",
+    "submarket": "Englewood",
+    "why": "city (new)"
+  },
+  {
+    "id": "recnbAyQeDDjey7wT",
+    "addr": "69-73 Blue Hills Avenue",
+    "submarket": "Hartford",
+    "why": "city (new)"
+  },
+  {
+    "id": "recNKngSsdOt61OpZ",
+    "addr": "306 W Indiana St",
+    "submarket": "Kouts",
+    "why": "city (new)"
+  },
+  {
+    "id": "recLXKlTmyqcKmnf3",
+    "addr": "820/830/840/844 NW 70th Street",
+    "submarket": "Miami",
+    "why": "city (new)"
+  },
+  {
+    "id": "rec3uqqv444kQHHO1",
+    "addr": "8444 Burnet Ave",
+    "submarket": "North Hills",
+    "why": "city"
+  },
+  {
+    "id": "recT5nD0ayEOkNPs4",
+    "addr": "11720 Hamlin St",
+    "submarket": "North Hollywood",
+    "why": "city"
+  },
+  {
+    "id": "recA6TPxKgjR6d0Bp",
+    "addr": "2272 Daniel Ct",
+    "submarket": "Portage",
+    "why": "city (new)"
+  },
+  {
+    "id": "recFGAqm7whx9H0So",
+    "addr": "21321-21331 Golden Hills Blvd",
+    "submarket": "Tehachapi",
+    "why": "city (new)"
+  },
+  {
+    "id": "recheyRTIFIRsPIae",
+    "addr": "20220 Park Rd",
+    "submarket": "Tehachapi",
+    "why": "city (new)"
+  },
+  {
+    "id": "recGEUoikk7imBe9v",
+    "addr": "16565 Vanowen St",
+    "submarket": "Van Nuys",
+    "why": "city"
+  },
+  {
+    "id": "recowA6kgK3Ol3IFd",
+    "addr": "1701 E St NE",
+    "submarket": "Washington",
+    "why": "city (new)"
+  }
+]

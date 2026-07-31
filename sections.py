@@ -141,7 +141,7 @@ def buyer_profile(p):
                     f'<p class="obj-a">{e(s["copy"])}</p></div>' for s in p["strategy"])
     return f"""
 <div class="section section-alt" id="property-info">
-{section_head("Buyer Profile &amp; Transaction Strategy", "Target Investors and How We Reach Them")}\
+{section_head("Buyer Profile & Transaction Strategy", "Target Investors and How We Reach Them")}\
   <div class="buyer-split">
     <div class="buyer-split-left"><h3 class="sub-heading">Target Buyer Profile</h3>{left}</div>
     <div class="buyer-split-right"><h3 class="sub-heading">Transaction Strategy</h3>{right}</div>

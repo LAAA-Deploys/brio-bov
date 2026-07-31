@@ -112,6 +112,8 @@ SETUP = {
 
 # The approved value range from the prior analysis. Both setup-sheet prices sit
 # at the top of their approved range, so no new range is invented here.
+SUBMARKET = {"359-parke": "Pasadena", "1623-menlo": None}
+
 VALUE_RANGE = {"1623-menlo": "$2,000,000 to $2,200,000", "359-parke": "$2,350,000 to $2,500,000"}
 
 SLUG_TO_RAW = {"1623-menlo": "menlo", "359-parke": "parke"}
@@ -313,6 +315,7 @@ def build_property(slug):
         "apn": raw["apn"],
         "parking": raw["parking"],
         "location_title": raw["locationTitle"],
+        "submarket": SUBMARKET.get(slug),
 
         "price": s["price"],
         "value_range": VALUE_RANGE[slug],

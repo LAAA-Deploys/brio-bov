@@ -321,7 +321,19 @@ def derive(s):
     rebuild. Price is now the single input and everything else follows.
 
     Validated to reproduce the 1623 Menlo sheet at $2,200,000 line for line.
-    Note GRM uses SCHEDULED RENT, not gross income: it excludes other income.
+
+    GRM vs GIM (Glen, 2026-07-30) — these are two different multipliers and must
+    never be conflated:
+      GRM, Gross Rent Multiplier   = price / annual scheduled RENT   (rent only)
+      GIM, Gross Income Multiplier = price / annual gross INCOME     (rent + laundry,
+                                     RUBS, parking, storage)
+    **GRM is the LAAA default.** GIM is produced only on an explicit request and
+    must then be labelled GIM. The two look nearly identical and a wrong one
+    passes review: on Menlo, rent is $222,180 against income of $223,620, so at
+    $2,150,000 that is GRM 9.68 versus GIM 9.61. Striking the subject on income
+    while the comps were struck on rent makes the subject look cheaper than it is.
+    `scheduled_rent` drives GRM here; `operating.sgi` (which includes other
+    income) drives EGI and must never be fed into a GRM.
     """
     price, units, sf = s["price"], s["units"], s["building_sf"]
     op = dict(s["operating"])
@@ -351,6 +363,16 @@ def derive(s):
     s["cap_market"] = round(noi_m / price * 100, 2)
     s["grm_current"] = round(price / rent_c, 2)
     s["grm_market"] = round(price / rent_m, 2)
+    # Guard the GRM/GIM distinction rather than trusting it stays right. If the
+    # multiplier ever matches price/gross-income instead of price/rent, it has
+    # silently become a GIM under a GRM label.
+    sgi_c = op["sgi"][0]
+    if sgi_c and sgi_c != rent_c:
+        gim = round(price / sgi_c, 2)
+        assert s["grm_current"] != gim, (
+            f"{s.get('slug', 'property')}: GRM {s['grm_current']} equals the GIM. "
+            f"GRM must divide by scheduled rent ({rent_c:,}), not gross income ({sgi_c:,})."
+        )
     s["expense_total"] = exp
     s["expense_per_unit"] = round(exp / units, 2)
     s["expense_per_sf"] = round(exp / sf, 2)

@@ -23,7 +23,7 @@ RAW = json.loads((ROOT / "raw" / "brio-raw.json").read_text(encoding="utf-8"))
 # ---------------------------------------------------------------------------
 SETUP = {
     "1623-menlo": {
-        "price": 2200000,
+        "price": 2150000,
         "down_payment_pct": 29, "down_payment": 639844,
         "units": 8, "price_per_unit": 275000,
         "grm_current": 9.90, "grm_market": 8.96,
@@ -31,6 +31,7 @@ SETUP = {
         "year_built": 1979,
         "lot_sf": 7405, "lot_acres": 0.17,
         "building_sf": 5170, "price_per_sf": 425.53,
+        "tax_rate": 0.0124327,   # implied by the setup sheet: $27,352 on $2,200,000
         "operating": {
             "sgi":       (223620, 246960),
             "vacancy":   (6665, 7366), "vacancy_pct": 3.0,
@@ -52,11 +53,25 @@ SETUP = {
         "scheduled_rent": (18515, 20460),
         "additional_income": (120, 120),
         "monthly_sgi": (18635, 20580),
+        # (label, current, pro forma, note ref). Per the setup sheet a buyer's
+        # cost base does not move with the rent roll, so both columns match.
+        # A $0 line is suppressed at render rather than printed as "$0".
         "expense_lines": [
-            ("Property Tax", 27352), ("Insurance", 6463), ("Utilities", 16400), ("Trash", 0),
-            ("Repairs & Maintenance", 6000), ("Contracts", 3000), ("General & Admin", 1200),
-            ("Reserves", 1600), ("Management", 10848),
+            ("Property Tax", 27352, 27352, 1), ("Insurance", 6463, 6463, 2),
+            ("Utilities", 16400, 16400, 3), ("Trash", 0, 0, 4),
+            ("Repairs & Maintenance", 6000, 6000, 5), ("Contracts", 3000, 3000, 5),
+            ("General & Admin", 1200, 1200, 5), ("Reserves", 1600, 1600, 6),
+            ("Management", 10848, 10848, 7),
         ],
+        "expense_notes": {
+            1: ("Property Tax", "Los Angeles County reassesses to the purchase price at close. Shown at {tax_pct} of the {price} recommended price. A buyer should underwrite the reassessed figure, not the seller's current Prop 13 bill."),
+            2: ("Insurance", "Annualized from the owner-provided operating information."),
+            3: ("Utilities", "Owner-paid water, sewer and common-area utilities, annualized from the owner-provided operating information."),
+            4: ("Trash", "No refuse expense appears in the seller's bills or profit and loss statements. An eight-unit building in the City of Los Angeles will carry a private hauler cost, and a buyer should underwrite roughly $5,000 per year. This is a known gap in the seller-supplied data, not an omission in the analysis."),
+            5: ("Repairs, Contracts and Administration", "Owner-reported annualized operating figures."),
+            6: ("Reserves", "$200 per unit per year, the LAAA standard tier for this vintage."),
+            7: ("Management", "Third-party management, consistent with the setup sheet basis for this asset."),
+        },
         "expense_total": 72862, "expense_per_sf": 14.09, "expense_per_unit": 9107.79,
         "highlights": [
             "Eight units built in 1979",
@@ -74,6 +89,7 @@ SETUP = {
         "year_built": 1957,
         "lot_sf": 11326, "lot_acres": 0.26,
         "building_sf": 7196, "price_per_sf": 347.42,
+        "tax_rate": 0.0122672,   # implied by the setup sheet: $30,668 on $2,500,000
         "operating": {
             "sgi":       (245292, 277200),
             "vacancy":   (7305, 8262), "vacancy_pct": 3.0,
@@ -96,10 +112,21 @@ SETUP = {
         "additional_income": (150, 150),
         "monthly_sgi": (20441, 23100),
         "expense_lines": [
-            ("Property Tax", 30668), ("Insurance", 8995), ("Utilities", 15200), ("Trash", 0),
-            ("Repairs & Maintenance", 7500), ("Contracts", 3000), ("General & Admin", 1500),
-            ("Reserves", 2000), ("Management", 11899),
+            ("Property Tax", 30668, 30668, 1), ("Insurance", 8995, 8995, 2),
+            ("Utilities", 15200, 15200, 3), ("Trash", 0, 0, 4),
+            ("Repairs & Maintenance", 7500, 7500, 5), ("Contracts", 3000, 3000, 5),
+            ("General & Admin", 1500, 1500, 5), ("Reserves", 2000, 2000, 6),
+            ("Management", 11899, 11899, 7),
         ],
+        "expense_notes": {
+            1: ("Property Tax", "Los Angeles County reassesses to the purchase price at close. Shown at {tax_pct} of the {price} recommended price. A buyer should underwrite the reassessed figure, not the seller's current Prop 13 bill."),
+            2: ("Insurance", "Annualized from the owner-provided operating information."),
+            3: ("Utilities", "Owner-paid water, sewer and common-area utilities, annualized from the owner-provided operating information. Pasadena bills refuse through the city utility account, so a separate hauler line may not apply here; a buyer should confirm what this figure includes."),
+            4: ("Trash", "No separate refuse expense appears in the seller's operating information. Pasadena provides municipal collection billed on the city utility account, so it may already sit inside Utilities above. A buyer should confirm during due diligence."),
+            5: ("Repairs, Contracts and Administration", "Owner-reported annualized operating figures."),
+            6: ("Reserves", "$200 per unit per year, the LAAA standard tier for this vintage."),
+            7: ("Management", "Third-party management, consistent with the setup sheet basis for this asset."),
+        },
         "expense_total": 80762, "expense_per_sf": 11.22, "expense_per_unit": 8076.22,
         "highlights": [
             "Ten units: five 1BRs and five 2BRs",
@@ -114,7 +141,7 @@ SETUP = {
 # at the top of their approved range, so no new range is invented here.
 SUBMARKET = {"359-parke": "Pasadena", "1623-menlo": None}
 
-VALUE_RANGE = {"1623-menlo": "$2,000,000 to $2,200,000", "359-parke": "$2,350,000 to $2,500,000"}
+VALUE_RANGE = {"1623-menlo": "$2,000,000 to $2,150,000", "359-parke": "$2,350,000 to $2,500,000"}
 
 SLUG_TO_RAW = {"1623-menlo": "menlo", "359-parke": "parke"}
 
@@ -159,9 +186,9 @@ CARD_OVERRIDES = {
 COPY_OVERRIDES = {
     "359-parke": {
         "valuationNarrative": {
-            0: "The income approach supports value through a normalized current net operating income of $157,225. At $2,500,000 the implied going-in cap rate is 6.29% and the current gross rent multiplier is 10.27. On the market rent schedule the same basis produces a 7.53% cap rate and a 9.08 multiplier.",
-            1: "The sales comparison approach supports $250,000 per unit and approximately $347 per square foot. These metrics fall within the supplied Pasadena evidence and align with the subject's income profile, scale, and vintage.",
-            2: "We therefore recommend a list price of $2,500,000, at the upper end of the supported range of $2,350,000 to $2,500,000, subject to inspection, lease review, and confirmation of operating expenses.",
+            0: "The income approach supports value through a normalized current net operating income of {noi_current}. At {price} the implied going-in cap rate is {cap_current} and the current gross rent multiplier is {grm_current}. On the market rent schedule the same basis produces a {cap_market} cap rate and a {grm_market} multiplier.",
+            1: "The sales comparison approach supports {price_per_unit} per unit and approximately {price_per_sf_r} per square foot. These metrics fall within the supplied Pasadena evidence and align with the subject's income profile, scale, and vintage.",
+            2: "We therefore recommend a list price of {price}, within the supported range of {value_range}, subject to inspection, lease review, and confirmation of operating expenses.",
         },
         "marketNarrative": {
             1: "The subject is positioned near the center of the observed physical metrics on both a per-unit and a per-square-foot basis. Its current income yield sits near the upper end of the supported range, which helps offset the property's older vintage.",
@@ -169,9 +196,9 @@ COPY_OVERRIDES = {
     },
     "1623-menlo": {
         "valuationNarrative": {
-            0: "The income approach supports value through a normalized current net operating income of $144,092. At $2,200,000 the implied going-in cap rate is 6.55% and the current gross rent multiplier is 9.90. On the market rent schedule the same basis produces a 7.58% cap rate and an 8.96 multiplier.",
-            1: "The sales comparison approach supports $275,000 per unit and approximately $426 per square foot. These metrics fit within the supplied closed and active evidence, with the higher price per square foot supported by the nearby Dewey closing and the stronger current yield.",
-            2: "We therefore recommend a list price of $2,200,000, at the upper end of the supported range of $2,000,000 to $2,200,000, subject to inspection, lease review, and confirmation of legal unit configuration.",
+            0: "The income approach supports value through a normalized current net operating income of {noi_current}. At {price} the implied going-in cap rate is {cap_current} and the current gross rent multiplier is {grm_current}. On the market rent schedule the same basis produces a {cap_market} cap rate and a {grm_market} multiplier.",
+            1: "The sales comparison approach supports {price_per_unit} per unit and approximately {price_per_sf_r} per square foot. These metrics fit within the supplied closed and active evidence, with the higher price per square foot supported by the nearby Dewey closing and the stronger current yield.",
+            2: "We therefore recommend a list price of {price}, within the supported range of {value_range}, subject to inspection, lease review, and confirmation of legal unit configuration.",
         },
         "marketNarrative": {
             1: "On a per-unit basis the subject sits above the larger closed sale and below both active asking levels. On a per-square-foot basis it aligns closely with the smaller nearby Dewey closing. Its current income yield is stronger than the supported closed-sale metrics, which is the core of the pricing argument.",
@@ -257,16 +284,92 @@ BIOS = {
 }
 
 TEAM = [
-    ("Aida Memary Scher", "Associate Director Investments", "Aida_Memary_Scher.png"),
-    ("Luka Leader", "Associate", "Luka_Leader.png"),
-    ("Morgan Wetmore", "Associate", "Morgan_Wetmore.png"),
-    ("Logan Ward", "Associate Investments", "Logan_Ward.png"),
-    ("Alexandro Tapia", "Associate Investments", "Alexandro_Tapia.png"),
-    ("Blake Lewitt", "Associate Investments", "Blake_Lewitt.png"),
-    ("Mike Palade", "Agent Assistant", "Mike_Palade.png"),
-    ("Tony H. Dang", "Business Operations Manager", "Tony_Dang.png"),
-    ("Tirajeh Vossoughi-Horton", "Investment Brokerage Intern", "Tirajeh_Vossoughi-Horton.png"),
+    ("Aida Memary Scher", "Associate Director Investments", "Aida_Memary_Scher.jpg"),
+    ("Luka Leader", "Associate", "Luka_Leader.jpg"),
+    ("Morgan Wetmore", "Associate", "Morgan_Wetmore.jpg"),
+    ("Logan Ward", "Associate Investments", "Logan_Ward.jpg"),
+    ("Alexandro Tapia", "Associate Investments", "Alexandro_Tapia.jpg"),
+    ("Blake Lewitt", "Associate Investments", "Blake_Lewitt.jpg"),
+    ("Mike Palade", "Agent Assistant", "Mike_Palade.jpg"),
+    ("Tony H. Dang", "Business Operations Manager", "Tony_H_Dang.jpg"),
+    ("Tirajeh Vossoughi-Horton", "Investment Brokerage Intern", "Tirajeh_Vossoughi-Horton.jpg"),
 ]
+
+
+def _loan_from_dcr(noi, dcr, rate, years):
+    """Loan sized so NOI / annual debt service equals the target DCR."""
+    r, n = rate / 12, years * 12
+    pmt = (noi / dcr) / 12
+    return pmt * ((1 + r) ** n - 1) / (r * (1 + r) ** n)
+
+
+def _year1_principal(loan, rate, years):
+    r, n = rate / 12, years * 12
+    pmt = loan * r * (1 + r) ** n / ((1 + r) ** n - 1)
+    bal = loan
+    for _ in range(12):
+        bal -= pmt - bal * r
+    return loan - bal
+
+
+def derive(s):
+    """Recompute every price-dependent figure from the list price.
+
+    The setup sheets were transcribed at their original prices. Repricing by
+    hand means editing ~15 interdependent numbers and the narratives that quote
+    them, which is exactly how the retired $2.10M figures survived the first
+    rebuild. Price is now the single input and everything else follows.
+
+    Validated to reproduce the 1623 Menlo sheet at $2,200,000 line for line.
+    Note GRM uses SCHEDULED RENT, not gross income: it excludes other income.
+    """
+    price, units, sf = s["price"], s["units"], s["building_sf"]
+    op = dict(s["operating"])
+
+    # Property tax reassesses to the purchase price, so it moves with it.
+    rate = s.get("tax_rate")
+    lines = []
+    for label, cur, pf, ref in s["expense_lines"]:
+        if label == "Property Tax" and rate:
+            cur = pf = round(price * rate)
+        lines.append((label, cur, pf, ref))
+    s["expense_lines"] = lines
+    exp = sum(l[1] for l in lines)
+
+    goi_c, goi_m = op["goi"]
+    noi_c, noi_m = goi_c - exp, goi_m - exp
+    fin = dict(s["financing"])
+    loan = _loan_from_dcr(noi_c, fin["dcr"], fin["rate"] / 100, fin["amortization"])
+    ds = noi_c / fin["dcr"]
+    prin = _year1_principal(loan, fin["rate"] / 100, fin["amortization"])
+    down = price - loan
+    rent_c, rent_m = s["scheduled_rent"][0] * 12, s["scheduled_rent"][1] * 12
+
+    s["price_per_unit"] = round(price / units)
+    s["price_per_sf"] = round(price / sf, 2)
+    s["cap_current"] = round(noi_c / price * 100, 2)
+    s["cap_market"] = round(noi_m / price * 100, 2)
+    s["grm_current"] = round(price / rent_c, 2)
+    s["grm_market"] = round(price / rent_m, 2)
+    s["expense_total"] = exp
+    s["expense_per_unit"] = round(exp / units, 2)
+    s["expense_per_sf"] = round(exp / sf, 2)
+    op["expenses"] = (exp, exp)
+    op["expense_ratio"] = (round(exp / goi_c * 100, 1), round(exp / goi_m * 100, 1))
+    op["noi"] = (round(noi_c), round(noi_m))
+    op["loan_payments"] = (-round(ds), -round(ds))
+    op["pretax_cf"] = (round(noi_c - ds), round(noi_m - ds))
+    op["pretax_cf_pct"] = (round((noi_c - ds) / down * 100, 2), round((noi_m - ds) / down * 100, 2))
+    op["principal_reduction"] = (round(prin), round(prin))
+    op["total_return"] = (round(noi_c - ds + prin), round(noi_m - ds + prin))
+    op["total_return_pct"] = (round((noi_c - ds + prin) / down * 100, 2),
+                              round((noi_m - ds + prin) / down * 100, 2))
+    s["operating"] = op
+    fin["loan_amount"] = round(loan)
+    s["financing"] = fin
+    s["down_payment"] = round(down)
+    s["down_payment_pct"] = round(down / price * 100)
+    return s
 
 
 def asset(p):
@@ -276,13 +379,30 @@ def asset(p):
 
 def build_property(slug):
     raw = dict(RAW[SLUG_TO_RAW[slug]])
-    s = SETUP[slug]
+    s = derive(dict(SETUP[slug]))
     op = s["operating"]
+
+    # Fill the {placeholders} in any templated narrative or note from the
+    # derived figures, so quoted numbers can never drift from the real ones.
+    ctx = {
+        "price": f"${s['price']:,}",
+        "price_per_unit": f"${s['price_per_unit']:,}",
+        "price_per_sf_r": f"${s['price_per_sf']:,.0f}",
+        "cap_current": f"{s['cap_current']:.2f}%",
+        "cap_market": f"{s['cap_market']:.2f}%",
+        "grm_current": f"{s['grm_current']:.2f}",
+        "grm_market": f"{s['grm_market']:.2f}",
+        "noi_current": f"${s['operating']['noi'][0]:,}",
+        "noi_market": f"${s['operating']['noi'][1]:,}",
+        "value_range": VALUE_RANGE[slug],
+        "tax_pct": f"{s.get('tax_rate', 0) * 100:.2f}%",
+    }
+    s["expense_notes"] = {k: (lab, body.format(**ctx)) for k, (lab, body) in s["expense_notes"].items()}
 
     for field, repl in COPY_OVERRIDES.get(slug, {}).items():
         lines = list(raw[field])
         for idx, text in repl.items():
-            lines[idx] = text
+            lines[idx] = text.format(**ctx)
         raw[field] = lines
     raw.update(FIELD_OVERRIDES.get(slug, {}))
     for field, repl in CARD_OVERRIDES.get(slug, {}).items():
@@ -332,6 +452,7 @@ def build_property(slug):
         "additional_income": s["additional_income"],
         "monthly_sgi": s["monthly_sgi"],
         "expense_lines": s["expense_lines"],
+        "expense_notes": s["expense_notes"],
         "expense_total": s["expense_total"],
         "expense_per_sf": s["expense_per_sf"],
         "expense_per_unit": s["expense_per_unit"],
@@ -388,11 +509,11 @@ def main():
                 {"name": "Glen Scher", "title": "Senior Managing Director Investments",
                  "phone": "(818) 212-2808", "tel": "8182122808",
                  "email": "Glen.Scher@marcusmillichap.com", "license": "CA License: 01962976",
-                 "headshot": "images/team-Glen_Scher.png", "bio": BIOS["Glen Scher"]},
+                 "headshot": "images/team-Glen_Scher.jpg", "bio": BIOS["Glen Scher"]},
                 {"name": "Filip Niculete", "title": "Senior Managing Director Investments",
                  "phone": "(818) 212-2748", "tel": "8182122748",
                  "email": "Filip.Niculete@marcusmillichap.com", "license": "CA License: 01905352",
-                 "headshot": "images/team-Filip_Niculete.png", "bio": BIOS["Filip Niculete"]},
+                 "headshot": "images/team-Filip_Niculete.jpg", "bio": BIOS["Filip Niculete"]},
             ],
             "grid": [{"name": n, "title": t, "headshot": "images/team-" + f} for n, t, f in TEAM],
         },

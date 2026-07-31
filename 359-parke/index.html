@@ -329,6 +329,16 @@ td.num, th.num { text-align: right; }
    fully into view. A zero-width flex spacer restores the end padding. */
 .toc-nav::after { content: ""; flex: 0 0 12px; }
 
+/* Operating-statement notes (Glen 2026-07-30). The locked Camarillo statement
+   carries a numbered reference on every expense line and an explanation block
+   beneath, so a seller can see the basis for each figure instead of a bare
+   number. That was dropped in the first rebuild and is restored here. */
+.os-notes { margin-top: 22px; padding: 18px 20px; background: #f8f9fa; border-left: 3px solid #C5A258; border-radius: 0 8px 8px 0; }
+.os-notes h4 { font-family: 'DM Serif Display', serif; font-size: 16px; color: #1B3A5C; margin-bottom: 10px; }
+.os-note { font-size: 12px; line-height: 1.65; color: #444; margin-bottom: 8px; }
+.os-note strong { color: #1B3A5C; }
+.os-note-foot { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dce3eb; color: #6B7280; font-style: italic; }
+
 </style>
 </head>
 <body>
@@ -368,7 +378,7 @@ td.num, th.num { text-align: right; }
   <div class="section-subtitle">LA Apartment Advisors at Marcus &amp; Millichap</div>
   <div class="section-divider"></div>
   <div class="tr-tagline"><span style="display:block;font-size:1.1em;font-weight:700;margin-bottom:4px;">LAAA Team of Marcus &amp; Millichap</span>Expertise, Execution, Excellence.</div>
-  <div class="metrics-grid-4"><div class="metric-card"><span class="metric-value">487</span><span class="metric-label">Closed Transactions</span></div><div class="metric-card"><span class="metric-value">338</span><span class="metric-label">Apartment Sales</span></div><div class="metric-card"><span class="metric-value">18</span><span class="metric-label">in Pasadena</span></div><div class="metric-card"><span class="metric-value">#1</span><span class="metric-label">Most Active in LA County</span></div></div>
+  <div class="metrics-grid-4"><div class="metric-card"><span class="metric-value">485+</span><span class="metric-label">Closed Transactions</span></div><div class="metric-card"><span class="metric-value">$1.5B+</span><span class="metric-label">Total Sales Volume</span></div><div class="metric-card"><span class="metric-value">4,650+</span><span class="metric-label">Apartment Units Sold</span></div><div class="metric-card"><span class="metric-value">#1</span><span class="metric-label">Most Active · LA County</span></div></div>
   <div class="tr-map-print"><img src="../images/maps-portfolio-subjects.png" alt="LAAA Portfolio Map" loading="lazy"></div>
   <div class="tr-service-quote">
     <h3>"We Didn't Invent Great Service, We Just Work Relentlessly to Provide It."</h3>
@@ -385,7 +395,7 @@ td.num, th.num { text-align: right; }
     <div class="costar-badge-sub">CoStar &bull; 2019, 2020, 2021 &bull; #4 in California</div>
   </div>
   <div class="bio-grid"><div class="bio-card"><img class="bio-headshot" src="../images/team-Glen_Scher.jpg" alt="Glen Scher"><div><div class="bio-name">Glen Scher</div><div class="bio-title">Senior Managing Director Investments</div><div class="bio-text">Co-founder of the LAAA Team and one of the most active multifamily brokers in Los Angeles, with 485+ transactions and $1.5B+ in closed sales. Glen has advised owners across central Los Angeles and the San Gabriel Valley since 2014, with deep transaction history in the rent-controlled vintage apartment product that defines both assets in this portfolio.</div></div></div><div class="bio-card"><img class="bio-headshot" src="../images/team-Filip_Niculete.jpg" alt="Filip Niculete"><div><div class="bio-name">Filip Niculete</div><div class="bio-title">Senior Managing Director Investments</div><div class="bio-text">Co-founder of the LAAA Team and one of Southern California&#x27;s top multifamily brokers. Since 2011, Filip has built a reputation for execution, integrity, and relentless work ethic, helping lead the team to $1.5B+ in closed transactions while consistently leading the market in active inventory.</div></div></div></div>
-  <div class="team-grid"><div class="team-card"><img class="team-headshot" src="../images/team-Aida_Memary_Scher.jpg" alt="Aida Memary Scher"><div class="team-card-name">Aida Memary Scher</div><div class="team-card-title">Associate Director Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Luka_Leader.jpg" alt="Luka Leader"><div class="team-card-name">Luka Leader</div><div class="team-card-title">Associate</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Morgan_Wetmore.jpg" alt="Morgan Wetmore"><div class="team-card-name">Morgan Wetmore</div><div class="team-card-title">Associate</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Logan_Ward.jpg" alt="Logan Ward"><div class="team-card-name">Logan Ward</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Alexandro_Tapia.jpg" alt="Alexandro Tapia"><div class="team-card-name">Alexandro Tapia</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Blake_Lewitt.jpg" alt="Blake Lewitt"><div class="team-card-name">Blake Lewitt</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Mike_Palade.jpg" alt="Mike Palade"><div class="team-card-name">Mike Palade</div><div class="team-card-title">Agent Assistant</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Tony_Dang.jpg" alt="Tony H. Dang"><div class="team-card-name">Tony H. Dang</div><div class="team-card-title">Business Operations Manager</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Tirajeh_Vossoughi-Horton.jpg" alt="Tirajeh Vossoughi-Horton"><div class="team-card-name">Tirajeh Vossoughi-Horton</div><div class="team-card-title">Investment Brokerage Intern</div></div></div>
+  <div class="team-grid"><div class="team-card"><img class="team-headshot" src="../images/team-Aida_Memary_Scher.jpg" alt="Aida Memary Scher"><div class="team-card-name">Aida Memary Scher</div><div class="team-card-title">Associate Director Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Luka_Leader.jpg" alt="Luka Leader"><div class="team-card-name">Luka Leader</div><div class="team-card-title">Associate</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Morgan_Wetmore.jpg" alt="Morgan Wetmore"><div class="team-card-name">Morgan Wetmore</div><div class="team-card-title">Associate</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Logan_Ward.jpg" alt="Logan Ward"><div class="team-card-name">Logan Ward</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Alexandro_Tapia.jpg" alt="Alexandro Tapia"><div class="team-card-name">Alexandro Tapia</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Blake_Lewitt.jpg" alt="Blake Lewitt"><div class="team-card-name">Blake Lewitt</div><div class="team-card-title">Associate Investments</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Mike_Palade.jpg" alt="Mike Palade"><div class="team-card-name">Mike Palade</div><div class="team-card-title">Agent Assistant</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Tony_H_Dang.jpg" alt="Tony H. Dang"><div class="team-card-name">Tony H. Dang</div><div class="team-card-title">Business Operations Manager</div></div><div class="team-card"><img class="team-headshot" src="../images/team-Tirajeh_Vossoughi-Horton.jpg" alt="Tirajeh Vossoughi-Horton"><div class="team-card-name">Tirajeh Vossoughi-Horton</div><div class="team-card-title">Investment Brokerage Intern</div></div></div>
   <div class="condition-note"><div class="condition-note-label">Key Achievements</div>
     <p class="achievements-list">
       &bull; <strong>Chairman&#x27;s Club</strong> - Marcus &amp; Millichap&#x27;s top-tier annual honor<br>
@@ -402,8 +412,7 @@ td.num, th.num { text-align: right; }
   <div class="section-title">Our Marketing Approach &amp; Reach</div>
   <div class="section-subtitle">Every Active LA Multifamily Buyer, Within Days of Launch</div>
   <div class="section-divider"></div>
-  <div class="metrics-grid-4"><div class="metric-card"><span class="metric-value">23,681</span><span class="metric-label">Investors Reached</span></div><div class="metric-card"><span class="metric-value">14,102</span><span class="metric-label">Cooperating Brokers</span></div><div class="metric-card"><span class="metric-value">3,183</span><span class="metric-label">Verified Opens per Launch</span></div><div class="metric-card"><span class="metric-value">408</span><span class="metric-label">Clicked to the Property</span></div></div>
-  <p class="narrative" style="margin-top:-6px;">Of the 23,681 investors on our list, 14,102 are cooperating brokers, 9,908 are principals and property owners, and 1,793 are developers. Every launch reaches all of them the same day.</p>
+  <div class="metrics-grid-4"><div class="metric-card"><span class="metric-value">23,795+</span><span class="metric-label">Email Subscribers</span></div><div class="metric-card"><span class="metric-value">26.1%</span><span class="metric-label">Avg Open Rate</span></div><div class="metric-card"><span class="metric-value">7 Days</span><span class="metric-label">To Full Market Reach</span></div><div class="metric-card"><span class="metric-value">40+</span><span class="metric-label">Transactions Per Year</span></div></div>
   <div class="mkt-quote">"We are PROACTIVE marketers, not reactive."</div>
 
   <h3 class="sub-heading">How We Find Your Buyer</h3>
@@ -564,13 +573,19 @@ td.num, th.num { text-align: right; }
     </div>
     <div class="os-right">
       <h3 class="sub-heading">Annualized Expenses</h3>
-      <table><thead><tr><th>&nbsp;</th><th class="num">Pro Forma</th></tr></thead>
-      <tbody><tr><td>Property Tax</td><td class="num">$30,668</td></tr><tr><td>Insurance</td><td class="num">$8,995</td></tr><tr><td>Utilities</td><td class="num">$15,200</td></tr><tr><td>Trash</td><td class="num">$0</td></tr><tr><td>Repairs &amp; Maintenance</td><td class="num">$7,500</td></tr><tr><td>Contracts</td><td class="num">$3,000</td></tr><tr><td>General &amp; Admin</td><td class="num">$1,500</td></tr><tr><td>Reserves</td><td class="num">$2,000</td></tr><tr><td>Management</td><td class="num">$11,899</td></tr>
-<tr class="summary"><td><strong>Total Expenses</strong></td><td class="num"><strong>$80,762</strong></td></tr>
-<tr><td>Per Square Foot</td><td class="num">$11.22</td></tr>
-<tr><td>Per Unit</td><td class="num">$8,076.22</td></tr>
+      <table><thead><tr><th>&nbsp;</th><th class="num">Current</th><th class="num">Pro Forma</th></tr></thead>
+      <tbody><tr><td>Property Tax<span class="note-ref">[1]</span></td><td class="num">$30,668</td><td class="num">$30,668</td></tr><tr><td>Insurance<span class="note-ref">[2]</span></td><td class="num">$8,995</td><td class="num">$8,995</td></tr><tr><td>Utilities<span class="note-ref">[3]</span></td><td class="num">$15,200</td><td class="num">$15,200</td></tr><tr><td>Repairs &amp; Maintenance<span class="note-ref">[5]</span></td><td class="num">$7,500</td><td class="num">$7,500</td></tr><tr><td>Contracts<span class="note-ref">[5]</span></td><td class="num">$3,000</td><td class="num">$3,000</td></tr><tr><td>General &amp; Admin<span class="note-ref">[5]</span></td><td class="num">$1,500</td><td class="num">$1,500</td></tr><tr><td>Reserves<span class="note-ref">[6]</span></td><td class="num">$2,000</td><td class="num">$2,000</td></tr><tr><td>Management<span class="note-ref">[7]</span></td><td class="num">$11,899</td><td class="num">$11,899</td></tr>
+<tr class="summary"><td><strong>Total Operating Expenses</strong></td><td class="num"><strong>$80,762</strong></td><td class="num"><strong>$80,762</strong></td></tr>
+<tr><td>Expense Ratio</td><td class="num">33.9%</td><td class="num">30.0%</td></tr>
+<tr><td>Per Unit</td><td class="num">$8,076</td><td class="num">$8,076</td></tr>
+<tr><td>Per Square Foot</td><td class="num">$11.22</td><td class="num">$11.22</td></tr>
 </tbody></table>
     </div>
+  </div>
+  <div class="os-notes">
+    <h4>Notes to the Operating Statement</h4>
+<p class="os-note"><span class="note-ref">[1]</span> <strong>Property Tax:</strong> Los Angeles County reassesses to the purchase price at close. Shown at 1.23% of the $2,500,000 recommended price. A buyer should underwrite the reassessed figure, not the seller&#x27;s current Prop 13 bill.</p><p class="os-note"><span class="note-ref">[2]</span> <strong>Insurance:</strong> Annualized from the owner-provided operating information.</p><p class="os-note"><span class="note-ref">[3]</span> <strong>Utilities:</strong> Owner-paid water, sewer and common-area utilities, annualized from the owner-provided operating information. Pasadena bills refuse through the city utility account, so a separate hauler line may not apply here; a buyer should confirm what this figure includes.</p><p class="os-note"><span class="note-ref">[5]</span> <strong>Repairs, Contracts and Administration:</strong> Owner-reported annualized operating figures.</p><p class="os-note"><span class="note-ref">[6]</span> <strong>Reserves:</strong> $200 per unit per year, the LAAA standard tier for this vintage.</p><p class="os-note"><span class="note-ref">[7]</span> <strong>Management:</strong> Third-party management, consistent with the setup sheet basis for this asset.</p>
+    <p class="os-note os-note-foot">Owner-reported figures are unaudited. A buyer should verify all income and expenses in due diligence.</p>
   </div>
 
   <div class="summary-page">
@@ -585,7 +600,7 @@ td.num, th.num { text-align: right; }
     </div>
 <p class="narrative">The income approach supports value through a normalized current net operating income of $157,225. At $2,500,000 the implied going-in cap rate is 6.29% and the current gross rent multiplier is 10.27. On the market rent schedule the same basis produces a 7.53% cap rate and a 9.08 multiplier.</p>
 <p class="narrative">The sales comparison approach supports $250,000 per unit and approximately $347 per square foot. These metrics fall within the supplied Pasadena evidence and align with the subject&#x27;s income profile, scale, and vintage.</p>
-<p class="narrative">We therefore recommend a list price of $2,500,000, at the upper end of the supported range of $2,350,000 to $2,500,000, subject to inspection, lease review, and confirmation of operating expenses.</p>
+<p class="narrative">We therefore recommend a list price of $2,500,000, within the supported range of $2,350,000 to $2,500,000, subject to inspection, lease review, and confirmation of operating expenses.</p>
     <div class="price-reveal">
       <div class="summary-trade-range">
         <div class="summary-trade-label">Recommended List Price</div>

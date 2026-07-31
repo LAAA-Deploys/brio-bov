@@ -59,13 +59,14 @@ jobs:
           fail=0
           for tok in '2.10M' '$2,100,000' '6.92%' '9.45' '$262,500' '$145,336' \
                      '2.45M' '$2,450,000' '6.44%' '10.06' '$245,000' '$157,838' \
-                     '$4,550,000' 'conclusively established' 'require field confirmation'; do
+                     '$4,550,000' 'conclusively established' 'require field confirmation' \
+                     '$2,200,000' '6.55%' '$275,000' '$425.53' '$144,092' '$4,700,000'; do
             if grep -rqF --include='*.html' -e "$tok" .; then
               echo "FAIL: retired value or hedging copy present: $tok"; fail=1
             fi
           done
           # every approved figure must actually be on its page
-          grep -q '\$2,200,000' 1623-menlo/index.html || { echo "FAIL: Menlo price missing"; fail=1; }
+          grep -q '\$2,150,000' 1623-menlo/index.html || { echo "FAIL: Menlo price missing"; fail=1; }
           grep -q '\$2,500,000' 359-parke/index.html  || { echo "FAIL: Parke price missing"; fail=1; }
           # double-escaped entities. Passing a pre-escaped string through the
           # template escaper printed a literal "Marcus &amp; Millichap" in three

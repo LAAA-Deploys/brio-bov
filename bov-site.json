@@ -12,10 +12,10 @@
     "portfolio_map": "images/maps-portfolio-subjects.png"
   },
   "portfolio": {
-    "combined_value": 4700000,
+    "combined_value": 4650000,
     "total_units": 18,
     "total_current_rent": 465672,
-    "total_noi": 301317
+    "total_noi": 301939
   },
   "track_record": {
     "source": "Airtable LAAA Closed Deals tblSQs0OQxuGNcEpG",
@@ -190,7 +190,7 @@
       {
         "name": "Tony H. Dang",
         "title": "Business Operations Manager",
-        "headshot": "images/team-Tony_Dang.jpg"
+        "headshot": "images/team-Tony_H_Dang.jpg"
       },
       {
         "name": "Tirajeh Vossoughi-Horton",
@@ -262,8 +262,8 @@
           80762
         ],
         "expense_ratio": [
-          32.9,
-          29.1
+          33.9,
+          30.0
         ],
         "noi": [
           157225,
@@ -335,44 +335,92 @@
       "expense_lines": [
         [
           "Property Tax",
-          30668
+          30668,
+          30668,
+          1
         ],
         [
           "Insurance",
-          8995
+          8995,
+          8995,
+          2
         ],
         [
           "Utilities",
-          15200
+          15200,
+          15200,
+          3
         ],
         [
           "Trash",
-          0
+          0,
+          0,
+          4
         ],
         [
           "Repairs & Maintenance",
-          7500
+          7500,
+          7500,
+          5
         ],
         [
           "Contracts",
-          3000
+          3000,
+          3000,
+          5
         ],
         [
           "General & Admin",
-          1500
+          1500,
+          1500,
+          5
         ],
         [
           "Reserves",
-          2000
+          2000,
+          2000,
+          6
         ],
         [
           "Management",
-          11899
+          11899,
+          11899,
+          7
         ]
       ],
+      "expense_notes": {
+        "1": [
+          "Property Tax",
+          "Los Angeles County reassesses to the purchase price at close. Shown at 1.23% of the $2,500,000 recommended price. A buyer should underwrite the reassessed figure, not the seller's current Prop 13 bill."
+        ],
+        "2": [
+          "Insurance",
+          "Annualized from the owner-provided operating information."
+        ],
+        "3": [
+          "Utilities",
+          "Owner-paid water, sewer and common-area utilities, annualized from the owner-provided operating information. Pasadena bills refuse through the city utility account, so a separate hauler line may not apply here; a buyer should confirm what this figure includes."
+        ],
+        "4": [
+          "Trash",
+          "No separate refuse expense appears in the seller's operating information. Pasadena provides municipal collection billed on the city utility account, so it may already sit inside Utilities above. A buyer should confirm during due diligence."
+        ],
+        "5": [
+          "Repairs, Contracts and Administration",
+          "Owner-reported annualized operating figures."
+        ],
+        "6": [
+          "Reserves",
+          "$200 per unit per year, the LAAA standard tier for this vintage."
+        ],
+        "7": [
+          "Management",
+          "Third-party management, consistent with the setup sheet basis for this asset."
+        ]
+      },
       "expense_total": 80762,
       "expense_per_sf": 11.22,
-      "expense_per_unit": 8076.22,
+      "expense_per_unit": 8076.2,
       "highlights": [
         "Ten units: five 1BRs and five 2BRs",
         "$20,291 monthly scheduled rent",
@@ -406,7 +454,7 @@
       "valuation_narrative": [
         "The income approach supports value through a normalized current net operating income of $157,225. At $2,500,000 the implied going-in cap rate is 6.29% and the current gross rent multiplier is 10.27. On the market rent schedule the same basis produces a 7.53% cap rate and a 9.08 multiplier.",
         "The sales comparison approach supports $250,000 per unit and approximately $347 per square foot. These metrics fall within the supplied Pasadena evidence and align with the subject's income profile, scale, and vintage.",
-        "We therefore recommend a list price of $2,500,000, at the upper end of the supported range of $2,350,000 to $2,500,000, subject to inspection, lease review, and confirmation of operating expenses."
+        "We therefore recommend a list price of $2,500,000, within the supported range of $2,350,000 to $2,500,000, subject to inspection, lease review, and confirmation of operating expenses."
       ],
       "buyer_profiles": [
         {
@@ -682,28 +730,6 @@
         "sale": "images/maps-359-parke-sale-comps.png",
         "rent": "images/maps-359-parke-rent-comps.png",
         "active": null
-      },
-      "track_record": {
-        "all": {
-          "count": 487,
-          "volume": 1534698899.5,
-          "units": 4665
-        },
-        "asset_class": {
-          "count": 338,
-          "volume": 1151000729.5,
-          "units": 4650
-        },
-        "asset_class_label": "Apartments",
-        "local": {
-          "count": 18,
-          "volume": 37648000,
-          "units": 121
-        },
-        "local_basis": {
-          "type": "submarket",
-          "label": "Pasadena"
-        }
       }
     },
     {
@@ -734,21 +760,21 @@
       "parking": "Gated access with on-site parking",
       "location_title": "Central Los Angeles connectivity with durable renter demand",
       "submarket": null,
-      "price": 2200000,
-      "value_range": "$2,000,000 to $2,200,000",
+      "price": 2150000,
+      "value_range": "$2,000,000 to $2,150,000",
       "units": 8,
       "year_built": 1979,
       "building_sf": 5170,
       "lot_sf": 7405,
       "lot_acres": 0.17,
-      "price_per_unit": 275000,
-      "price_per_sf": 425.53,
-      "grm_current": 9.9,
-      "grm_market": 8.96,
-      "cap_current": 6.55,
-      "cap_market": 7.58,
-      "noi_current": 144092,
-      "noi_market": 166732,
+      "price_per_unit": 268750,
+      "price_per_sf": 415.86,
+      "grm_current": 9.68,
+      "grm_market": 8.76,
+      "cap_current": 6.73,
+      "cap_market": 7.78,
+      "noi_current": 144714,
+      "noi_market": 167353,
       "operating": {
         "sgi": [
           223620,
@@ -764,44 +790,44 @@
           239594
         ],
         "expenses": [
-          72862,
-          72862
+          72241,
+          72241
         ],
         "expense_ratio": [
-          32.6,
-          29.5
+          33.3,
+          30.2
         ],
         "noi": [
-          144092,
-          166732
+          144714,
+          167353
         ],
         "loan_payments": [
-          -115274,
-          -115274
+          -115771,
+          -115771
         ],
         "pretax_cf": [
-          28818,
-          51458
+          28943,
+          51582
         ],
         "pretax_cf_pct": [
-          4.5,
-          8.04
+          4.96,
+          8.85
         ],
         "principal_reduction": [
-          18282,
-          18282
+          18361,
+          18361
         ],
         "total_return": [
-          47100,
-          69740
+          47304,
+          69943
         ],
         "total_return_pct": [
-          7.36,
-          10.9
+          8.11,
+          11.99
         ]
       },
       "financing": {
-        "loan_amount": 1560156,
+        "loan_amount": 1566888,
         "rate": 6.25,
         "amortization": 30,
         "dcr": 1.25
@@ -841,44 +867,92 @@
       "expense_lines": [
         [
           "Property Tax",
-          27352
+          26730,
+          26730,
+          1
         ],
         [
           "Insurance",
-          6463
+          6463,
+          6463,
+          2
         ],
         [
           "Utilities",
-          16400
+          16400,
+          16400,
+          3
         ],
         [
           "Trash",
-          0
+          0,
+          0,
+          4
         ],
         [
           "Repairs & Maintenance",
-          6000
+          6000,
+          6000,
+          5
         ],
         [
           "Contracts",
-          3000
+          3000,
+          3000,
+          5
         ],
         [
           "General & Admin",
-          1200
+          1200,
+          1200,
+          5
         ],
         [
           "Reserves",
-          1600
+          1600,
+          1600,
+          6
         ],
         [
           "Management",
-          10848
+          10848,
+          10848,
+          7
         ]
       ],
-      "expense_total": 72862,
-      "expense_per_sf": 14.09,
-      "expense_per_unit": 9107.79,
+      "expense_notes": {
+        "1": [
+          "Property Tax",
+          "Los Angeles County reassesses to the purchase price at close. Shown at 1.24% of the $2,150,000 recommended price. A buyer should underwrite the reassessed figure, not the seller's current Prop 13 bill."
+        ],
+        "2": [
+          "Insurance",
+          "Annualized from the owner-provided operating information."
+        ],
+        "3": [
+          "Utilities",
+          "Owner-paid water, sewer and common-area utilities, annualized from the owner-provided operating information."
+        ],
+        "4": [
+          "Trash",
+          "No refuse expense appears in the seller's bills or profit and loss statements. An eight-unit building in the City of Los Angeles will carry a private hauler cost, and a buyer should underwrite roughly $5,000 per year. This is a known gap in the seller-supplied data, not an omission in the analysis."
+        ],
+        "5": [
+          "Repairs, Contracts and Administration",
+          "Owner-reported annualized operating figures."
+        ],
+        "6": [
+          "Reserves",
+          "$200 per unit per year, the LAAA standard tier for this vintage."
+        ],
+        "7": [
+          "Management",
+          "Third-party management, consistent with the setup sheet basis for this asset."
+        ]
+      },
+      "expense_total": 72241,
+      "expense_per_sf": 13.97,
+      "expense_per_unit": 9030.12,
       "highlights": [
         "Eight units built in 1979",
         "$18,515 monthly scheduled rent",
@@ -910,9 +984,9 @@
         "The result balances the nearby Dewey physical comparison against the lower per-unit signal from the larger Ardmore sale, with the current active listings framing the upper end of the range."
       ],
       "valuation_narrative": [
-        "The income approach supports value through a normalized current net operating income of $144,092. At $2,200,000 the implied going-in cap rate is 6.55% and the current gross rent multiplier is 9.90. On the market rent schedule the same basis produces a 7.58% cap rate and an 8.96 multiplier.",
-        "The sales comparison approach supports $275,000 per unit and approximately $426 per square foot. These metrics fit within the supplied closed and active evidence, with the higher price per square foot supported by the nearby Dewey closing and the stronger current yield.",
-        "We therefore recommend a list price of $2,200,000, at the upper end of the supported range of $2,000,000 to $2,200,000, subject to inspection, lease review, and confirmation of legal unit configuration."
+        "The income approach supports value through a normalized current net operating income of $144,714. At $2,150,000 the implied going-in cap rate is 6.73% and the current gross rent multiplier is 9.68. On the market rent schedule the same basis produces a 7.78% cap rate and a 8.76 multiplier.",
+        "The sales comparison approach supports $268,750 per unit and approximately $416 per square foot. These metrics fit within the supplied closed and active evidence, with the higher price per square foot supported by the nearby Dewey closing and the stronger current yield.",
+        "We therefore recommend a list price of $2,150,000, within the supported range of $2,000,000 to $2,150,000, subject to inspection, lease review, and confirmation of legal unit configuration."
       ],
       "buyer_profiles": [
         {
@@ -1139,66 +1213,7 @@
         "sale": "images/maps-1623-menlo-sale-comps.png",
         "rent": "images/maps-1623-menlo-rent-comps.png",
         "active": "images/maps-1623-menlo-active-comps.png"
-      },
-      "track_record": {
-        "all": {
-          "count": 487,
-          "volume": 1534698899.5,
-          "units": 4665
-        },
-        "asset_class": {
-          "count": 338,
-          "volume": 1151000729.5,
-          "units": 4650
-        },
-        "asset_class_label": "Apartments",
-        "local": {
-          "count": 23,
-          "volume": 55251000,
-          "units": 184
-        },
-        "local_basis": {
-          "type": "radius",
-          "label": "within 5 miles",
-          "radius_mi": 5
-        }
       }
     }
-  ],
-  "stats": {
-    "generated": "2026-07-31T01:37:17+00:00",
-    "sources": {
-      "track_record": "Airtable appJh9m9A1LzMeI6I/tblSQs0OQxuGNcEpG, Deal Stage=closed",
-      "marketing": "Mailchimp API, full-list sends only; opens are proxy-excluded"
-    },
-    "marketing": {
-      "subscribers": 23681,
-      "brokers": 14102,
-      "principals": 9908,
-      "developers": 1793,
-      "campaigns_sent": 1749,
-      "per_launch": {
-        "opens_raw": 7168,
-        "opens_verified": 3183,
-        "clickers": 445,
-        "property_page_clicks": 408,
-        "sample_campaigns": 8
-      }
-    },
-    "portfolio_track_record": {
-      "all": {
-        "count": 487,
-        "volume": 1534698899.5,
-        "units": 4665
-      },
-      "asset_class": {
-        "count": 338,
-        "volume": 1151000729.5,
-        "units": 4650
-      },
-      "asset_class_label": "Apartments",
-      "local": null,
-      "local_basis": null
-    }
-  }
+  ]
 }

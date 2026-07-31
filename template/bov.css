@@ -303,3 +303,13 @@ td.num, th.num { text-align: right; }
    the final link (Contact) sat flush against the edge and could not be brought
    fully into view. A zero-width flex spacer restores the end padding. */
 .toc-nav::after { content: ""; flex: 0 0 12px; }
+
+/* Operating-statement notes (Glen 2026-07-30). The locked Camarillo statement
+   carries a numbered reference on every expense line and an explanation block
+   beneath, so a seller can see the basis for each figure instead of a bare
+   number. That was dropped in the first rebuild and is restored here. */
+.os-notes { margin-top: 22px; padding: 18px 20px; background: #f8f9fa; border-left: 3px solid #C5A258; border-radius: 0 8px 8px 0; }
+.os-notes h4 { font-family: 'DM Serif Display', serif; font-size: 16px; color: #1B3A5C; margin-bottom: 10px; }
+.os-note { font-size: 12px; line-height: 1.65; color: #444; margin-bottom: 8px; }
+.os-note strong { color: #1B3A5C; }
+.os-note-foot { margin-top: 12px; padding-top: 10px; border-top: 1px solid #dce3eb; color: #6B7280; font-style: italic; }

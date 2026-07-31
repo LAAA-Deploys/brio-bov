@@ -281,7 +281,31 @@ def financials(p):
         orow("Principal Reduction", *op["principal_reduction"]),
         orow("Total Return Before Taxes", *op["total_return"], cls="summary"),
     ])
-    exp = "".join(f'<tr><td>{e(k)}</td><td class="num">{money(v)}</td></tr>' for k, v in p["expense_lines"])
+    # Expenses: Current and Pro Forma side by side with a numbered note ref on
+    # every line, matching the locked Camarillo operating statement. A $0 line is
+    # dropped entirely rather than printed as "$0" (Glen 2026-07-30) — an expense
+    # the seller never reported is a diligence gap, and the note says so.
+    ex_rows, notes_used = [], []
+    for row in p["expense_lines"]:
+        label, cur, pf, ref = (list(row) + [None, None])[:4] if len(row) >= 4 else (row[0], row[1], row[1], None)
+        if not cur and not pf:
+            continue
+        ref_html = f'<span class="note-ref">[{ref}]</span>' if ref else ""
+        if ref and ref not in notes_used:
+            notes_used.append(ref)
+        ex_rows.append(f'<tr><td>{e(label)}{ref_html}</td>'
+                       f'<td class="num">{money(cur)}</td><td class="num">{money(pf)}</td></tr>')
+    exp = "".join(ex_rows)
+    # Use the setup sheet's STATED total, not a recomputed sum. Its line items
+    # add to $72,863 against a stated $72,862 (rounding), and the stated figure
+    # is the one every other number on the page ties to.
+    exp_cur = p["expense_total"]
+    exp_pf = p["operating"]["expenses"][1] or p["expense_total"]
+    notes = p.get("expense_notes") or {}
+    notes_html = "".join(
+        f'<p class="os-note"><span class="note-ref">[{k}]</span> <strong>{e(notes[str(k)][0])}:</strong> '
+        f'{e(notes[str(k)][1])}</p>'
+        for k in notes_used if str(k) in notes)
     fin = p["financing"]
     summ = "".join(f'<tr><td>{e(k)}</td><td class="num">{v}</td></tr>' for k, v in [
         ("Price", money(p["price"])), ("Number of Units", num(p["units"])),
@@ -317,13 +341,19 @@ def financials(p):
     </div>
     <div class="os-right">
       <h3 class="sub-heading">Annualized Expenses</h3>
-      <table><thead><tr><th>&nbsp;</th><th class="num">Pro Forma</th></tr></thead>
+      <table><thead><tr><th>&nbsp;</th><th class="num">Current</th><th class="num">Pro Forma</th></tr></thead>
       <tbody>{exp}
-<tr class="summary"><td><strong>Total Expenses</strong></td><td class="num"><strong>{money(p['expense_total'])}</strong></td></tr>
-<tr><td>Per Square Foot</td><td class="num">${p['expense_per_sf']:,.2f}</td></tr>
-<tr><td>Per Unit</td><td class="num">${p['expense_per_unit']:,.2f}</td></tr>
+<tr class="summary"><td><strong>Total Operating Expenses</strong></td><td class="num"><strong>{money(exp_cur)}</strong></td><td class="num"><strong>{money(exp_pf)}</strong></td></tr>
+<tr><td>Expense Ratio</td><td class="num">{pct(p['operating']['expense_ratio'][0], 1)}</td><td class="num">{pct(p['operating']['expense_ratio'][1], 1)}</td></tr>
+<tr><td>Per Unit</td><td class="num">{money(exp_cur / p['units'])}</td><td class="num">{money(exp_pf / p['units'])}</td></tr>
+<tr><td>Per Square Foot</td><td class="num">${exp_cur / p['building_sf']:,.2f}</td><td class="num">${exp_pf / p['building_sf']:,.2f}</td></tr>
 </tbody></table>
     </div>
+  </div>
+  <div class="os-notes">
+    <h4>Notes to the Operating Statement</h4>
+{notes_html}
+    <p class="os-note os-note-foot">Owner-reported figures are unaudited. A buyer should verify all income and expenses in due diligence.</p>
   </div>
 
   <div class="summary-page">

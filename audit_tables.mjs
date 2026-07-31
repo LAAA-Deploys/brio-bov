@@ -12,6 +12,24 @@
  *   CONTRAST    text fails WCAG AA against its own background
  *   CLIPPED     the table overflows with no way to scroll to the rest
  *   MISALIGNED  a numeric column is not right-aligned
+ *   NO_SUMMARY  a table has numeric columns but no summary row at all
+ *   SUMMARY_GAP a summary row dashes out a column that has numbers above it
+ *   SUMMED_RATE a rate column was totalled instead of averaged
+ *
+ * The last three are the "every data table ends with a real summary" rule.
+ * The sale-comps table shipped medians for price, $/unit and $/SF while printing
+ * a dash under GRM and Cap, though five of six comps carried both. Those are two
+ * of the four metrics the pricing doctrine holds to equal standing, so the table
+ * quietly dropped the yield case. The same class was then found in the rent roll.
+ *
+ * A table counts as a data grid by SHAPE, not by markup: a column is
+ * aggregatable when at least 2 body cells parse as the SAME kind of number.
+ * Keying off the .table-scroll wrapper had silently excluded the operating-data
+ * and expense tables, which are not inside a scroller.
+ *
+ * SUMMED_RATE exists because the opposite mistake is just as bad and looks
+ * authoritative: totalling $/unit, $/SF, cap or GRM yields a meaningless figure.
+ * Rates take a median or a weighted average; only true quantities get summed.
  *
  * Desktop and mobile are judged separately, because a table that reads well at
  * 1440 can be unreadable at 390 and the fix differs.
@@ -108,6 +126,93 @@ const audit = (L) => {
         }
       });
     });
+
+    // ---- Aggregatable-column analysis -------------------------------------
+    // A "data grid" is decided by SHAPE, not by markup. Keying off the
+    // .table-scroll wrapper meant the operating-data and expense tables were
+    // never checked, because they are not inside a scroller. A column is
+    // aggregatable when at least 2 body cells parse as the SAME kind of number
+    // (all currency, all plain, or all percent). That includes the expense
+    // column but excludes a label/value column holding a year, an APN and a
+    // sentence about parking.
+    const kindOf = (s) => {
+      const t = s.trim();
+      if (!t || t === '-') return null;
+      if (/^\(?\$[\d,]+(\.\d+)?\)?$/.test(t)) return 'money';
+      if (/^-?[\d,]+(\.\d+)?%$/.test(t)) return 'pct';
+      if (/^-?[\d,]+(\.\d+)?$/.test(t)) return 'num';
+      return 'text';
+    };
+    const parseNum = (s) => {
+      const n = parseFloat(String(s).replace(/[^0-9.\-]/g, ''));
+      return Number.isFinite(n) ? (/^\(/.test(s.trim()) ? -n : n) : null;
+    };
+    const dataRowsAll = bodyRows.filter(r => !r.classList.contains('summary'));
+    const width = Math.max(0, ...bodyRows.map(r => [...r.children].reduce((a, c) => a + (c.colSpan || 1), 0)));
+    const colCells = (row) => { const m = []; let i = 0;
+      for (const td of row.children) { for (let k = 0; k < (td.colSpan || 1); k++) m[i + k] = td; i += td.colSpan || 1; } return m; };
+    const headText = [];
+    { let i = 0;
+      for (const th of heads) { const s = (th.colSpan || 1);
+        for (let k = 0; k < s; k++) headText[i + k] = th.textContent.trim(); i += s; } }
+    const aggCols = [];
+    for (let ci = 0; ci < width; ci++) {
+      const vals = dataRowsAll.map(r => (colCells(r)[ci] || {}).textContent || '').map(s => s.trim()).filter(Boolean);
+      const kinds = vals.map(kindOf).filter(Boolean);
+      const numeric = kinds.filter(k => k !== 'text');
+      if (numeric.length >= 2 && numeric.length === kinds.length && new Set(numeric).size === 1) {
+        aggCols.push({ ci, kind: numeric[0], header: headText[ci] || '', values: vals });
+      }
+    }
+
+    // Every table with aggregatable columns needs a summary row at all.
+    const summaryRow = bodyRows.find(r => r.classList.contains('summary'));
+    if (aggCols.length && !summaryRow) {
+      out.push({ table: tag, issue: 'NO_SUMMARY',
+                 detail: `${aggCols.length} numeric column(s) and no summary row (${aggCols.map(c => c.header || '?').join(', ')})` });
+    }
+
+    // A rate must never be summed. Adding up $/unit, $/SF, cap rate or GRM
+    // produces a meaningless figure that still looks authoritative.
+    if (summaryRow) {
+      const smap = colCells(summaryRow);
+      for (const c of aggCols) {
+        const shown = (smap[c.ci] || {}).textContent;
+        if (!shown) continue;
+        const v = parseNum(shown);
+        if (v === null) continue;
+        const isRate = /per\s|\/\s*unit|\/\s*sf|\bcap\b|\bgrm\b|rate|%|ratio|dcr/i.test(c.header) || c.kind === 'pct';
+        if (!isRate) continue;
+        const sum = c.values.map(parseNum).filter(n => n !== null).reduce((a, n) => a + n, 0);
+        if (sum && Math.abs(v - sum) / Math.abs(sum) < 0.02) {
+          out.push({ table: tag, issue: 'SUMMED_RATE',
+                     detail: `"${c.header}" summary shows ${shown.trim()}, which equals the column SUM; a rate must be a median or weighted average` });
+        }
+      }
+    }
+
+    // A summary row must aggregate every column that carries numbers.
+    // The sale-comps table published medians for price, $/unit and $/SF while
+    // printing a dash under GRM and Cap, even though five of six comps had both.
+    // Those are two of the four metrics the pricing doctrine holds to equal
+    // standing, so dashing them quietly drops the yield case. Dates and text
+    // columns are legitimately not aggregatable and are exempt.
+    // Gap check now runs on ANY table with aggregatable columns, not only the
+    // ones inside a scroller. Dates and text columns are exempt.
+    if (summaryRow) {
+      const smap = colCells(summaryRow);
+      for (const c of aggCols) {
+        if (/date|address|type|status|submarket|name/i.test(c.header)) continue;
+        const cell = smap[c.ci];
+        const shown = cell ? cell.textContent.trim() : '';
+        // a cell covered by the label's colspan is a deliberate omission, not a gap
+        const covered = cell && (cell.colSpan || 1) > 1;
+        if (!covered && (shown === '-' || shown === '')) {
+          out.push({ table: tag, issue: 'SUMMARY_GAP',
+                     detail: `"${c.header || 'col' + (c.ci + 1)}" has ${c.values.length} values above it but the summary row shows "${shown || 'blank'}"` });
+        }
+      }
+    }
 
     // uniform row heights: no wrapping means every body row should match
     const hs = !isData ? [] : bodyRows.filter(r => !r.classList.contains('summary'))

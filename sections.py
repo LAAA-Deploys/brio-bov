@@ -159,6 +159,12 @@ def rent_comps(p, d):
         f'<td class="num">{c["distance"]:.2f} mi</td></tr>' for c in p["rent_comps"])
     n = len(p["rent_comps"])
     avg = sum(c["rent"] for c in p["rent_comps"]) / n if n else 0
+    # Same rule as the sale table: every column carrying numbers gets an
+    # aggregate. SF and distance were being dashed or hidden under a colspan.
+    sfs = [c["square_feet"] for c in p["rent_comps"] if c.get("square_feet")]
+    avg_sf = sum(sfs) / len(sfs) if sfs else None
+    dists = [c["distance"] for c in p["rent_comps"] if c.get("distance") is not None]
+    avg_dist = sum(dists) / len(dists) if dists else None
     return f"""
 <div class="page-break-marker"></div>
 <div class="section" id="rent-comps">
@@ -167,7 +173,7 @@ def rent_comps(p, d):
   <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th>Unit Type</th><th class="num">SF</th><th class="num">Asking Rent</th><th class="num">Distance</th></tr></thead>
     <tbody>{rows}
-<tr class="summary"><td colspan="3"><strong>Average ({n} rent comps)</strong></td><td class="num"><strong>{money(avg)}</strong></td><td class="num">-</td></tr>
+<tr class="summary"><td colspan="2"><strong>Average ({n} rent comps)</strong></td><td class="num"><strong>{num(avg_sf) if avg_sf else "-"}</strong></td><td class="num"><strong>{money(avg)}</strong></td><td class="num"><strong>{f"{avg_dist:.2f} mi" if avg_dist is not None else "-"}</strong></td></tr>
 </tbody>
   </table></div>
 {paras(p["rent_narrative"], "narrative")}
@@ -187,17 +193,30 @@ def _comp_table(comps, price_label):
     n = len(comps)
 
     def med(k):
-        """True median. For an even count take the mean of the two middle values;
-        sorted[n//2] alone reports the higher of a pair, which is not a median."""
-        if not n:
-            return 0
-        v = sorted(c[k] for c in comps)
-        return v[n // 2] if n % 2 else (v[n // 2 - 1] + v[n // 2]) / 2
+        """True median over the comps that actually carry the value.
 
+        Two rules learned the hard way:
+        1. For an even count take the mean of the two middle values. sorted[n//2]
+           alone reports the higher of a pair, which is not a median.
+        2. Skip missing values instead of dashing the whole column. Not every
+           comp reports GRM or a cap rate, but five of six still make a real
+           median. Dashing those two while publishing $/unit and $/SF drops the
+           two metrics a seller judges yield on, and the pricing doctrine holds
+           all four to equal standing with no lead metric.
+        """
+        v = sorted(c[k] for c in comps if c.get(k) not in (None, "", 0))
+        if not v:
+            return None
+        m = len(v)
+        return v[m // 2] if m % 2 else (v[m // 2 - 1] + v[m // 2]) / 2
+
+    mg, mc, msf = med("grm"), med("cap_rate"), med("building_sf")
+    # Every column with numbers above it gets a median. Only Date is genuinely
+    # not aggregatable. Enforced by audit_tables.mjs (SUMMARY_GAP).
     return f"""  <div class="table-scroll"><table>
     <thead><tr><th>Address</th><th class="num">Yr</th><th class="num">Units</th><th class="num">Bldg SF</th><th class="num">{price_label}</th><th class="num">$/Unit</th><th class="num">$/SF</th><th class="num">GRM</th><th class="num">Cap</th><th class="num">Date</th></tr></thead>
     <tbody>{rows}
-<tr class="summary"><td colspan="4"><strong>Median ({n} comps)</strong></td><td class="num"><strong>{money(med("price"))}</strong></td><td class="num"><strong>{money(med("price_per_unit"))}</strong></td><td class="num"><strong>${med("price_per_sf"):,.0f}</strong></td><td class="num">-</td><td class="num">-</td><td class="num">-</td></tr>
+<tr class="summary"><td colspan="3"><strong>Median ({n} comps)</strong></td><td class="num"><strong>{num(msf)}</strong></td><td class="num"><strong>{money(med("price"))}</strong></td><td class="num"><strong>{money(med("price_per_unit"))}</strong></td><td class="num"><strong>${med("price_per_sf"):,.0f}</strong></td><td class="num"><strong>{f"{mg:.2f}" if mg else "-"}</strong></td><td class="num"><strong>{pct(mc) if mc else "-"}</strong></td><td class="num">-</td></tr>
 </tbody>
   </table></div>
 """
@@ -284,7 +303,7 @@ def financials(p):
   <div class="table-scroll"><table>
     <thead><tr><th class="num">Units</th><th>Type</th><th class="num">Approx SF</th><th class="num">Current Rent</th><th class="num">Current Monthly</th><th class="num">Market Rent</th><th class="num">Market Monthly</th></tr></thead>
     <tbody>{mix_rows}
-<tr class="summary"><td colspan="3"><strong>Total Scheduled Rent</strong></td><td class="num">-</td><td class="num"><strong>{money(p['scheduled_rent'][0])}</strong></td><td class="num">-</td><td class="num"><strong>{money(p['scheduled_rent'][1])}</strong></td></tr>
+<tr class="summary"><td colspan="3"><strong>Total Scheduled Rent</strong></td><td class="num"><strong>{money(p['scheduled_rent'][0] / p['units'])}</strong></td><td class="num"><strong>{money(p['scheduled_rent'][0])}</strong></td><td class="num"><strong>{money(p['scheduled_rent'][1] / p['units'])}</strong></td><td class="num"><strong>{money(p['scheduled_rent'][1])}</strong></td></tr>
 <tr><td colspan="3">Additional Income</td><td class="num">-</td><td class="num">{money(p['additional_income'][0])}</td><td class="num">-</td><td class="num">{money(p['additional_income'][1])}</td></tr>
 <tr class="summary"><td colspan="3"><strong>Monthly Scheduled Gross Income</strong></td><td class="num">-</td><td class="num"><strong>{money(p['monthly_sgi'][0])}</strong></td><td class="num">-</td><td class="num"><strong>{money(p['monthly_sgi'][1])}</strong></td></tr>
 </tbody>
